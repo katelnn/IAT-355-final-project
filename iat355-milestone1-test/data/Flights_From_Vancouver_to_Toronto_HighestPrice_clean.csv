@@ -1,0 +1,366 @@
+search_source,price,date,day_of_week,week_of_month,airline,depart_time,arrive_time,next_day,hours,minutes,emissions_co2,searched_on,holiday_name,days_to_holiday,record_by
+Google Flights,1340,11/11/2025,Tue,2,Air Canada,9:30,16:50,No,4,20,200.0,11/9/2025,Remembrance Day,0.0,Miku
+Google Flights,870,11/12/2025,Wed,2,Air Canada,23:00,6:25,No,4,25,228.0,nan,nan,1.0,Miku
+Google Flights,743,11/13/2025,Thu,2,Air Canada,23:00,6:29,No,4,29,245.0,nan,nan,2.0,Miku
+Google Flights,743,11/14/2025,Fri,2,Air Canada,23:00,6:29,No,4,29,245.0,nan,nan,3.0,Miku
+Google Flights,743,11/15/2025,Sat,3,Air Canada,23:00,6:29,No,4,29,228.0,nan,nan,4.0,Miku
+Google Flights,743,11/16/2025,Sun,3,Air Canada,23:00,6:29,No,4,29,228.0,nan,nan,5.0,Miku
+Google Flights,632,11/17/2025,Mon,3,Air Canada,23:00,6:37,No,4,37,232.0,nan,nan,6.0,Miku
+Google Flights,1240,11/18/2025,Tue,3,Air Canada,9:30,16:50,No,4,20,230.0,nan,nan,7.0,Miku
+Google Flights,1340,11/19/2025,Wed,3,Air Canada,23:00,6:37,No,4,37,232.0,nan,nan,8.0,Miku
+Google Flights,1340,11/20/2025,Thu,3,Air Canada,9:30,16:50,No,4,20,230.0,nan,nan,9.0,Miku
+Google Flights,743,11/21/2025,Fri,3,Air Canada,17:40,1:17,No,4,37,232.0,nan,nan,10.0,Miku
+Google Flights,551,11/22/2025,Sat,4,Air Canada,8:45,16:14,No,4,29,228.0,nan,nan,,Miku
+Google Flights,551,11/23/2025,Sun,4,Air Canada,17:40,1:17,No,4,37,232.0,nan,nan,,Miku
+Google Flights,870,11/24/2025,Mon,4,WestJet,17:00,12:39,No,4,39,291.0,nan,nan,,Miku
+Google Flights,315,11/25/2025,Tue,4,WestJet,22:30,6:08,No,4,38,236.0,nan,nan,,Miku
+Google Flights,870,11/26/2025,Wed,4,Air Canada,7:35,15:10,No,4,35,291.0,nan,nan,,Miku
+Google Flights,632,11/27/2025,Thu,4,Air Canada,7:35,15:10,No,4,35,291.0,nan,nan,,Miku
+Google Flights,315,11/28/2025,Fri,4,WestJet,10:00,17:41,No,4,41,270.0,nan,nan,,Miku
+Google Flights,743,11/29/2025,Sat,5,Air Canada,17:40,1:17,No,4,37,309.0,nan,nan,,Miku
+Google Flights,436,11/30/2025,Sun,5,Air Canada,8:45,16:14,No,4,29,228.0,nan,nan,,Miku
+Google Flights,357,12/1/2025,Mon,1,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,,Miku
+Google Flights,436,12/2/2025,Tue,1,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,,Miku
+Google Flights,246,12/3/2025,Wed,1,WestJet,22:30,6:08,Yes,4,38,236.0,nan,nan,,Miku
+Google Flights,436,12/4/2025,Thu,1,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,,Miku
+Google Flights,436,12/5/2025,Fri,1,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,,Miku
+Google Flights,252,12/6/2025,Sat,2,Air Canada,13:35,20:59,No,4,24,200.0,nan,nan,,Miku
+Google Flights,357,12/7/2025,Sun,2,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,,Miku
+Google Flights,436,12/8/2025,Mon,2,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,,Miku
+Google Flights,190,12/9/2025,Tue,2,Air Canada,13:35,20:59,No,4,24,200.0,nan,nan,,Miku
+Google Flights,283,12/10/2025,Wed,2,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,,Miku
+Google Flights,357,12/11/2025,Thu,2,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,,Miku
+Google Flights,283,12/12/2025,Fri,2,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,,Miku
+Google Flights,357,12/13/2025,Sat,3,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,,Miku
+Google Flights,357,12/14/2025,Sun,3,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,,Miku
+Google Flights,273,12/15/2025,Mon,3,WestJet,22:30,6:08,No,4,38,270.0,nan,nan,-10.0,Miku
+Google Flights,2586,12/16/2025,Tue,3,WestJet,17:00,12:39,No,4,39,291.0,nan,nan,-9.0,Miku
+Google Flights,870,12/17/2025,Wed,3,Air Canada,17:40,1:17,No,4,37,291.0,nan,nan,-8.0,Miku
+Google Flights,648,12/18/2025,Thu,3,Air Canada,23:10,6:47,No,4,37,232.0,nan,nan,-7.0,Miku
+Google Flights,886,12/19/2025,Fri,3,Air Canada,23:10,6:47,No,4,37,232.0,nan,nan,-6.0,Miku
+Google Flights,886,12/20/2025,Sat,4,Air Canada,8:30,16:59,No,4,29,228.0,nan,nan,-5.0,Miku
+Google Flights,886,12/21/2025,Sun,4,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,-4.0,Miku
+Google Flights,759,12/22/2025,Mon,4,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,-3.0,Miku
+Google Flights,504,12/23/2025,Tue,4,Air Canada,9:30,16:59,No,4,29,228.0,nan,nan,-2.0,Miku
+Google Flights,364,12/24/2025,Wed,4,WestJet,22:30,6:08,No,4,38,236.0,nan,nan,-1.0,Miku
+Google Flights,265,12/25/2025,Thu,4,Air Canada,8:45,16:09,No,4,24,200.0,nan,Christmas Day,0.0,Miku
+Google Flights,406,12/26/2025,Fri,4,Air Canada,10:20,17:44,No,4,24,232.0,nan,nan,1.0,Miku
+Google Flights,448,12/27/2025,Sat,5,nan,9:30,16:59,No,4,29,228.0,nan,nan,2.0,Miku
+Google Flights,448,12/28/2025,Sun,5,Air Canada,14:00,9:37,No,4,37,291.0,nan,nan,3.0,Miku
+Google Flights,448,12/29/2025,Mon,5,Air Canada,22:30,5:59,No,4,29,245.0,nan,nan,4.0,Miku
+Google Flights,448,12/30/2025,Tue,5,Air Canada,12:10,19:35,No,4,25,245.0,nan,nan,5.0,Miku
+Google Flights,406,12/31/2025,Wed,5,Air Canada,15:45,23:22,No,4,37,291.0,nan,nan,6.0,Miku
+Google Flights,956,1/1/2026,Thu,1,WestJet,22:30,6:08,Yes,4,38,324.0,11/8/2025,New Year's Day,0.0,Jae
+Google Flights,690,1/2/2026,Fri,1,Air Canada,9:30,16:59,No,4,29,228.0,11/8/2025,nan,1.0,Jae
+Google Flights,950,1/3/2026,Sat,1,WestJet,6:00,13:40,No,4,40,236.0,11/10/2025,nan,2.0,Jae
+Google Flights,928,1/4/2026,Sun,2,Porter Airlines/Air Transat,7:00,14:32,No,4,32,310.0,11/10/2025,nan,3.0,Jae
+Google Flights,609,1/5/2026,Mon,2,Air Canada,11:10,6:47,Yes,4,37,232.0,11/10/2025,nan,4.0,Jae
+Google Flights,632,1/6/2026,Tue,2,Air Canada,11:10,6:47,Yes,4,37,232.0,11/10/2025,nan,5.0,Jae
+Google Flights,298,1/7/2026,Wed,2,WestJet,10:00,17:41,No,4,41,236.0,11/10/2025,nan,6.0,Jae
+Google Flights,949,1/8/2026,Thu,2,WestJet,22:30,6:08,Yes,4,38,324.0,11/10/2025,nan,7.0,Jae
+Google Flights,298,1/9/2026,Fri,2,WestJet,22:30,6:08,Yes,4,38,236.0,11/10/2025,nan,8.0,Jae
+Google Flights,394,1/10/2026,Sat,2,WestJet,22:30,6:08,Yes,4,38,270.0,11/10/2025,nan,9.0,Jae
+Google Flights,391,1/11/2026,Sun,3,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,10.0,Jae
+Google Flights,299,1/12/2026,Mon,3,Air Canada,9:30,16:59,No,4,29,228.0,11/10/2025,nan,,Jae
+Google Flights,259,1/13/2026,Tue,3,Porter Airlines/Air Transat,22:05,5:40,Yes,4,35,310.0,11/10/2025,nan,,Jae
+Google Flights,232,1/14/2026,Wed,3,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,,Jae
+Google Flights,265,1/15/2026,Thu,3,Air Canada,8:45,16:09,No,4,24,200.0,11/10/2025,nan,,Jae
+Google Flights,299,1/16/2026,Fri,3,Air Canada,8:45,16:09,No,4,24,200.0,11/10/2025,nan,,Jae
+Google Flights,436,1/17/2026,Sat,3,Air Canada,10:20,17:57,No,4,37,291.0,11/10/2025,nan,,Jae
+Google Flights,756,1/18/2026,Sun,4,WestJet,10:00,17:41,No,4,41,236.0,11/10/2025,nan,,Jae
+Google Flights,391,1/19/2026,Mon,4,Air Canada,9:30,16:59,No,4,29,228.0,11/10/2025,nan,,Jae
+Google Flights,232,1/20/2026,Tue,4,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,232,1/21/2026,Wed,4,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,232,1/22/2026,Thu,4,Air Canada,9:30,16:59,No,4,29,228.0,11/10/2025,nan,,Jae
+Google Flights,436,1/23/2026,Fri,4,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,265,1/24/2026,Sat,4,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,391,1/25/2026,Sun,5,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,299,1/26/2026,Mon,5,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,232,1/27/2026,Tue,5,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,232,1/28/2026,Wed,5,Air Canada,17:40,1:17,Yes,4,37,291.0,11/10/2025,nan,,Jae
+Google Flights,265,1/29/2026,Thu,5,Air Canada,7:35,15:10,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,299,1/30/2026,Fri,5,Air Canada,8:45,16:09,No,4,24,200.0,11/10/2025,nan,,Jae
+Google Flights,436,1/31/2026,Sat,5,Air Canada,12:10,19:35,No,4,25,245.0,11/10/2025,nan,,Jae
+Google Flights,391,2/1/2026,Sun,1,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,436,2/2/2026,Mon,1,Air Canada,7:35,15:10,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,232,2/3/2026,Tue,1,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,265,2/4/2026,Wed,1,Air Canada,7:35,15:10,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,265,2/5/2026,Thu,1,Air Canada,7:35,15:10,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,551,2/6/2026,Fri,1,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,-10.0,Jae
+Google Flights,394,2/7/2026,Sat,1,WestJet,22:30,6:10,Yes,4,40,236.0,11/10/2025,nan,-9.0,Jae
+Google Flights,391,2/8/2026,Sun,2,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,-8.0,Jae
+Google Flights,391,2/9/2026,Mon,2,Air Canada,9:30,16:59,No,4,29,228.0,11/10/2025,nan,-7.0,Jae
+Google Flights,232,2/10/2026,Tue,2,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,-6.0,Jae
+Google Flights,232,2/11/2026,Wed,2,Air Canada,17:40,1:17,Yes,4,37,291.0,11/10/2025,nan,-5.0,Jae
+Google Flights,405,2/12/2026,Thu,2,WestJet,10:00,17:41,No,4,41,270.0,11/10/2025,nan,-4.0,Jae
+Google Flights,406,2/13/2026,Fri,2,Air Canada,8:45,16:09,No,4,24,200.0,11/10/2025,nan,-3.0,Jae
+Google Flights,405,2/14/2026,Sat,2,WestJet,14:15,21:55,No,4,40,270.0,11/10/2025,nan,-2.0,Jae
+Google Flights,391,2/15/2026,Sun,3,Air Canada,8:45,16:09,No,4,24,200.0,11/10/2025,nan,-1.0,Jae
+Google Flights,451,2/16/2026,Mon,3,Air Canada,9:30,16:59,No,4,29,228.0,11/10/2025,Family Day,0.0,Jae
+Google Flights,280,2/17/2026,Tue,3,Porter Airlines/Air Transat,22:15,5:47,Yes,4,32,280.0,11/10/2025,nan,1.0,Jae
+Google Flights,265,2/18/2026,Wed,3,Air Canada,14:00,21:37,No,4,37,291.0,11/10/2025,nan,2.0,Jae
+Google Flights,265,2/19/2026,Thu,3,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,3.0,Jae
+Google Flights,406,2/20/2026,Fri,3,Air Canada,17:40,1:17,Yes,4,37,291.0,11/10/2025,nan,4.0,Jae
+Google Flights,451,2/21/2026,Sat,3,Air Canada,8:45,16:09,No,4,24,200.0,11/10/2025,nan,5.0,Jae
+Google Flights,567,2/22/2026,Sun,4,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,6.0,Jae
+Google Flights,488,2/23/2026,Mon,4,Air Canada,8:45,16:09,No,4,24,200.0,11/10/2025,nan,7.0,Jae
+Google Flights,265,2/24/2026,Tue,4,Air Canada,17:40,1:17,Yes,4,37,291.0,11/10/2025,nan,8.0,Jae
+Google Flights,265,2/25/2026,Wed,4,Air Canada,17:40,1:17,Yes,4,37,291.0,11/10/2025,nan,9.0,Jae
+Google Flights,265,2/26/2026,Thu,4,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,10.0,Jae
+Google Flights,299,2/27/2026,Fri,4,Air Canada,8:45,16:09,No,4,24,200.0,11/10/2025,nan,,Jae
+Google Flights,343,2/28/2026,Sat,4,WestJet,22:30,6:10,Yes,4,40,236.0,11/10/2025,nan,,Jae
+Google Flights,437,3/1/2026,Sun,1,WestJet,10:00,17:41,No,4,41,236.0,11/10/2025,nan,,Jae
+Google Flights,391,3/2/2026,Mon,1,Air Canada,9:30,16:59,No,4,29,228.0,11/10/2025,nan,,Jae
+Google Flights,265,3/3/2026,Tue,1,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,,Jae
+Google Flights,265,3/4/2026,Wed,1,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,,Jae
+Google Flights,265,3/5/2026,Thu,1,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,,Jae
+Google Flights,391,3/6/2026,Fri,1,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,,Jae
+Google Flights,391,3/7/2026,Sat,1,Air Canada,8:45,16:09,No,4,24,200.0,11/10/2025,nan,,Jae
+Google Flights,391,3/8/2026,Sun,2,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,391,3/9/2026,Mon,2,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,340,3/10/2026,Tue,2,WestJet,10:00,17:41,No,4,41,236.0,11/10/2025,nan,,Jae
+Google Flights,340,3/11/2026,Wed,2,WestJet,22:30,6:10,Yes,4,40,270.0,11/10/2025,nan,,Jae
+Google Flights,391,3/12/2026,Thu,2,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,,Jae
+Google Flights,406,3/13/2026,Fri,2,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,,Jae
+Google Flights,451,3/14/2026,Sat,2,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,406,3/15/2026,Sun,3,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,,Jae
+Google Flights,488,3/16/2026,Mon,3,Air Canada,8:45,16:09,No,4,24,200.0,11/10/2025,nan,,Jae
+Google Flights,343,3/17/2026,Tue,3,WestJet,22:30,6:10,Yes,4,40,236.0,11/10/2025,nan,,Jae
+Google Flights,391,3/18/2026,Wed,3,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,,Jae
+Google Flights,488,3/19/2026,Thu,3,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,,Jae
+Google Flights,648,3/20/2026,Fri,3,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,,Jae
+Google Flights,671,3/21/2026,Sat,3,WestJet,14:15,21:55,No,4,40,270.0,11/10/2025,nan,,Jae
+Google Flights,759,3/22/2026,Sun,4,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,648,3/23/2026,Mon,4,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,299,3/24/2026,Tue,4,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,-10.0,Jae
+Google Flights,265,3/25/2026,Wed,4,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,-9.0,Jae
+Google Flights,265,3/26/2026,Thu,4,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,-8.0,Jae
+Google Flights,315,3/27/2026,Fri,4,Air Canada,8:45,16:09,No,4,24,200.0,11/10/2025,nan,-7.0,Jae
+Google Flights,280,3/28/2026,Sat,4,Air Canada,23:10,6:47,Yes,4,37,232.0,11/10/2025,nan,-6.0,Jae
+Google Flights,451,3/29/2026,Sun,5,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,-5.0,Jae
+Google Flights,391,3/30/2026,Mon,5,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,-4.0,Jae
+Google Flights,391,3/31/2026,Tue,5,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,-3.0,Jae
+Google Flights,391,4/1/2026,Wed,1,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,-2.0,Jae
+Google Flights,406,4/2/2026,Thu,1,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,-1.0,Jae
+Google Flights,451,4/3/2026,Fri,1,Air Canada,8:00,15:38,No,4,38,291.0,11/10/2025,Good Friday,0.0,Jae
+Google Flights,406,4/4/2026,Sat,1,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,1.0,Jae
+Google Flights,406,4/5/2026,Sun,2,Air Canada,13:20,20:58,No,4,38,291.0,11/10/2025,nan,-1.0,Jae
+Google Flights,567,4/6/2026,Mon,2,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,Easter Monday,0.0,Jae
+Google Flights,406,4/7/2026,Tue,2,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,1.0,Jae
+Google Flights,391,4/8/2026,Wed,2,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,2.0,Jae
+Google Flights,391,4/9/2026,Thu,2,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,3.0,Jae
+Google Flights,488,4/10/2026,Fri,2,Air Canada,8:00,15:38,No,4,38,291.0,11/10/2025,nan,4.0,Jae
+Google Flights,391,4/11/2026,Sat,2,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,5.0,Jae
+Google Flights,551,4/12/2026,Sun,3,Air Canada,8:00,15:38,No,4,38,291.0,11/10/2025,nan,6.0,Jae
+Google Flights,488,4/13/2026,Mon,3,Air Canada,8:00,15:38,No,4,38,291.0,11/10/2025,nan,7.0,Jae
+Google Flights,299,4/14/2026,Tue,3,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,8.0,Jae
+Google Flights,391,4/15/2026,Wed,3,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,9.0,Jae
+Google Flights,391,4/16/2026,Thu,3,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,10.0,Jae
+Google Flights,488,4/17/2026,Fri,3,Air Canada,8:00,15:38,No,4,38,291.0,11/10/2025,nan,,Jae
+Google Flights,436,4/18/2026,Sat,3,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,488,4/19/2026,Sun,4,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,488,4/20/2026,Mon,4,Air Canada,8:00,15:38,No,4,38,291.0,11/10/2025,nan,,Jae
+Google Flights,299,4/21/2026,Tue,4,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,,Jae
+Google Flights,391,4/22/2026,Wed,4,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,,Jae
+Google Flights,391,4/23/2026,Thu,4,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,,Jae
+Google Flights,436,4/24/2026,Fri,4,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,,Jae
+Google Flights,391,4/25/2026,Sat,4,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,,Jae
+Google Flights,488,4/26/2026,Sun,5,Air Canada,10:20,17:55,No,4,35,291.0,11/10/2025,nan,,Jae
+Google Flights,551,4/27/2026,Mon,5,Air Canada,8:00,15:38,No,4,38,291.0,11/10/2025,nan,,Jae
+Google Flights,1340,4/28/2026,Tue,5,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,,Jae
+Google Flights,391,4/29/2026,Wed,5,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,,Jae
+Google Flights,391,4/30/2026,Thu,5,Air Canada,23:10,6:48,Yes,4,38,232.0,11/10/2025,nan,,Jae
+Google Flights,436,5/1/2026,Fri,1,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,391,5/2/2026,Sat,1,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,436,5/3/2026,Sun,2,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,488,5/4/2026,Mon,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,299,5/5/2026,Tue,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,391,5/6/2026,Wed,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,391,5/7/2026,Thu,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,436,5/8/2026,Fri,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-10.0,Kate
+Google Flights,391,5/9/2026,Sat,2,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-9.0,Kate
+Google Flights,488,5/10/2026,Sun,3,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-8.0,Kate
+Google Flights,632,5/11/2026,Mon,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-7.0,Kate
+Google Flights,391,5/12/2026,Tue,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-6.0,Kate
+Google Flights,436,5/13/2026,Wed,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-5.0,Kate
+Google Flights,488,5/14/2026,Thu,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-4.0,Kate
+Google Flights,504,5/15/2026,Fri,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-3.0,Kate
+Google Flights,406,5/16/2026,Sat,3,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-2.0,Kate
+Google Flights,391,5/17/2026,Sun,4,Air Canada,13:00,20:23,No,4,23,200.0,11/10/2025,nan,-1.0,Kate
+Google Flights,648,5/18/2026,Mon,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,Victoria Day,0.0,Kate
+Google Flights,406,5/19/2026,Tue,4,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,1.0,Kate
+Google Flights,436,5/20/2026,Wed,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,2.0,Kate
+Google Flights,391,5/21/2026,Thu,4,Air Canada,10:10,17:45,No,4,35,291.0,11/10/2025,nan,3.0,Kate
+Google Flights,436,5/22/2026,Fri,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,4.0,Kate
+Google Flights,391,5/23/2026,Sat,4,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,5.0,Kate
+Google Flights,488,5/24/2026,Sun,5,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,6.0,Kate
+Google Flights,551,5/25/2026,Mon,5,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,7.0,Kate
+Google Flights,391,5/26/2026,Tue,5,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,8.0,Kate
+Google Flights,391,5/27/2026,Wed,5,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,9.0,Kate
+Google Flights,391,5/28/2026,Thu,5,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,10.0,Kate
+Google Flights,436,5/29/2026,Fri,5,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,391,5/30/2026,Sat,5,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,488,5/31/2026,Sun,6,Air Canada,10:10,17:45,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,551,6/1/2026,Mon,1,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,299,6/2/2026,Tue,1,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,436,6/3/2026,Wed,1,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,391,6/4/2026,Thu,1,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,436,6/5/2026,Fri,1,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,391,6/6/2026,Sat,1,Air Canada,13:00,20:23,No,4,23,200.0,11/10/2025,nan,,Kate
+Google Flights,436,6/7/2026,Sun,2,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,551,6/8/2026,Mon,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,601,6/9/2026,Tue,2,Porter Airlines/Air Transat,16:40,0:19,Yes,4,39,310.0,11/10/2025,nan,,Kate
+Google Flights,601,6/10/2026,Wed,2,Porter Airlines/Air Transat,10:10,17:49,No,4,39,310.0,11/10/2025,nan,,Kate
+Google Flights,436,6/11/2026,Thu,2,Air Canada,23:30,7:02,Yes,4,32,213.0,11/10/2025,nan,,Kate
+Google Flights,601,6/12/2026,Fri,2,Porter Airlines/Air Transat,12:20,19:59,No,4,39,310.0,11/10/2025,nan,,Kate
+Google Flights,601,6/13/2026,Sat,2,Porter Airlines/Air Transat,10:10,17:49,No,4,39,310.0,11/10/2025,nan,,Kate
+Google Flights,601,6/14/2026,Sun,3,Porter Airlines/Air Transat,12:20,19:59,No,4,39,310.0,11/10/2025,nan,,Kate
+Google Flights,551,6/15/2026,Mon,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,488,6/16/2026,Tue,3,Air Canada,13:45,21:20,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,436,6/17/2026,Wed,3,Air Canada,23:30,7:02,Yes,4,32,213.0,11/10/2025,nan,,Kate
+Google Flights,504,6/18/2026,Thu,3,Air Canada,10:10,17:45,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,504,6/19/2026,Fri,3,Air Canada,23:30,6:05,Yes,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,617,6/20/2026,Sat,3,Porter Airlines/Air Transat,12:20,19:59,No,4,39,310.0,11/10/2025,nan,,Kate
+Google Flights,616,6/21/2026,Sun,4,Porter Airlines/Air Transat,12:20,19:59,No,4,39,310.0,11/10/2025,nan,-10.0,Kate
+Google Flights,567,6/22/2026,Mon,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-9.0,Kate
+Google Flights,616,6/23/2026,Tue,4,Porter Airlines/Air Transat,12:20,19:59,No,4,39,310.0,11/10/2025,nan,-8.0,Kate
+Google Flights,451,6/24/2026,Wed,4,Air Canada,23:30,7:02,Yes,4,32,213.0,11/10/2025,nan,-7.0,Kate
+Google Flights,617,6/25/2026,Thu,4,Porter Airlines/Air Transat,12:20,19:59,No,4,39,310.0,11/10/2025,nan,-6.0,Kate
+Google Flights,617,6/26/2026,Fri,4,Porter Airlines/Air Transat,22:10,5:49,Yes,4,39,310.0,11/10/2025,nan,-5.0,Kate
+Google Flights,648,6/27/2026,Sat,4,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-4.0,Kate
+Google Flights,648,6/28/2026,Sun,5,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-3.0,Kate
+Google Flights,567,6/29/2026,Mon,5,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-2.0,Kate
+Google Flights,504,6/30/2026,Tue,5,Air Canada,14:30,22:05,No,4,35,291.0,11/10/2025,nan,-1.0,Kate
+Google Flights,617,7/1/2026,Wed,1,Porter Airlines/Air Transat,12:20,19:59,No,4,39,310.0,11/10/2025,Canada Day,0.0,Kate
+Google Flights,617,7/2/2026,Thu,1,Porter Airlines/Air Transat,12:25,20:04,No,4,39,310.0,11/10/2025,nan,1.0,Kate
+Google Flights,504,7/3/2026,Fri,1,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,2.0,Kate
+Google Flights,504,7/4/2026,Sat,1,WestJet,10:10,17:45,No,4,35,291.0,11/10/2025,nan,3.0,Kate
+Google Flights,567,7/5/2026,Sun,2,Air Canada,16:30,0:05,Yes,4,35,291.0,11/10/2025,nan,4.0,Kate
+Google Flights,648,7/6/2026,Mon,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,5.0,Kate
+Google Flights,504,7/7/2026,Tue,2,Air Canada,13:45,21:20,No,4,35,291.0,11/10/2025,nan,6.0,Kate
+Google Flights,504,7/8/2026,Wed,2,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,7.0,Kate
+Google Flights,541,7/9/2026,Thu,2,Air Canada,23:30,7:02,Yes,4,32,213.0,11/10/2025,nan,8.0,Kate
+Google Flights,504,7/10/2026,Fri,2,Air Canada,12:30,19:58,No,4,28,245.0,11/10/2025,nan,9.0,Kate
+Google Flights,406,7/11/2026,Sat,2,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,10.0,Kate
+Google Flights,567,7/12/2026,Sun,3,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,609,7/13/2026,Mon,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,357,7/14/2026,Tue,3,Air Canada,10:10,17:45,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,493,7/15/2026,Wed,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,448,7/16/2026,Thu,3,Air Canada,10:05,17:40,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,493,7/17/2026,Fri,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,448,7/18/2026,Sat,3,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,609,7/19/2026,Sun,4,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,609,7/20/2026,Mon,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,448,7/21/2026,Tue,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,546,7/22/2026,Wed,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,448,7/23/2026,Thu,4,Air Canada,10:05,17:40,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,609,7/24/2026,Fri,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-10.0,Kate
+Google Flights,448,7/25/2026,Sat,4,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-9.0,Kate
+Google Flights,609,7/26/2026,Sun,5,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-8.0,Kate
+Google Flights,546,7/27/2026,Mon,5,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-7.0,Kate
+Google Flights,571,7/28/2026,Tue,5,WestJet,17:05,0:43,Yes,4,38,236.0,11/10/2025,nan,-6.0,Kate
+Google Flights,493,7/29/2026,Wed,5,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-5.0,Kate
+Google Flights,493,7/30/2026,Thu,5,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-4.0,Kate
+Google Flights,546,7/31/2026,Fri,5,Air Canada,9:00,4:28,No,4,28,228.0,11/10/2025,nan,-3.0,Kate
+Google Flights,448,8/1/2026,Sat,1,Air Canada,13:00,20:23,No,4,23,200.0,11/10/2025,nan,-2.0,Kate
+Google Flights,493,8/2/2026,Sun,1,Air Canada,10:10,17:45,No,4,35,291.0,11/10/2025,nan,-1.0,Kate
+Google Flights,546,8/3/2026,Mon,1,Air Canada,10:10,17:45,No,4,35,291.0,11/10/2025,Civic Holiday,0.0,Kate
+Google Flights,493,8/4/2026,Tue,1,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,1.0,Kate
+Google Flights,493,8/5/2026,Wed,1,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,2.0,Kate
+Google Flights,448,8/6/2026,Thu,1,Air Canada,10:05,17:40,No,4,35,291.0,11/10/2025,nan,3.0,Kate
+Google Flights,493,8/7/2026,Fri,1,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,4.0,Kate
+Google Flights,448,8/8/2026,Sat,1,Air Canada,13:00,20:23,No,4,23,200.0,11/10/2025,nan,5.0,Kate
+Google Flights,546,8/9/2026,Sun,2,Air Canada,11:40,17:15,No,4,35,291.0,11/10/2025,nan,6.0,Kate
+Google Flights,609,8/10/2026,Mon,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,7.0,Kate
+Google Flights,448,8/11/2026,Tue,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,8.0,Kate
+Google Flights,493,8/12/2026,Wed,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,9.0,Kate
+Google Flights,448,8/13/2026,Thu,2,Air Canada,10:05,17:40,No,4,35,291.0,11/10/2025,nan,10.0,Kate
+Google Flights,493,8/14/2026,Fri,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,448,8/15/2026,Sat,2,Air Canada,13:00,20:23,No,4,23,200.0,11/10/2025,nan,,Kate
+Google Flights,546,8/16/2026,Sun,3,Air Canada,10:10,17:45,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,609,8/17/2026,Mon,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,448,8/18/2026,Tue,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,493,8/19/2026,Wed,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,448,8/20/2026,Thu,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,546,8/21/2026,Fri,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,448,8/22/2026,Sat,3,Air Canada,13:00,20:23,No,4,23,200.0,11/10/2025,nan,,Kate
+Google Flights,546,8/23/2026,Sun,4,Air Canada,10:10,17:45,No,4,35,291.0,11/10/2025,nan,,Kate
+Google Flights,609,8/24/2026,Mon,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,448,8/25/2026,Tue,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,493,8/26/2026,Wed,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,448,8/27/2026,Thu,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Kate
+Google Flights,493,8/28/2026,Fri,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-10.0,Kate
+Google Flights,448,8/29/2026,Sat,4,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-9.0,Kate
+Google Flights,546,8/30/2026,Sun,5,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-8.0,Kate
+Google Flights,609,8/31/2026,Mon,5,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-7.0,Kate
+Google Flights,357,9/1/2026,Tue,1,Air Canada,10:10,17:45,No,4,35,291.0,11/10/2025,nan,-6.0,Miku
+Google Flights,546,9/2/2026,Wed,1,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-5.0,Miku
+Google Flights,493,9/3/2026,Thu,1,Air Canada,10:10,17:45,No,4,35,291.0,11/10/2025,nan,-4.0,Miku
+Google Flights,609,9/4/2026,Fri,1,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-3.0,Miku
+Google Flights,448,9/5/2026,Sat,1,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-2.0,Miku
+Google Flights,493,9/6/2026,Sun,2,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-1.0,Miku
+Google Flights,609,9/7/2026,Mon,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,Labour Day,0.0,Miku
+Google Flights,406,9/8/2026,Tue,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,1.0,Miku
+Google Flights,436,9/9/2026,Wed,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,2.0,Miku
+Google Flights,391,9/10/2026,Thu,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,3.0,Miku
+Google Flights,488,9/11/2026,Fri,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,4.0,Miku
+Google Flights,391,9/12/2026,Sat,2,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,5.0,Miku
+Google Flights,488,9/13/2026,Sun,3,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,6.0,Miku
+Google Flights,551,9/14/2026,Mon,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,7.0,Miku
+Google Flights,391,9/15/2026,Tue,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,8.0,Miku
+Google Flights,436,9/16/2026,Wed,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,9.0,Miku
+Google Flights,391,9/17/2026,Thu,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,10.0,Miku
+Google Flights,488,9/18/2026,Fri,3,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,,Miku
+Google Flights,391,9/19/2026,Sat,3,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,,Miku
+Google Flights,488,9/20/2026,Sun,4,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-10.0,Miku
+Google Flights,551,9/21/2026,Mon,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-9.0,Miku
+Google Flights,299,9/22/2026,Tue,4,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-8.0,Miku
+Google Flights,488,9/23/2026,Wed,4,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-7.0,Miku
+Google Flights,391,9/24/2026,Thu,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-6.0,Miku
+Google Flights,488,9/25/2026,Fri,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-5.0,Miku
+Google Flights,406,9/26/2026,Sat,4,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-4.0,Miku
+Google Flights,451,9/27/2026,Sun,5,Air Canada,11:40,19:15,No,4,35,291.0,11/10/2025,nan,-3.0,Miku
+Google Flights,743,9/28/2026,Mon,5,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-2.0,Miku
+Google Flights,391,9/29/2026,Tue,5,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-1.0,Miku
+Google Flights,567,9/30/2026,Wed,5,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,National Day for Truth and Reconciliation,0.0,Miku
+Skyscanner,436,10/1/2026,Thu,1,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,1.0,Miku
+Skyscanner,551,10/2/2026,Fri,1,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,2.0,Miku
+Skyscanner,315,10/3/2026,Sat,1,Air Canada,13:00,20:23,No,4,23,200.0,11/10/2025,nan,3.0,Miku
+Skyscanner,406,10/4/2026,Sun,2,Air Canada,13:00,20:23,No,4,23,200.0,11/10/2025,nan,4.0,Miku
+Skyscanner,551,10/5/2026,Mon,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,5.0,Miku
+Skyscanner,265,10/6/2026,Tue,2,Air Canada,23:30,7:02,Yes,4,32,213.0,11/10/2025,nan,-6.0,Miku
+Skyscanner,389,10/7/2026,Wed,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-5.0,Miku
+Skyscanner,392,10/8/2026,Thu,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-4.0,Miku
+Skyscanner,476,10/9/2026,Fri,2,Air Canada,9:00,16:28,No,4,28,228.0,11/10/2025,nan,-3.0,Miku
+Skyscanner,280,10/10/2026,Sat,2,Air Canada,23:30,7:02,Yes,4,32,213.0,11/10/2025,nan,-2.0,Miku
+Skyscanner,259,10/11/2026,Sun,3,Air Canada,23:30,7:02,Yes,4,32,213.0,11/21/2025,nan,-1.0,Miku
+Skyscanner,419,10/12/2026,Mon,3,Air Canada,9:00,16:28,No,4,28,228.0,11/21/2025,Thanksgiving Day,0.0,Miku
+Skyscanner,275,10/13/2026,Tue,3,Air Canada,23:30,7:02,Yes,4,32,213.0,11/21/2025,nan,1.0,Miku
+Skyscanner,327,10/14/2026,Wed,3,Air Canada,9:00,16:28,No,4,28,228.0,11/21/2025,nan,2.0,Miku
+Skyscanner,327,10/15/2026,Thu,3,Air Canada,7:30,15:05,No,4,35,,11/21/2025,nan,3.0,Miku
+Skyscanner,346,10/16/2026,Fri,3,Air Canada,9:00,16:28,No,4,28,228.0,11/21/2025,nan,4.0,Miku
+Skyscanner,274,10/17/2026,Sat,3,Air Canada,9:00,16:28,No,4,28,228.0,11/21/2025,nan,5.0,Miku
+Skyscanner,396,10/18/2026,Sun,4,Air Canada,11:40,19:15,No,4,35,,11/21/2025,nan,6.0,Miku
+Skyscanner,435,10/19/2026,Mon,4,Air Canada,9:00,16:28,No,4,28,228.0,11/21/2025,nan,7.0,Miku
+Skyscanner,259,10/20/2026,Tue,4,Air Canada,23:30,7:02,Yes,4,32,213.0,11/21/2025,nan,8.0,Miku
+Skyscanner,327,10/21/2026,Wed,4,Air Canada,9:00,16:28,No,4,28,228.0,11/21/2025,nan,9.0,Miku
+Skyscanner,259,10/22/2026,Thu,4,Air Canada,23:30,7:02,Yes,4,32,213.0,11/21/2025,nan,10.0,Miku
+Skyscanner,331,10/23/2026,Fri,4,Air Canada,9:00,16:28,No,4,28,228.0,11/21/2025,nan,,Miku
+Skyscanner,453,10/24/2026,Sat,4,Flair Airlines,23:45,7:20,Yes,4,35,217.0,11/21/2025,nan,,Miku
+Skyscanner,462,10/25/2026,Sun,5,Air Canada,8:00,15:37,No,4,37,,11/21/2025,nan,,Miku
+Skyscanner,416,10/26/2026,Mon,5,Air Canada,8:00,15:37,No,4,37,,11/21/2025,nan,,Miku
+Skyscanner,245,10/27/2026,Tue,5,Porter Airlines/Air Transat,22:55,6:35,Yes,4,40,,11/21/2025,nan,,Miku
+Skyscanner,273,10/28/2026,Wed,5,Air Canada,9:00,16:29,No,4,29,228.0,11/21/2025,nan,,Miku
+Skyscanner,336,10/29/2026,Thu,5,Air Canada,8:00,15:37,No,4,37,,11/21/2025,nan,,Miku
+Skyscanner,327,10/30/2026,Fri,5,Air Canada,23:15,6:39,Yes,4,24,200.0,11/21/2025,nan,,Miku
+Skyscanner,264,10/31/2026,Sat,5,Air Canada,23:15,6:39,Yes,4,28,200.0,11/21/2025,nan,,Miku
+Skyscanner,513,11/1/2026,Sun,1,Air Canada,8:00,15:37,No,4,37,,11/21/2025,nan,-10.0,Miku
+Skyscanner,252,11/2/2026,Mon,1,Porter Airlines/Air Transat,22:55,6:35,Yes,4,40,,11/21/2025,nan,-9.0,Miku
+Skyscanner,259,11/3/2026,Tue,1,Air Canada,23:15,6:39,Yes,4,28,200.0,11/21/2025,nan,-8.0,Miku
+Skyscanner,252,11/4/2026,Wed,1,Porter Airlines/Air Transat,22:55,6:35,Yes,4,40,,11/21/2025,nan,-7.0,Miku
+Skyscanner,259,11/5/2026,Thu,1,Air Canada,23:15,6:39,Yes,4,28,200.0,11/21/2025,nan,-6.0,Miku
+Skyscanner,471,11/6/2026,Fri,1,Air Canada,8:00,15:37,No,4,37,,11/21/2025,nan,-5.0,Miku
+Skyscanner,406,11/7/2026,Sat,1,Air Canada,9:00,16:29,No,4,29,228.0,11/21/2025,nan,-4.0,Miku
+Skyscanner,647,11/8/2026,Sun,2,Air Canada,11:00,18:37,No,4,37,,11/21/2025,nan,-3.0,Miku
+Skyscanner,397,11/9/2026,Mon,2,Air Canada,8:00,15:37,No,4,37,,11/21/2025,nan,-2.0,Miku
+Skyscanner,255,11/10/2026,Tue,2,Porter Airlines/Air Transat,22:55,6:35,Yes,4,40,,11/21/2025,nan,-1.0,Miku
