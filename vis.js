@@ -2,263 +2,863 @@
 // SECTION 1: Ontario undergrads by region (your existing chart)
 // =============================
 
-const csvFilePath = "data/number_of_undergrads_graduates_in_ontario.csv";
-const containerId = "bc-share-chart";
+// const csvFilePath = "data/number_of_undergrads_graduates_in_ontario.csv";
+// const containerId = "bc-share-chart";
 
-const YEARS = [
-  "2012", "2013", "2014", "2015", "2016",
-  "2017", "2018", "2019", "2020", "2021"
-];
+// const YEARS = [
+//   "2012", "2013", "2014", "2015", "2016",
+//   "2017", "2018", "2019", "2020", "2021"
+// ];
 
-let seriesData = [];
-let allYMax = 0;
+// let seriesData = [];
+// let allYMax = 0;
 
-async function initBCShareVis() {
-  const container = d3.select(`#${containerId}`);
-  container.html("");
+// async function initBCShareVis() {
+//   const container = d3.select(`#${containerId}`);
+//   container.html("");
 
-  const loading = container.append("p").text("Loading data...");
+//   const loading = container.append("p").text("Loading data...");
 
-  try {
-    const rawData = await d3.csv(csvFilePath, d3.autoType);
+//   try {
+//     const rawData = await d3.csv(csvFilePath, d3.autoType);
 
-    if (!rawData || rawData.length === 0) {
-      loading.text("No data found in CSV.");
-      return;
-    }
+//     if (!rawData || rawData.length === 0) {
+//       loading.text("No data found in CSV.");
+//       return;
+//     }
 
-    const rows = rawData.filter(
-      d =>
-        d["Location of residence at the time of admission"] !== "Ontario, origin"
-    );
+//     const rows = rawData.filter(
+//       d =>
+//         d["Location of residence at the time of admission"] !== "Ontario, origin"
+//     );
 
-    // Regions (without Ontario)
-    const regions = rows.map(
-      d => d["Location of residence at the time of admission"]
-    );
+//     // Regions (without Ontario)
+//     const regions = rows.map(
+//       d => d["Location of residence at the time of admission"]
+//     );
 
-    // Total Ontario students per year (all regions, including Ontario)
-    const totalsByYear = {};
-    YEARS.forEach(year => {
-      totalsByYear[year] = d3.sum(rawData, d => {
-        const v = d[year];
-        return typeof v === "number" ? v : 0;
-      });
+//     // Total Ontario students per year (all regions, including Ontario)
+//     const totalsByYear = {};
+//     YEARS.forEach(year => {
+//       totalsByYear[year] = d3.sum(rawData, d => {
+//         const v = d[year];
+//         return typeof v === "number" ? v : 0;
+//       });
+//     });
+
+//     // Build a series for each region (no Ontario)
+//     seriesData = rows.map(row => {
+//       const regionName = row["Location of residence at the time of admission"];
+
+//       const values = YEARS.map(year => {
+//         const students = typeof row[year] === "number" ? row[year] : 0;
+//         const total = totalsByYear[year] || 0;
+//         const percentage = total > 0 ? (students / total) * 100 : 0;
+
+//         return {
+//           year: +year,
+//           students,
+//           total,
+//           percentage
+//         };
+//       });
+
+//       return { region: regionName, values };
+//     });
+
+//     // y-axis max across non-Ontario regions
+//     allYMax =
+//       d3.max(seriesData, s =>
+//         d3.max(s.values, v => v.percentage)
+//       ) * 1.1;
+
+//     loading.remove();
+
+//     setupRegionSelect(regions);
+//     updateChart("British Columbia, origin");
+//   } catch (err) {
+//     console.error("Error loading or processing data:", err);
+//     loading.text("Error loading visualization. Check console for details.");
+//   }
+// }
+
+// function setupRegionSelect(regions) {
+//   const select = d3.select("#region-select");
+//   if (select.empty()) return; 
+
+//   select.html("");
+
+//   select
+//     .append("option")
+//     .attr("value", "All")
+//     .text("All Regions");
+
+//   regions.forEach(regionName => {
+//     select
+//       .append("option")
+//       .attr("value", regionName)
+//       .text(regionName.replace(", origin", ""));
+//   });
+
+//   select.property("value", "British Columbia, origin");
+
+//   select.on("change", function () {
+//     const selected = this.value;
+//     updateChart(selected);
+//   });
+// }
+
+// function updateChart(selectedRegion) {
+//   const container = d3.select(`#${containerId}`);
+//   container.html("");
+
+//   const visibleSeries =
+//     selectedRegion === "All"
+//       ? seriesData
+//       : seriesData.filter(s => s.region === selectedRegion);
+
+//   renderRegionChart(container, visibleSeries);
+// }
+
+// function renderRegionChart(container, seriesList) {
+//   const margin = { top: 20, right: 24, bottom: 48, left: 72 };
+//   const width = 720;
+//   const height = 320;
+
+//   const svg = container
+//     .append("svg")
+//     .attr("width", width)
+//     .attr("height", height);
+
+//   const innerWidth = width - margin.left - margin.right;
+//   const innerHeight = height - margin.top - margin.bottom;
+
+//   const g = svg
+//     .append("g")
+//     .attr("transform", `translate(${margin.left},${margin.top})`);
+
+//   const x = d3
+//     .scaleLinear()
+//     .domain(d3.extent(YEARS, y => +y))
+//     .range([0, innerWidth]);
+
+//   const y = d3
+//     .scaleLinear()
+//     .domain([0, allYMax])
+//     .nice()
+//     .range([innerHeight, 0]);
+
+//   const xAxis = d3.axisBottom(x).ticks(YEARS.length).tickFormat(d3.format("d"));
+//   const yAxis = d3
+//     .axisLeft(y)
+//     .ticks(5)
+//     .tickFormat(d => d.toFixed(1) + "%");
+
+//   g.append("g")
+//     .attr("transform", `translate(0, ${innerHeight})`)
+//     .call(xAxis)
+//     .append("text")
+//     .attr("x", innerWidth / 2)
+//     .attr("y", 36)
+//     .attr("fill", "#0f172a")
+//     .attr("text-anchor", "middle")
+//     .attr("font-weight", "600")
+//     .text("Graduation Year");
+
+//   g.append("g")
+//     .call(yAxis)
+//     .append("text")
+//     .attr("transform", "rotate(-90)")
+//     .attr("x", -innerHeight / 2)
+//     .attr("y", -52)
+//     .attr("fill", "#0f172a")
+//     .attr("text-anchor", "middle")
+//     .attr("font-weight", "600")
+//     .text("Percentage of Total Students (%)");
+
+//   const line = d3
+//     .line()
+//     .x(d => x(d.year))
+//     .y(d => y(d.percentage))
+//     .curve(d3.curveMonotoneX);
+
+//   const colorScale = d3
+//     .scaleOrdinal()
+//     .domain(seriesData.map(s => s.region))
+//     .range(d3.schemeTableau10);
+
+//   g.selectAll(".line")
+//     .data(seriesList)
+//     .enter()
+//     .append("path")
+//     .attr("class", "line")
+//     .attr("fill", "none")
+//     .attr("stroke", d => colorScale(d.region))
+//     .attr("stroke-width", seriesList.length === 1 ? 3 : 2)
+//     .attr("d", d => line(d.values));
+
+//   d3.select("body").selectAll(".bc-tooltip").remove();
+
+//   const tooltip = d3
+//     .select("body")
+//     .append("div")
+//     .attr("class", "bc-tooltip")
+//     .style("position", "absolute")
+//     .style("pointer-events", "none")
+//     .style("background", "#ffffff")
+//     .style("border", "1px solid #e5e7eb")
+//     .style("box-shadow", "0 10px 25px rgba(15, 23, 42, 0.1)")
+//     .style("border-radius", "8px")
+//     .style("padding", "10px 12px")
+//     .style("font-size", "13px")
+//     .style("line-height", "1.4")
+//     .style("color", "#0f172a")
+//     .style("opacity", 0);
+
+//   const allPoints = seriesList.flatMap(s =>
+//     s.values.map(v => ({ ...v, region: s.region }))
+//   );
+
+//   g.selectAll(".point")
+//     .data(allPoints)
+//     .enter()
+//     .append("circle")
+//     .attr("class", "point")
+//     .attr("cx", d => x(d.year))
+//     .attr("cy", d => y(d.percentage))
+//     .attr("r", 4.5)
+//     .attr("fill", d => colorScale(d.region))
+//     .attr("stroke", d => colorScale(d.region))
+//     .attr("stroke-width", 1.5)
+//     .on("mouseenter", function (event, d) {
+//       d3.select(this).attr("r", 6);
+
+//       const regionLabel = d.region.replace(", origin", "");
+
+//       tooltip
+//         .style("opacity", 1)
+//         .html(
+//           `<strong>${regionLabel}</strong><br/>
+//            Year: ${d.year}<br/>
+//            Students from ${regionLabel} in Ontario: ${d.students}<br/>
+//            Total students in Ontario: ${d.total}<br/>
+//            Percentage: ${d.percentage.toFixed(2)}%`
+//         );
+
+//       tooltip
+//         .style("left", event.pageX + 16 + "px")
+//         .style("top", event.pageY - 10 + "px");
+//     })
+//     .on("mousemove", function (event) {
+//       tooltip
+//         .style("left", event.pageX + 16 + "px")
+//         .style("top", event.pageY - 10 + "px");
+//     })
+//     .on("mouseleave", function () {
+//       d3.select(this).attr("r", 4.5);
+//       tooltip.style("opacity", 0);
+//     });
+// }
+// =============================
+// CONFIG
+// =============================
+
+
+const CSV_PATH = "data/number_of_undergrads_graduates_in_ontario.csv";
+
+
+const YEARS = ["2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"];
+
+
+const PROVINCE_KEY_MAP = {
+  "Newfoundland and Labrador, origin": "ca-nl",
+  "Prince Edward Island, origin":        "ca-pe",
+  "Nova Scotia, origin":                 "ca-ns",
+  "New Brunswick, origin":               "ca-nb",
+  "Quebec, origin":                      "ca-qc",
+  "Ontario, origin":                     "ca-on", 
+  "Manitoba, origin":                    "ca-mb",
+  "Saskatchewan, origin":                "ca-sk",
+  "Alberta, origin":                     "ca-ab",
+  "British Columbia, origin":            "ca-bc",
+  "Territories, origin":                 "ca-yt"  
+};
+
+// =============================
+// GLOBAL STATE
+// =============================
+
+// regionSeries: [
+//   {
+//     name: "British Columbia, origin",
+//     share: [{ year: 2012, value: 0.013, count: 651, total: 50000 }, ...]
+//   },
+//   ...
+// ]
+let regionSeries = [];
+
+let regionSelectEl;     
+let bcSvg;           
+let xScale, yScale;      
+let lineGen;            
+
+const BC_CHART_WIDTH  = 480;
+const BC_CHART_HEIGHT = 260;
+const BC_MARGIN = { top: 30, right: 20, bottom: 40, left: 60 };
+
+// =============================
+// ENTRY POINT
+// =============================
+
+document.addEventListener("DOMContentLoaded", async () => {
+  regionSelectEl = document.getElementById("region-select");
+
+
+  await loadOntarioData();
+
+
+  initBCShareChart();
+
+
+  initCanadaMap();
+});
+
+// =============================
+// LOAD CSV & PREPARE DATA
+// =============================
+
+async function loadOntarioData() {
+  const raw = await d3.csv(CSV_PATH, d3.autoType);
+
+  if (!raw || raw.length === 0) {
+    console.error("CSV is empty or not found");
+    return;
+  }
+
+  const locationField = "Location of residence at the time of admission";
+
+  
+  const totalsByYear = {};
+  YEARS.forEach(y => {
+    totalsByYear[y] = d3.sum(raw, row => {
+      const v = row[y];
+      return typeof v === "number" ? v : 0;
     });
+  });
 
-    // Build a series for each region (no Ontario)
-    seriesData = rows.map(row => {
-      const regionName = row["Location of residence at the time of admission"];
+  
+  regionSeries = raw
+    .filter(row => row[locationField] !== "Ontario, origin")
+    .map(row => {
+      const name = row[locationField];
 
-      const values = YEARS.map(year => {
-        const students = typeof row[year] === "number" ? row[year] : 0;
-        const total = totalsByYear[year] || 0;
-        const percentage = total > 0 ? (students / total) * 100 : 0;
+      const share = YEARS.map(y => {
+        const count = typeof row[y] === "number" ? row[y] : 0;
+        const total = totalsByYear[y] || 0;
+        const value = total > 0 ? count / total : 0;
 
         return {
-          year: +year,
-          students,
-          total,
-          percentage
+          year: +y,
+          value,  
+          count,  
+          total   
         };
       });
 
-      return { region: regionName, values };
+      return { name, share };
     });
 
-    // y-axis max across non-Ontario regions
-    allYMax =
-      d3.max(seriesData, s =>
-        d3.max(s.values, v => v.percentage)
-      ) * 1.1;
-
-    loading.remove();
-
-    setupRegionSelect(regions);
-    updateChart("British Columbia, origin");
-  } catch (err) {
-    console.error("Error loading or processing data:", err);
-    loading.text("Error loading visualization. Check console for details.");
-  }
+  buildRegionSelect();
 }
 
-function setupRegionSelect(regions) {
-  const select = d3.select("#region-select");
-  if (select.empty()) return; 
+// =============================
+// BUILD <SELECT> OPTIONS
+// =============================
 
-  select.html("");
+function buildRegionSelect() {
+  if (!regionSelectEl) return;
 
-  select
-    .append("option")
-    .attr("value", "All")
-    .text("All Regions");
+  regionSelectEl.innerHTML = "";
 
-  regions.forEach(regionName => {
-    select
-      .append("option")
-      .attr("value", regionName)
-      .text(regionName.replace(", origin", ""));
+
+  const allOpt = document.createElement("option");
+  allOpt.value = "ALL";
+  allOpt.textContent = "All Regions (except Ontario)";
+  regionSelectEl.appendChild(allOpt);
+
+
+  regionSeries.forEach(r => {
+    const opt = document.createElement("option");
+    opt.value = r.name;
+    opt.textContent = r.name.replace(", origin", "");
+    regionSelectEl.appendChild(opt);
   });
 
-  select.property("value", "British Columbia, origin");
 
-  select.on("change", function () {
-    const selected = this.value;
-    updateChart(selected);
+  regionSelectEl.value = "ALL";
+
+
+  regionSelectEl.addEventListener("change", () => {
+    updateBCShareChart(regionSelectEl.value);
   });
 }
 
-function updateChart(selectedRegion) {
-  const container = d3.select(`#${containerId}`);
+// =============================
+// D3 LINE CHART (bc-share-chart)
+// =============================
+
+function initBCShareChart() {
+  const container = d3.select("#bc-share-chart");
   container.html("");
-
-  const visibleSeries =
-    selectedRegion === "All"
-      ? seriesData
-      : seriesData.filter(s => s.region === selectedRegion);
-
-  renderRegionChart(container, visibleSeries);
-}
-
-function renderRegionChart(container, seriesList) {
-  const margin = { top: 20, right: 24, bottom: 48, left: 72 };
-  const width = 720;
-  const height = 320;
 
   const svg = container
     .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("width", BC_CHART_WIDTH)
+    .attr("height", BC_CHART_HEIGHT);
 
-  const innerWidth = width - margin.left - margin.right;
-  const innerHeight = height - margin.top - margin.bottom;
+  bcSvg = svg.append("g")
+    .attr("transform", `translate(${BC_MARGIN.left},${BC_MARGIN.top})`);
 
-  const g = svg
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+  const innerWidth  = BC_CHART_WIDTH  - BC_MARGIN.left - BC_MARGIN.right;
+  const innerHeight = BC_CHART_HEIGHT - BC_MARGIN.top  - BC_MARGIN.bottom;
 
-  const x = d3
-    .scaleLinear()
-    .domain(d3.extent(YEARS, y => +y))
+  
+  xScale = d3.scaleLinear()
+    .domain(d3.extent(YEARS, d => +d))
     .range([0, innerWidth]);
 
-  const y = d3
-    .scaleLinear()
-    .domain([0, allYMax])
+
+  const maxSingleShare = d3.max(
+    regionSeries,
+    r => d3.max(r.share, s => s.value)
+  ) || 0;
+
+  
+  const allLineValues = YEARS.map(y => {
+    const yearNum = +y;
+    const sumShare = regionSeries.reduce((acc, r) => {
+      const s = r.share.find(v => v.year === yearNum);
+      return acc + (s ? s.value : 0);
+    }, 0);
+    return sumShare;
+  });
+
+  const maxAllShare = d3.max(allLineValues) || 0;
+
+
+  const maxShare = Math.max(maxSingleShare, maxAllShare) || 0.02;
+
+  yScale = d3.scaleLinear()
+    .domain([0, maxShare * 1.1])
     .nice()
     .range([innerHeight, 0]);
 
-  const xAxis = d3.axisBottom(x).ticks(YEARS.length).tickFormat(d3.format("d"));
-  const yAxis = d3
-    .axisLeft(y)
-    .ticks(5)
-    .tickFormat(d => d.toFixed(1) + "%");
 
-  g.append("g")
-    .attr("transform", `translate(0, ${innerHeight})`)
-    .call(xAxis)
-    .append("text")
+  bcSvg.append("g")
+    .attr("class", "x-axis")
+    .attr("transform", `translate(0,${innerHeight})`)
+    .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
+
+  bcSvg.append("g")
+    .attr("class", "y-axis")
+    .call(d3.axisLeft(yScale).tickFormat(d3.format(".1%")));
+
+
+  bcSvg.append("text")
+    .attr("class", "axis-label")
     .attr("x", innerWidth / 2)
-    .attr("y", 36)
-    .attr("fill", "#0f172a")
+    .attr("y", innerHeight + 32)
     .attr("text-anchor", "middle")
-    .attr("font-weight", "600")
     .text("Graduation Year");
 
-  g.append("g")
-    .call(yAxis)
-    .append("text")
-    .attr("transform", "rotate(-90)")
+  bcSvg.append("text")
+    .attr("class", "axis-label")
     .attr("x", -innerHeight / 2)
-    .attr("y", -52)
-    .attr("fill", "#0f172a")
+    .attr("y", -40)
+    .attr("transform", "rotate(-90)")
     .attr("text-anchor", "middle")
-    .attr("font-weight", "600")
-    .text("Percentage of Total Students (%)");
+    .text("Share of Ontario undergrads");
 
-  const line = d3
-    .line()
-    .x(d => x(d.year))
-    .y(d => y(d.percentage))
-    .curve(d3.curveMonotoneX);
+  
+  lineGen = d3.line()
+    .x(d => xScale(d.year))
+    .y(d => yScale(d.value));
 
-  const colorScale = d3
-    .scaleOrdinal()
-    .domain(seriesData.map(s => s.region))
-    .range(d3.schemeTableau10);
 
-  g.selectAll(".line")
-    .data(seriesList)
+  updateBCShareChart("ALL");
+}
+
+
+function updateBCShareChart(selectedName) {
+  if (!bcSvg || !lineGen) return;
+
+  const innerWidth  = BC_CHART_WIDTH  - BC_MARGIN.left - BC_MARGIN.right;
+  const innerHeight = BC_CHART_HEIGHT - BC_MARGIN.top  - BC_MARGIN.bottom;
+
+  let dataToPlot = [];
+
+  if (selectedName === "ALL") {
+    
+    YEARS.forEach(y => {
+      const yearNum = +y;
+      const sumShare = regionSeries.reduce((acc, r) => {
+        const s = r.share.find(v => v.year === yearNum);
+        return acc + (s ? s.value : 0);
+      }, 0);
+
+      dataToPlot.push({ year: yearNum, value: sumShare });
+    });
+  } else {
+    const r = regionSeries.find(r => r.name === selectedName);
+    if (!r) return;
+    dataToPlot = r.share;
+  }
+
+
+  const lineSel = bcSvg.selectAll(".bc-line").data([dataToPlot]);
+
+  lineSel
     .enter()
     .append("path")
-    .attr("class", "line")
+    .attr("class", "bc-line")
+    .merge(lineSel)
+    .transition()
+    .duration(600)
     .attr("fill", "none")
-    .attr("stroke", d => colorScale(d.region))
-    .attr("stroke-width", seriesList.length === 1 ? 3 : 2)
-    .attr("d", d => line(d.values));
+    .attr("stroke", "#1e88e5")
+    .attr("stroke-width", 2.5)
+    .attr("d", lineGen);
 
-  d3.select("body").selectAll(".bc-tooltip").remove();
+  lineSel.exit().remove();
 
-  const tooltip = d3
-    .select("body")
-    .append("div")
-    .attr("class", "bc-tooltip")
-    .style("position", "absolute")
-    .style("pointer-events", "none")
-    .style("background", "#ffffff")
-    .style("border", "1px solid #e5e7eb")
-    .style("box-shadow", "0 10px 25px rgba(15, 23, 42, 0.1)")
-    .style("border-radius", "8px")
-    .style("padding", "10px 12px")
-    .style("font-size", "13px")
-    .style("line-height", "1.4")
-    .style("color", "#0f172a")
-    .style("opacity", 0);
 
-  const allPoints = seriesList.flatMap(s =>
-    s.values.map(v => ({ ...v, region: s.region }))
-  );
+  const points = bcSvg.selectAll(".bc-point").data(dataToPlot, d => d.year);
 
-  g.selectAll(".point")
-    .data(allPoints)
+  points
     .enter()
     .append("circle")
-    .attr("class", "point")
-    .attr("cx", d => x(d.year))
-    .attr("cy", d => y(d.percentage))
-    .attr("r", 4.5)
-    .attr("fill", d => colorScale(d.region))
-    .attr("stroke", d => colorScale(d.region))
-    .attr("stroke-width", 1.5)
-    .on("mouseenter", function (event, d) {
-      d3.select(this).attr("r", 6);
+    .attr("class", "bc-point")
+    .attr("r", 3.5)
+    .attr("fill", "#1e88e5")
+    .attr("stroke", "#ffffff")
+    .attr("stroke-width", 1)
+    .merge(points)
+    .transition()
+    .duration(600)
+    .attr("cx", d => xScale(d.year))
+    .attr("cy", d => yScale(d.value));
 
-      const regionLabel = d.region.replace(", origin", "");
-
-      tooltip
-        .style("opacity", 1)
-        .html(
-          `<strong>${regionLabel}</strong><br/>
-           Year: ${d.year}<br/>
-           Students from ${regionLabel} in Ontario: ${d.students}<br/>
-           Total students in Ontario: ${d.total}<br/>
-           Percentage: ${d.percentage.toFixed(2)}%`
-        );
-
-      tooltip
-        .style("left", event.pageX + 16 + "px")
-        .style("top", event.pageY - 10 + "px");
-    })
-    .on("mousemove", function (event) {
-      tooltip
-        .style("left", event.pageX + 16 + "px")
-        .style("top", event.pageY - 10 + "px");
-    })
-    .on("mouseleave", function () {
-      d3.select(this).attr("r", 4.5);
-      tooltip.style("opacity", 0);
-    });
+  points.exit().remove();
 }
+
+// =============================
+// HIGHCHARTS CANADA MAP (canada-map)
+// =============================
+
+async function initCanadaMap() {
+  const containerId = "canada-map";
+
+  // get TopoJSON
+  const topology = await fetch(
+    "https://code.highcharts.com/mapdata/countries/ca/ca-all.topo.json"
+  ).then(res => res.json());
+
+  
+  const mapData = regionSeries
+    .map(r => {
+      const key = PROVINCE_KEY_MAP[r.name];   
+      if (!key) return null;
+
+      const avgShare =
+        r.share.reduce((acc, d) => acc + d.value, 0) / r.share.length;
+
+      return {
+        "hc-key": key,
+        value: avgShare,
+        name: r.name.replace(", origin", ""),
+        csvName: r.name            
+      };
+    })
+    .filter(d => d !== null);
+
+  Highcharts.mapChart(containerId, {
+    chart: {
+      map: topology
+    },
+
+    title: {
+      text: "Where do Ontario undergrads come from?"
+    },
+
+    subtitle: {
+      text: "Hover a province to update the line chart."
+    },
+
+    mapNavigation: {
+      enabled: true,
+      buttonOptions: {
+        verticalAlign: "bottom"
+      }
+    },
+
+    colorAxis: {
+      min: 0,
+      labels: {
+        format: "{value:.2f}"
+      }
+    },
+
+    tooltip: {
+      pointFormat:
+        "<b>{point.name}</b><br/>Avg share of Ontario grads: " +
+        "<b>{point.value:.2%}</b>"
+    },
+
+    series: [
+      {
+        data: mapData,
+        name: "Avg share of Ontario undergrads",
+        joinBy: "hc-key",
+        states: {
+          hover: {
+            color: "#BADA55"
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          format: "{point.name}",
+          style: {
+            fontSize: "9px"
+          }
+        },
+        point: {
+          events: {
+            
+            mouseOver: function () {
+              const csvName = this.csvName; 
+
+              
+              if (regionSelectEl) {
+                regionSelectEl.value = csvName;
+              }
+
+              
+              if (typeof updateBCShareChart === "function") {
+                updateBCShareChart(csvName);  
+              }
+            }
+          }
+        }
+      }
+    ]
+  });
+}
+
+
+
+// =============================
+// SECTION 2.1: bar graph throughout the year
+// =============================
+
+async function initDailyBarChart() {
+  const container = d3.select("#daily-bar-chart");
+  if (container.empty()) return;
+
+  container.html("");
+
+  const margin = { top: 30, right: 30, bottom: 90, left: 70 };
+  const width  = 1000 - margin.left - margin.right;
+  const height = 500  - margin.top  - margin.bottom;
+
+  const svg = container
+    .append("svg")
+    .attr("width",  width  + margin.left + margin.right)
+    .attr("height", height + margin.top  + margin.bottom)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  const parseDate = d3.timeParse("%m/%d/%Y");
+
+  const [highestRaw, lowestRaw] = await Promise.all([
+    d3.csv("data/Flights_From_Vancouver_to_Toronto_HighestPrice_clean.csv"),
+    d3.csv("data/Flights_From_Vancouver_to_Toronto_LowestPrice_clean.csv")
+  ]);
+
+
+  const highest = highestRaw.map(d => ({
+    date: parseDate(d.date),
+    label: d.date,   
+    price: +d.price
+  })).filter(d => d.date && !isNaN(d.price));
+
+  const lowest = lowestRaw.map(d => ({
+    date: parseDate(d.date),
+    label: d.date,
+    price: +d.price
+  })).filter(d => d.date && !isNaN(d.price));
+
+  
+  const merged = highest.map(h => {
+    const match = lowest.find(l => l.label === h.label);
+    return {
+      label: h.label,
+      date: h.date,
+      highest: h.price,
+      lowest: match ? match.price : null
+    };
+  });
+
+ 
+  const x0 = d3.scaleBand()
+    .domain(merged.map(d => d.label))
+    .range([0, width])
+    .padding(0.2);
+
+  
+  const x1 = d3.scaleBand()
+    .domain(["lowest", "highest"])
+    .range([0, x0.bandwidth()])
+    .padding(0.05);
+
+
+  const y = d3.scaleLinear()
+    .domain([0, 2400])
+    .range([height, 0]);
+
+  const xAxis = d3.axisBottom(x0)
+    .tickValues(
+      merged
+        .filter((_, i) => i % 7 === 0) 
+        .map(d => d.label)
+    );
+
+  const yAxis = d3.axisLeft(y)
+    .tickValues(d3.range(0, 2401, 200));
+
+
+  svg.append("g")
+    .attr("transform", `translate(0,${height})`)
+    .call(xAxis)
+    .selectAll("text")
+    .attr("text-anchor", "end")
+    .attr("transform", "rotate(-65)")
+    .attr("dx", "-0.8em")
+    .attr("dy", "0.15em");
+
+
+
+  svg.append("g").call(yAxis);
+
+  
+  const color = {
+    lowest: "#0ea5e9",   
+    highest: "#f97316"   
+  };
+
+
+  const groups = svg
+    .selectAll(".day-group")
+    .data(merged)
+    .enter()
+    .append("g")
+    .attr("class", "day-group")
+    .attr("transform", d => `translate(${x0(d.label)},0)`);
+
+
+  const types = ["lowest", "highest"];
+
+  groups.selectAll("rect")
+    .data(d => types.map(t => ({ type: t, value: d[t] })))
+    .enter()
+    .append("rect")
+    .attr("class", d => d.type === "lowest" ? "bar-lowest" : "bar-highest") 
+    .attr("x", d => x1(d.type))
+    .attr("y", d => y(d.value))
+    .attr("width", x1.bandwidth())
+    .attr("height", d => height - y(d.value))
+    .attr("fill", d => color[d.type]);
+
+  
+  const legend = svg.append("g")
+    .attr("transform", `translate(${width - 160}, 10)`);
+
+  legend.append("rect")
+    .attr("x", 0).attr("y", 0)
+    .attr("width", 12).attr("height", 12)
+    .attr("fill", color.lowest);
+
+  legend.append("text")
+    .attr("x", 20).attr("y", 10)
+    .text("Lowest Price");
+
+  legend.append("rect")
+    .attr("x", 0).attr("y", 22)
+    .attr("width", 12).attr("height", 12)
+    .attr("fill", color.highest);
+
+  legend.append("text")
+    .attr("x", 20).attr("y", 32)
+    .text("Highest Price");
+
+  // ==============================
+  // slider logic
+  // ==============================
+
+  const lowestBars  = svg.selectAll(".bar-lowest");
+  const highestBars = svg.selectAll(".bar-highest");
+
+
+  lowestBars.style("opacity", 1);
+  highestBars.style("opacity", 0.15);
+
+  const slider = document.getElementById("price-mode-slider");
+  const plane  = document.getElementById("plane-handle");
+  
+  const trackWrapper = document.querySelector(".slider-track-wrapper");
+  if (trackWrapper && slider) {
+    trackWrapper.style.height = `${height}px`;
+    slider.style.height = `${height}px`;
+  }
+
+function updateMode(rawValue) {
+  const v = Number(rawValue);
+
+  const slider = document.getElementById("price-mode-slider");
+  const maxVal = slider ? Number(slider.max) || 1 : 1;
+  const t = Math.min(Math.max(v / maxVal, 0), 1);
+
+
+  const lowestOpacity  = 1 - 0.85 * t;  
+  const highestOpacity = 0.15 + 0.85 * t; 
+
+  lowestBars
+    .transition()
+    .duration(150)
+    .style("opacity", lowestOpacity);
+
+  highestBars
+    .transition()
+    .duration(150)
+    .style("opacity", highestOpacity);
+
+  
+  if (plane) {
+    const pct = 100 - t * 100; 
+    plane.style.top = `${pct}%`;
+  }
+}
+
+  if (slider) {
+    updateMode(+slider.value);
+
+    slider.addEventListener("input", e => {
+      const v = +e.target.value; 
+      updateMode(v);
+    });
+  }
+}
+
+initDailyBarChart();
 
 // =============================
 // SECTION 2: Monthly cheapest vs most expensive flight prices

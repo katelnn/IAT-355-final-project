@@ -192,3 +192,512 @@ body {
   }
 }
 
+/* ----------section2.1 prices thruout the year slide css ---------- */
+/* 雲＋グラフの親 */
+.cloud-chart-wrapper {
+  position: relative;
+  margin-top: 16px;
+  border-radius: 16px;
+  overflow: hidden;      /* 雲がはみ出さないように */
+}
+
+
+/* 既に使っているやつだけど、ここで一行追加 */
+.daily-chart-layout {
+  position: relative;
+  z-index: 1;           /* 雲より前に出す */
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px 20px;   /* 雲の上に少し余白 */
+}
+
+/* 縦スライダー系は前と同じでOK（参考用） */
+.price-plane-slider-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+}
+
+.slider-track-wrapper {
+  position: relative;
+  width: 32px;
+  margin: 4px 0;
+  background-color: #111827;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+/* 真ん中の滑走路ライン */
+.slider-track-wrapper::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  bottom: 4px;
+  transform: translateX(-50%);
+  width: 4px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #ffffff 0px,
+    #ffffff 8px,
+    transparent 8px,
+    transparent 14px
+  );
+  opacity: 0.9;
+}
+
+/* 飛行機PNG */
+.plane-handle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: auto;
+  pointer-events: none;
+  transition: top 0.2s ease;
+}
+
+
+/* 左の縦スライダー全体 */
+.price-plane-slider-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+}
+
+.price-plane-slider-vertical .plane-label {
+  color: #0f172a;
+}
+
+/* 👇 ここが "runway" になる部分 */
+.slider-track-wrapper {
+  position: relative;
+  width: 32px;     /* 細めの縦長滑走路 */
+  /* height は JS からグラフの高さに合わせて上書きされる */
+  margin: 4px 0;
+
+  /* 滑走路本体 */
+  background-color: #111827;   /* 濃いグレー */
+  /*border-radius: 999px;         丸いエッジ */
+  overflow: hidden;
+}
+
+/* センターライン（破線） */
+.slider-track-wrapper::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  bottom: 4px;
+  transform: translateX(-50%);
+  width: 4px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #ffffff 0px,
+    #ffffff 8px,
+    transparent 8px,
+    transparent 14px
+  );
+  opacity: 0.9;
+}
+
+/* ネイティブの range スライダーは透明にして裏でイベントだけ取る */
+#price-mode-slider {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  writing-mode: bt-lr;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+#price-mode-slider::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+#price-mode-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0;
+  height: 0;
+}
+
+/* 飛行機ハンドル ✈️ */
+#plane-handle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;          /* 画像の表示サイズ（お好みで） */
+  height: auto;
+  pointer-events: none; /* ドラッグはトラック側で取るからそのままでOK */
+  transition: top 0.2s ease;
+}
+body {
+  font-family: "Inter", sans-serif;
+  background: #e9f3ff;
+  padding: 40px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ボード全体の枠 */
+.board-shell {
+  max-width: 1100px;
+  margin: 0 auto 3rem;
+  background: #050d18;
+  border-radius: 10px;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  border: 2px solid #1f2f40;
+  color: #f5f8ff;
+  font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Inter", sans-serif;
+}
+
+/* 上の青バー部分 */
+.board-top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px;
+  background: linear-gradient(90deg, #0076c9, #00a3d9);
+  color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.16em;
+}
+
+.board-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.brand-logo {
+  font-size: 20px;
+}
+
+.brand-name {
+  font-size: 13px;
+}
+
+.board-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.board-meta {
+  text-align: right;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* ヘッダ行（TIME / GATE / DEST…） */
+.board-header-row {
+  display: grid;
+  grid-template-columns: 110px 100px 1.6fr 1.3fr 150px;
+  padding: 10px 24px 8px;
+  border-bottom: 2px solid #1f2f40;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9fb2c7;
+}
+
+/* 行本体 */
+.board-row {
+  display: grid;
+  grid-template-columns: 110px 100px 1.6fr 1.3fr 150px;
+  padding: 14px 24px;
+  border-bottom: 1px solid #1b2938;
+  align-items: center;
+  font-size: 15px;
+  background: #071322;
+  color: #e7f0ff;
+  text-align: left;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.board-row:nth-child(odd + 1) {
+  background: #09172a;
+}
+
+.board-row:hover {
+  background: #122338;
+}
+
+.col.time {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 15px;
+}
+
+.col.gate {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+}
+
+.col.dest {
+  font-weight: 500;
+}
+
+.col.info {
+  font-size: 13px;
+  color: #a7bdd5;
+}
+
+
+.boarding {
+  background: #ffd54f;
+  color: #222;
+}
+
+.cheapest {
+  background: #81c784;
+  color: #072011;
+}
+
+.ontime {
+  background: #4fc3f7;
+  color: #022034;
+}
+
+.pricedrop {
+  background: #64b5f6;
+  color: #031425;
+}
+
+.gatechange {
+  background: #ef5350;
+  color: #fff4f4;
+}
+
+/* ひっくり返るアニメ */
+.flip {
+  animation: flipboard 0.6s ease;
+}
+
+@keyframes flipboard {
+  0% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  background: #e4f0ff;
+}
+
+/* セクション全体 */
+.hero {
+  padding: 80px 80px 40px;   /* 上に余白を増やす → 飛行機が来るスペース */
+}
+
+/* タイトルブロック（固定であまり動かない） */
+.hero-text {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 52px;
+  line-height: 1.1;
+  margin: 0 0 12px;
+}
+
+.highlight {
+  background: #cfe3ff;
+  border-radius: 12px;
+  padding: 0 10px;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* 雲＋飛行機エリア：タイトルの少し下に独立させる */
+.hero-sky {
+  position: relative;
+  margin: 100px auto 0;   /* タイトルとの間にスペース */
+  width: 100%;
+  max-width: 1100px;
+  height: 360px;         /* アニメーションが見える高さ */
+  overflow: hidden;      /* 雲が外に出ないように */
+  border-radius: 24px;
+}
+
+/* 雲 */
+.cloud {
+  position: absolute;
+  bottom: -70px;         /* ちょっと下からモクモク出る感じ */
+  
+  max-width: none;
+  pointer-events: none;
+}
+
+.cloud-left {
+  left: -18%;
+  z-index: 3;
+  width: 95%;     /* ← cloud.png を 80% のサイズに */
+  left: -10%;     /* 小さくすると位置も調整したほうが自然 */
+}
+
+.cloud-right {
+  right: -18%;
+  width: 90%;     /* ← cloud1/cloud2 を 40% に */
+  right: -5%;     /* 小さくなったぶん中央に寄せる */
+  transform: scaleX(-1);
+  z-index: 1;
+}
+
+/* 飛行機：雲の前・空の中央あたり */
+.plane {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  width: 80%;
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* board セクションとの間 */
+.departure-section {
+  margin-top: 40px;
+}
+.vis-row {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+}
+
+#canada-map {
+  flex: 1 1 50%;
+  min-width: 320px;
+  height: 420px;
+}
+
+.ontario-vis-right {
+  flex: 1 1 50%;
+  min-width: 320px;
+}
+
+#bc-share-chart svg {
+  width: 100%;
+  height: auto;
+}
+
+.controls {
+  margin-bottom: 12px;
+}
+
+#region-select {
+  width: 100%;
+  max-width: 260px;
+}
+
+.bc-point:hover {
+  cursor: pointer;
+}
+/* 全体レイアウト：左ラベル + 右コンテンツ */
+.context-row {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 80px auto;   /* セクション間の余白 */
+}
+
+/* 左のカラム（ラベル部分） */
+.context-marker {
+  width: 140px;        /* 左の幅 */
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 右側メインコンテンツ */
+.context-main {
+  flex: 1;
+}
+
+/* バッジ本体 */
+.marker-card {
+  background: #305e5e;           /* 緑がかった背景 */
+  border-radius: 6px;
+  padding: 10px 16px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* 上の「矢印 + 黄色丸 + 数字」横並び */
+.marker-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ↑ 矢印 */
+.marker-arrow {
+  font-size: 28px;
+  line-height: 1;
+  color: #ffffff;
+}
+
+/* 黄色の丸＋飛行機 */
+.marker-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #ffd628;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;       /* ✈︎ の大きさ */
+  color: #000000;
+}
+
+/* 数字（1,2,3...） */
+.marker-number {
+  font-size: 42px;
+  font-weight: 700;
+  color: #ffd628;
+}
+
+/* 下の小さなテキスト（year / month など） */
+.marker-label {
+  margin-top: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: lowercase;
+}
