@@ -1898,12 +1898,9 @@ function renderTimeOfDayScatter(container, points) {
 // Initialize visualizations
 // =============================
 
-document.addEventListener("DOMContentLoaded", () => {
-  initBCShareVis();
   initMonthlyPriceVis();
   initWeeklyPriceVis();
   initDailyHeatmapVis();
   initTimeOfDayVis();
-});
 
 
