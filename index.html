@@ -28,9 +28,9 @@
     
      
       <div class="hero-sky" id="hero">
-        <img src="cloud.png"  alt="cloud left"  class="cloud cloud-left" />
-        <img src="cloud.png" alt="cloud right" class="cloud cloud-right" />
-        <img src="airline2.png" alt="airplane"  class="plane" />
+        <img src="assets/cloud.png"  alt="cloud left"  class="cloud cloud-left" />
+        <img src="assets/cloud.png" alt="cloud right" class="cloud cloud-right" />
+        <img src="assets/airline2.png" alt="airplane"  class="plane" />
       </div>
     </section>
     
@@ -38,41 +38,7 @@
     </section>
     
     <script>
-      const heroSky   = document.getElementById('hero'); 
-      const cloudLeft  = document.querySelector('.cloud-left');
-      const cloudRight = document.querySelector('.cloud-right');
-      const plane      = document.querySelector('.plane');
     
-      function updateHeroAnimation() {
-        const rect = heroSky.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-    
-        let progress = (windowHeight * 0.6 - rect.top) / (windowHeight * 0.6);
-        progress = Math.min(Math.max(progress* 1.5, 0), 1);
-    
-        const maxOffset = 260;
-    
-        // cloud movement
-        cloudLeft.style.transform  = `translateX(${-maxOffset * progress}px)`;
-        cloudRight.style.transform = `translateX(${maxOffset * progress}px) scaleX(-1)`;
-    
-        // airline.png scale
-        const planeScale = 0.6 + 0.9 * progress;
-        plane.style.transform = `translate(-50%, -50%) scale(${planeScale})`;
-    
-        // the timing airplane.png start appearing
-        const appearThreshold = 0.15; 
-    
-        if (progress < appearThreshold) {
-          plane.style.opacity = 0;
-        } else {
-          plane.style.opacity = 1;
-        }
-      }
-    
-      window.addEventListener('scroll', updateHeroAnimation);
-      window.addEventListener('resize', updateHeroAnimation);
-      window.addEventListener('load', updateHeroAnimation);
     </script>
     
     
@@ -168,43 +134,9 @@
       });
     </script>
     
-      
-
-    <!-- Context + chart -->
-    <!-- <section class="context">
-      <div class="context-inner">
-        <h2 class="context-title">Home in Vancouver → Study in Toronto</h2>
-        <p class="context-text">
-          According to Statistics Canada, 1.3% to 1.93% of bachelor’s degree graduates of
-          post-secondary institutions in Ontario from 2012 to 2021 were from British Columbia.
-          This group partially represents students whose home is in Vancouver but study in Toronto.
-        </p>
-
-        <h3 class="context-subtitle">
-          Share of Ontario Undergraduates from British Columbia, 2012–2021
-        </h3>
-        
-        <div class="vis-row">
-          <div id="bc-share-chart"></div>
-        
-          <div class="controls">
-            <div class="control-label">Select Regions</div>
-            <select id="region-select" size="8">
-              <!- options will be filled by vis.js -->
-            <!-- </select>
-            <p class="control-hint">
-              Choose a province to see its share of Ontario undergrads.
-              Select “All Regions” to compare them together.
-            </p>
-          </div>
-        </div>
-        
-      </div>
-
-    </section> --> 
-     
+          
     <section class="context-row" id="gateA">
-      <!-- left gata budge-->
+      <!-- left gateA budge-->
       <div class="context-marker">
         <div class="marker-card">
           <div class="marker-top">
@@ -245,11 +177,23 @@
     
     <!-- line graph thru out the year start-->
     <section class="context" id="gateB">
+            <!-- left gateA budge-->
+      <div class="context-marker">
+        <div class="marker-card">
+          <div class="marker-top">
+            <span class="marker-arrow">↑</span>
+            <div class="marker-circle">✈︎</div>
+            <span class="marker-number">2</span>
+          </div>
+          <div class="marker-label">year</div>
+        </div>
+      </div>
+
       <div class="context-inner">
-        <h2 class="context-title">Daily Highest & Lowest Prices</h2>
+        <h2 class="context-title">Overview of Price Fluctuations</h2>
         <p class="context-text">
           This line graph visualizes how the cheapest and most expensive ticket
-          prices changed each week from Nov 2025 to Oct 2026.
+          prices changed each day from Nov 2025 to Oct 2026.
         </p>
     
  
@@ -263,7 +207,7 @@
     
               <div class="slider-track-wrapper">
                 <img
-                  src="airplane.png"
+                  src="assets/airplane.png"
                   alt="plane"
                   id="plane-handle"
                   class="plane-handle"
@@ -371,10 +315,16 @@
   <script src="https://d3js.org/d3.v7.min.js"></script>
 
   <!-- Visualization code -->
-  <script src="vis.js"></script>
+  <script src="js\skyHeroImage.js"></script>
+  <script src="js\gradsFromBCToON.js"></script>
+  <script src="js\overviewOverYear.js"></script>
+  <script src="js\monthOfTheYear.js"></script>
+  <script src="js\weekOfTheMonth.js"></script>
+  <script src="js\calendarHeatmap.js"></script>
+  <script src="js\DayOfTheWeek.js"></script>
 
   <!-- Basic page interactivity (your smooth scroll etc.) -->
-  <script src="main.js"></script>
+  <script src="js\main.js"></script>
 </body>
 </html>
 
