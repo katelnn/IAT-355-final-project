@@ -1,5 +1,7 @@
 // =============================
-// SECTION 1: Ontario undergrads by region (your existing chart)
+// SECTION 1: Ontario undergrads by region (your existing chart). Noticed that
+// the animation starts as the page loads... make it so that when the scroll
+// position's at this vis in particular.
 // =============================
 
 const CSV_PATH = "data/number_of_undergrads_graduates_in_ontario.csv";

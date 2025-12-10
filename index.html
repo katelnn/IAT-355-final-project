@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>Flights From Vancouver to Toronto</title>
 
   <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css" />
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://code.highcharts.com/maps/highmaps.js"></script>
-  <script src="https://code.highcharts.com/maps/modules/exporting.js"></script> 
+  <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
 </head>
+
 <body>
   <main class="page">
-    <section class="hero">
- 
+    <section class="hero" id="hero-main" data-step="0">
+
       <div class="hero-text">
         <h1 class="hero-title">
           Flights From
@@ -24,29 +27,41 @@
           <span class="highlight">Toronto</span>
         </h1>
         <p class="hero-subtitle">What’s the Pattern in These Flights?</p>
+        <p class="context-text">Add more context here... what dataset are we using? What's the purpose? Then add
+          conclusion. </p>
       </div>
-    
-     
+
+
       <div class="hero-sky" id="hero">
-        <img src="assets/cloud.png"  alt="cloud left"  class="cloud cloud-left" />
+        <img src="assets/cloud.png" alt="cloud left" class="cloud cloud-left" />
         <img src="assets/cloud.png" alt="cloud right" class="cloud cloud-right" />
-        <img src="assets/airline2.png" alt="airplane"  class="plane" />
+        <img src="assets/airline2.png" alt="airplane" class="plane" />
       </div>
     </section>
-    
-    <section class="departure-section">
+
+    <section id="context" data-step="1">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          Where are we pulling the data from?
+        </h1>
+        <p class="hero-subtitle">What’s the Pattern in These Flights?</p>
+        <p class="context-text">Add more context here... what dataset are we using? What's the purpose? Then add
+          conclusion. </p>
+      </div>
+      <div class="hero-text">
+        <h1 class="hero-title">
+          Why does it matter?
+        </h1>
+        <p class="hero-subtitle">What’s the Pattern in These Flights?</p>
+        <p class="context-text">Add more context here... what dataset are we using? What's the purpose? Then add
+          conclusion. </p>
+      </div>
     </section>
-    
-    <script>
-    
-    </script>
-    
-    
-    
-    
-    <section class="context" id="toc-board">
+
+
+    <section class="context" id="toc-board" data-step="2">
       <div class="board-shell">
-    
+
         <!-- Top blue bar -->
         <div class="board-top">
           <div class="board-brand">
@@ -56,7 +71,7 @@
           <div class="board-title">DEPARTURES</div>
           <div class="board-meta">Flight Price Views</div>
         </div>
-    
+
         <!-- Header row -->
         <div class="board-header-row">
           <div class="col time">TIME</div>
@@ -64,7 +79,7 @@
           <div class="col dest">DESTINATION</div>
           <div class="col info">DETAILS</div>
         </div>
-    
+
         <!-- Rows (click to scroll) -->
         <button class="board-row" data-target="gateA">
           <div class="col time">08:00</div>
@@ -72,70 +87,48 @@
           <div class="col dest">Home in vancouver→Study in Toronto</div>
           <div class="col info">Line graph</div>
         </button>
-    
+
         <button class="board-row" data-target="gateB">
           <div class="col time">09:15</div>
           <div class="col gate">Gate B</div>
           <div class="col dest">Daily Highlight & Lowest Price</div>
           <div class="col info">Bar graph in Nov 2025 to Oct 2026 comparisons</div>
         </button>
-    
+
         <button class="board-row" data-target="gateC">
           <div class="col time">10:30</div>
           <div class="col gate">Gate C</div>
           <div class="col dest">Data in weeks</div>
           <div class="col info">Bar graph in Mon–Sun cheapest days</div>
         </button>
-    
+
         <button class="board-row" data-target="gateD">
           <div class="col time">11:45</div>
           <div class="col gate">Gate D</div>
           <div class="col dest">Days of the week</div>
           <div class="col info">Calender heatmap of average lowest ticket price</div>
         </button>
-    
+
         <button class="board-row" data-target="gateE">
           <div class="col time">13:00</div>
           <div class="col gate">Gate E</div>
           <div class="col dest">time of the day</div>
           <div class="col info">Ticket prices by time of day</div>
         </button>
-        
+
         <button class="board-row" data-target="gateF">
           <div class="col time">14:45</div>
           <div class="col gate">Gate F</div>
           <div class="col dest">Conclusion</div>
           <div class="col info">When to buy a ticket</div>
         </button>
-    
+
       </div>
     </section>
-    
-    
-    <script>
-      document.querySelectorAll(".board-row").forEach((row) => {
-        row.addEventListener("click", () => {
-          // flip animation
-          row.classList.add("flip");
-          setTimeout(() => row.classList.remove("flip"), 600);
-    
-          // where after scroll
-          const targetId = row.dataset.target;
-          if (!targetId) return;
-    
-          const targetEl = document.getElementById(targetId);
-          if (targetEl) {
-            targetEl.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }
-        });
-      });
-    </script>
-    
-          
-    <section class="context-row" id="gateA">
+
+
+
+    <section class="context-row" id="gateA" data-step="3">
       <!-- left gateA budge-->
       <div class="context-marker">
         <div class="marker-card">
@@ -147,7 +140,7 @@
           <div class="marker-label">year</div>
         </div>
       </div>
-    
+
       <!-- right side -->
       <div class="context-main">
         <div class="context-inner">
@@ -157,14 +150,14 @@
             post-secondary institutions in Ontario from 2012 to 2021 were from British Columbia.
             This group partially represents students whose home is in Vancouver but study in Toronto.
           </p>
-    
+
           <h3 class="context-subtitle">
             Share of Ontario Undergraduates from British Columbia, 2012–2021
           </h3>
-    
+
           <div class="vis-row">
             <div id="canada-map"></div>
-    
+
             <div class="vis-panel">
               <div id="bc-share-chart"></div>
               <!-- <select id="region-select" size="8"></select> -->
@@ -173,11 +166,11 @@
         </div>
       </div>
     </section>
-    
-    
-    <!-- line graph thru out the year start-->
-    <section class="context" id="gateB">
-            <!-- left gateA budge-->
+
+
+    <!-- line graph thru out the year start. overviewOVerYear.js -->
+    <section class="context" id="gateB" data-step="4">
+      <!-- left gateA budge-->
       <div class="context-marker">
         <div class="marker-card">
           <div class="marker-top">
@@ -195,120 +188,108 @@
           This line graph visualizes how the cheapest and most expensive ticket
           prices changed each day from Nov 2025 to Oct 2026.
         </p>
-    
- 
+
+
         <div class="cloud-chart-wrapper">
 
-       
+
           <div class="daily-chart-layout">
-         
+
             <div class="price-plane-slider-vertical">
               <span class="plane-label plane-label-top">Highest</span>
-    
+
               <div class="slider-track-wrapper">
-                <img
-                  src="assets/airplane.png"
-                  alt="plane"
-                  id="plane-handle"
-                  class="plane-handle"
-                />
-                <input
-                  type="range"
-                  id="price-mode-slider"
-                  min="0"
-                  max="10"
-                  step="1"
-                  value="0"
-                />
+                <img src="assets/airplane.png" alt="plane" id="plane-handle" class="plane-handle" />
+                <input type="range" id="price-mode-slider" min="0" max="10" step="1" value="0" />
               </div>
-    
+
               <span class="plane-label plane-label-bottom">Cheapest</span>
             </div>
-    
+
 
             <div id="daily-bar-chart"></div>
           </div>
         </div>
       </div>
     </section>
-    
-      
+
+
     </section>
     <!-- line graph thru out the year end-->
 
-    <section class="context" id="gateC">
+    <section class="context" id="gateC" data-step="5">
       <div class="context-inner">
         <h2 class="context-title">When Are Flights Cheapest or Most Expensive?</h2>
-    
+
         <p class="context-text">
           Using our manually collected dataset of flights from Vancouver to Toronto,
           we averaged the lowest and highest ticket prices for each month. This
           reveals which times of year tend to be the most affordable and which
           months are more expensive to fly.
         </p>
-    
+
         <h3 class="context-subtitle">
           Average Lowest and Highest Ticket Prices by Month
         </h3>
-    
+
         <div id="monthly-price-chart"></div>
       </div>
     </section>
 
-    <section class="context" id="gateD">
+    <section class="context" id="gateD" data-step="6">
       <div class="context-inner">
         <h2 class="context-title">Now let’s see the data in weeks.</h2>
-    
+
         <p class="context-text">
           Here we group all flights by the week of the month they were searched.
           This helps reveal whether tickets tend to be cheaper at the beginning or
           end of each month.
         </p>
-    
+
         <h3 class="context-subtitle">
           Average Lowest and Highest Ticket Prices by Week of the Month
         </h3>
-    
+
         <div id="weekly-price-chart"></div>
       </div>
     </section>
-    
-    <section class="context" id="gateE">
+
+    <section class="context" id="gateE" data-step="7">
       <div class="context-inner">
         <h2 class="context-title">Now let’s see the data in days of the week.</h2>
-    
+
         <p class="context-text">
           Here we arrange our flights like a calendar, with months as rows and days
           of the week as columns. Darker cells show days when the average lowest
           ticket price is higher, while lighter cells indicate cheaper days to fly.
         </p>
-    
+
         <h3 class="context-subtitle">
           Calendar Heatmap of Average Lowest Ticket Prices by Month and Day of Week
         </h3>
-    
+
         <div id="daily-heatmap-chart"></div>
       </div>
     </section>
 
-    <section class="context" id="gateF">
+    <section class="context" id="gateF" data-step="8">
       <div class="context-inner">
         <h2 class="context-title">Now let’s see the data in time of the day.</h2>
-    
+
         <p class="context-text">
           Each point represents a flight we searched, plotted by its departure time
           and ticket price. This lets us see whether certain times of day tend to
           be cheaper or more expensive to fly from Vancouver to Toronto.
         </p>
-    
+
         <h3 class="context-subtitle">
           Ticket Prices by Time of Day
         </h3>
-    
+
         <div id="tod-scatter-chart"></div>
       </div>
     </section>
-    
+
   </main>
 
   <!-- D3 for visualization -->
@@ -323,9 +304,9 @@
   <script src="js\calendarHeatmap.js"></script>
   <script src="js\DayOfTheWeek.js"></script>
 
-  <!-- Basic page interactivity (your smooth scroll etc.) -->
+  <!-- page interactivity (your smooth scroll etc.) -->
   <script src="js\main.js"></script>
+  <script src="js\stepScrolling.js"></script>
 </body>
+
 </html>
-
-

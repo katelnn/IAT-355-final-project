@@ -33,3 +33,23 @@ if (progress < appearThreshold) {
 window.addEventListener('scroll', updateHeroAnimation);
 window.addEventListener('resize', updateHeroAnimation);
 window.addEventListener('load', updateHeroAnimation);
+
+document.querySelectorAll(".board-row").forEach((row) => {
+row.addEventListener("click", () => {
+    // flip animation
+    row.classList.add("flip");
+    setTimeout(() => row.classList.remove("flip"), 600);
+
+    // where after scroll
+    const targetId = row.dataset.target;
+    if (!targetId) return;
+
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+    targetEl.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+    });
+    }
+});
+});
