@@ -1,203 +1,272 @@
-// =============================
-// SECTION 2.1: bar graph throughout the year -> future plans: instead of making the slider about cheapest & highest, make it a tick box instead. Then the cheapest-highest slider can be more for years. 
-// =============================
+// =============================================
+// overviewOverYear.js — SCROLLY VERSION (Gate B)
+// =============================================
+
+// Global variables shared across functions
+let mergedData = [];
+let svg, width, height, margin;
+let x0, x1, y, xAxis, yAxis;
+let timeScale, brush, brushG;
+let sliderTrack, startPlane, endPlane;
+let planeSize = 30;
+
+const parseDate = d3.timeParse("%m/%d/%Y");
+
+// Date range of dataset
+const START_DATE = new Date("2025-11-01");
+const END_DATE = new Date("2026-11-30");
+
+// Flags for zoom state
+let isZoomed = false;
+
+// =============================================
+// PUBLIC FUNCTIONS (called from stepScrolling.js)
+// =============================================
+
+// 1️⃣ Scroll event says “zoom into December”
+window.zoomToDecember = function () {
+  if (isZoomed || !timeScale) return;
+
+  const start = new Date("2025-11-11");
+  const end = new Date("2025-12-31");
+
+  const x0 = timeScale(start);
+  const x1 = timeScale(end);
+
+  svg.select(".custom-brush").call(brush.move, [x0, x1]);
+
+  showAnnotation();
+  isZoomed = true;
+};
+
+// 2️⃣ Scroll event says “go back to full-year view”
+window.resetZoom = function () {
+  if (!isZoomed || !timeScale) return;
+
+  svg.select(".custom-brush").call(brush.move, timeScale.range());
+
+  hideAnnotation();
+  isZoomed = false;
+};
+
+// =============================================
+// INITIALIZATION
+// =============================================
+initDailyBarChart();
 
 async function initDailyBarChart() {
   const container = d3.select("#daily-bar-chart");
-  if (container.empty()) return;
-
   container.html("");
 
-  const margin = { top: 30, right: 30, bottom: 90, left: 70 };
-  const width  = 1000 - margin.left - margin.right;
-  const height = 500  - margin.top  - margin.bottom;
+  margin = { top: 30, right: 30, bottom: 90, left: 70 };
+  width = 1000 - margin.left - margin.right;
+  height = 500 - margin.top - margin.bottom;
 
-  const svg = container
-    .append("svg")
-    .attr("width",  width  + margin.left + margin.right)
-    .attr("height", height + margin.top  + margin.bottom)
+  svg = container.append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-  const parseDate = d3.timeParse("%m/%d/%Y");
+  await loadAndPrepareData();
 
+  setupScales();
+  drawAxes();
+  drawLegend();
+  drawBars(mergedData);
+  initBrush();
+}
+
+// =============================================
+// DATA PREP
+// =============================================
+async function loadAndPrepareData() {
   const [highestRaw, lowestRaw] = await Promise.all([
     d3.csv("data/Flights_From_Vancouver_to_Toronto_HighestPrice_clean.csv"),
     d3.csv("data/Flights_From_Vancouver_to_Toronto_LowestPrice_clean.csv")
   ]);
 
-
   const highest = highestRaw.map(d => ({
     date: parseDate(d.date),
-    label: d.date,   
-    price: +d.price
-  })).filter(d => d.date && !isNaN(d.price));
+    label: d.date,
+    highest: +d.price
+  }));
 
   const lowest = lowestRaw.map(d => ({
     date: parseDate(d.date),
     label: d.date,
-    price: +d.price
-  })).filter(d => d.date && !isNaN(d.price));
+    lowest: +d.price
+  }));
 
-  
-  const merged = highest.map(h => {
-    const match = lowest.find(l => l.label === h.label);
-    return {
-      label: h.label,
-      date: h.date,
-      highest: h.price,
-      lowest: match ? match.price : null
-    };
+  const byDate = new Map();
+  highest.forEach(h => byDate.set(h.label, { ...h }));
+  lowest.forEach(l => {
+    if (byDate.has(l.label)) {
+      byDate.get(l.label).lowest = l.lowest;
+    }
   });
 
- 
-  const x0 = d3.scaleBand()
-    .domain(merged.map(d => d.label))
+  mergedData = Array.from(byDate.values()).filter(d => d.date).sort((a, b) => a.date - b.date);
+}
+
+// =============================================
+// SCALES & AXES
+// =============================================
+function setupScales() {
+  x0 = d3.scaleBand()
+    .domain(mergedData.map(d => d.label))
     .range([0, width])
     .padding(0.2);
 
-  
-  const x1 = d3.scaleBand()
+  x1 = d3.scaleBand()
     .domain(["lowest", "highest"])
     .range([0, x0.bandwidth()])
     .padding(0.05);
 
-
-  const y = d3.scaleLinear()
+  y = d3.scaleLinear()
     .domain([0, 2400])
     .range([height, 0]);
 
-  const xAxis = d3.axisBottom(x0)
-    .tickValues(
-      merged
-        .filter((_, i) => i % 7 === 0) 
-        .map(d => d.label)
-    );
+  timeScale = d3.scaleTime()
+    .domain([START_DATE, END_DATE])
+    .range([0, width]);
+}
 
-  const yAxis = d3.axisLeft(y)
-    .tickValues(d3.range(0, 2401, 200));
-
+function drawAxes() {
+  xAxis = d3.axisBottom(x0)
+    .tickValues(mergedData.filter((d, i) => i % 7 === 0).map(d => d.label));
 
   svg.append("g")
+    .attr("class", "x-axis-group")
     .attr("transform", `translate(0,${height})`)
     .call(xAxis)
     .selectAll("text")
-    .attr("text-anchor", "end")
     .attr("transform", "rotate(-65)")
-    .attr("dx", "-0.8em")
-    .attr("dy", "0.15em");
+    .attr("text-anchor", "end");
 
+  yAxis = d3.axisLeft(y).ticks(10);
 
+  svg.append("g").attr("class", "y-axis-group").call(yAxis);
+}
 
-  svg.append("g").call(yAxis);
-
-  
-  const color = {
-    lowest: "#0ea5e9",   
-    highest: "#f97316"   
-  };
-
-
-  const groups = svg
-    .selectAll(".day-group")
-    .data(merged)
-    .enter()
-    .append("g")
-    .attr("class", "day-group")
-    .attr("transform", d => `translate(${x0(d.label)},0)`);
-
+// =============================================
+// DRAW BARS
+// =============================================
+function drawBars(data) {
+  const groups = svg.selectAll(".day-group")
+    .data(data, d => d.label)
+    .join(
+      enter => enter.append("g")
+        .attr("class", "day-group")
+        .attr("transform", d => `translate(${x0(d.label)},0)`),
+      update => update
+        .attr("transform", d => `translate(${x0(d.label)},0)`),
+      exit => exit.remove()
+    );
 
   const types = ["lowest", "highest"];
 
   groups.selectAll("rect")
-    .data(d => types.map(t => ({ type: t, value: d[t] })))
-    .enter()
-    .append("rect")
-    .attr("class", d => d.type === "lowest" ? "bar-lowest" : "bar-highest") 
+    .data(d => types.map(t => ({ label: d.label, type: t, value: d[t] })))
+    .join("rect")
     .attr("x", d => x1(d.type))
     .attr("y", d => y(d.value))
     .attr("width", x1.bandwidth())
     .attr("height", d => height - y(d.value))
-    .attr("fill", d => color[d.type]);
-
-  
-  const legend = svg.append("g")
-    .attr("transform", `translate(${width - 160}, 10)`);
-
-  legend.append("rect")
-    .attr("x", 0).attr("y", 0)
-    .attr("width", 12).attr("height", 12)
-    .attr("fill", color.lowest);
-
-  legend.append("text")
-    .attr("x", 20).attr("y", 10)
-    .text("Lowest Price");
-
-  legend.append("rect")
-    .attr("x", 0).attr("y", 22)
-    .attr("width", 12).attr("height", 12)
-    .attr("fill", color.highest);
-
-  legend.append("text")
-    .attr("x", 20).attr("y", 32)
-    .text("Highest Price");
-
-  // ==============================
-  // slider logic
-  // ==============================
-
-  const lowestBars  = svg.selectAll(".bar-lowest");
-  const highestBars = svg.selectAll(".bar-highest");
-
-
-  lowestBars.style("opacity", 1);
-  highestBars.style("opacity", 0.15);
-
-  const slider = document.getElementById("price-mode-slider");
-  const plane  = document.getElementById("plane-handle");
-  
-  const trackWrapper = document.querySelector(".slider-track-wrapper");
-  if (trackWrapper && slider) {
-    trackWrapper.style.height = `${height}px`;
-    slider.style.height = `${height}px`;
-  }
-
-function updateMode(rawValue) {
-  const v = Number(rawValue);
-
-  const slider = document.getElementById("price-mode-slider");
-  const maxVal = slider ? Number(slider.max) || 1 : 1;
-  const t = Math.min(Math.max(v / maxVal, 0), 1);
-
-
-  const lowestOpacity  = 1 - 0.85 * t;  
-  const highestOpacity = 0.15 + 0.85 * t; 
-
-  lowestBars
-    .transition()
-    .duration(150)
-    .style("opacity", lowestOpacity);
-
-  highestBars
-    .transition()
-    .duration(150)
-    .style("opacity", highestOpacity);
-
-  
-  if (plane) {
-    const pct = 100 - t * 100; 
-    plane.style.top = `${pct}%`;
-  }
+    .attr("fill", d => d.type === "lowest" ? "#0ea5e9" : "#f97316");
 }
 
-  if (slider) {
-    updateMode(+slider.value);
+// =============================================
+// CUSTOM BRUSH WITH PLANES
+// =============================================
+function initBrush() {
+  brush = d3.brushX()
+    .extent([[0, 0], [width, 40]])
+    .on("brush", brushed)
+    .on("end", brushed);
 
-    slider.addEventListener("input", e => {
-      const v = +e.target.value; 
-      updateMode(v);
-    });
-  }
+  brushG = svg.append("g")
+    .attr("class", "custom-brush")
+    .attr("transform", `translate(0,-50)`);
+
+  brushG.call(brush);
+  brushG.selectAll(".handle").remove();
+
+  sliderTrack = brushG.append("rect")
+    .attr("class", "slider-track")
+    .attr("x", 0)
+    .attr("y", 10)
+    .attr("height", 20)
+    .attr("width", width)
+    .attr("fill", "#ddd");
+
+  startPlane = brushG.append("image")
+    .attr("href", "assets/airplane.png")
+    .attr("width", planeSize)
+    .attr("height", planeSize)
+    .attr("y", 5);
+
+  endPlane = brushG.append("image")
+    .attr("href", "assets/airplane.png")
+    .attr("width", planeSize)
+    .attr("height", planeSize)
+    .attr("y", 5);
+
+  brushG.call(brush.move, timeScale.range());
 }
 
-initDailyBarChart();
+function brushed(event) {
+  const sel = event.selection ?? timeScale.range();
+  const [xA, xB] = sel;
+
+  sliderTrack.attr("x", xA).attr("width", xB - xA);
+
+  startPlane.attr("x", xA - planeSize / 2);
+  endPlane.attr("x", xB - planeSize / 2);
+
+  const start = timeScale.invert(xA);
+  const end = timeScale.invert(xB);
+
+  const filtered = mergedData.filter(d => d.date >= start && d.date <= end);
+
+  drawBars(filtered);
+}
+
+// =============================================
+// ANNOTATION BOX
+// =============================================
+function showAnnotation() {
+  if (document.getElementById("gateB-annotation")) return;
+
+  d3.select("#daily-bar-chart")
+    .append("div")
+    .attr("id", "gateB-annotation")
+    .style("position", "absolute")
+    .style("top", "10px")
+    .style("left", "10px")
+    .style("padding", "12px 16px")
+    .style("background", "rgba(255,255,255,0.9)")
+    .style("border-radius", "8px")
+    .style("font-size", "14px")
+    .style("max-width", "240px")
+    .html(`
+      <strong>December Price Pattern</strong><br>
+      Ticket prices fluctuate significantly through December 2025,
+      especially approaching the end of the month.
+    `);
+}
+
+function hideAnnotation() {
+  d3.select("#gateB-annotation").remove();
+}
+
+// =============================================
+function drawLegend() {
+  const legend = svg.append("g").attr("transform", `translate(${width - 150}, 10)`);
+
+  legend.append("rect").attr("width", 12).attr("height", 12).attr("fill", "#0ea5e9");
+  legend.append("text").attr("x", 18).attr("y", 10).text("Lowest Price");
+
+  legend.append("rect").attr("y", 22).attr("width", 12).attr("height", 12).attr("fill", "#f97316");
+  legend.append("text").attr("x", 18).attr("y", 32).text("Highest Price");
+}
