@@ -1,9 +1,8 @@
 // ============================================
-// stepScrolling.js — Scrollytelling Engine
+// stepScrolling.js — Clean STEP ENGINE (Gates A–F)
 // ============================================
 
 document.addEventListener("DOMContentLoaded", () => {
-
     const steps = document.querySelectorAll("[data-step]");
     const progressBar = document.createElement("div");
     progressBar.id = "progress-bar";
@@ -11,172 +10,272 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentStep = 0;
     let isScrolling = false;
-    const SCROLL_DELAY = 600;
+    const SCROLL_DELAY = 450;
 
-    // ●●● STATE FOR SCROLLY BEHAVIOR IN GATE B ●●●
-    let gateBZoomTriggered = false;   // has December zoom happened?
-    let gateBAutoAdvance = false;     // has auto-scroll to Gate C happened?
+    // -----------------------------
+    // INTERNAL STATE FOR EACH GATE
+    // -----------------------------
+    let gateBState = 1;   // 1 = full year, 2 = zoom, 3 = exit
+    let gateCState = 1;   // 1 = clear, 2 = winter, 3 = summer, 4 = exit
+    let gateDState = 0;   // 0 = base, 1 = highlight, 2 = post-highlight
+    let gateEState = 0;
 
-    const gateB = document.getElementById("gateB");
-    const gateC = document.getElementById("gateC");
 
-    // --------------------------------------------
-    // Build Progress Bar
-    // --------------------------------------------
+    // -----------------------------
+    // Progress Bar Setup
+    // -----------------------------
     steps.forEach((step, index) => {
-        step.setAttribute("tabindex", "0");
-
         const item = document.createElement("button");
         item.classList.add("progress-item");
         if (index === 0) item.classList.add("active");
 
         const tooltip = document.createElement("span");
-        tooltip.textContent = step.id || `Step ${index + 1}`;
+        tooltip.textContent = step.id;
         item.appendChild(tooltip);
 
-        item.addEventListener("click", () => scrollToStep(index));
-
+        item.addEventListener("click", () => jumpToStep(index));
         progressBar.appendChild(item);
     });
 
     function updateProgressBar() {
-        const items = document.querySelectorAll(".progress-item");
-        items.forEach((item, i) => {
-            item.classList.toggle("active", i === currentStep);
-        });
-
-        if (currentStep === 0) progressBar.classList.add("hide");
-        else progressBar.classList.remove("hide");
+        document.querySelectorAll(".progress-item").forEach((el, i) =>
+            el.classList.toggle("active", i === currentStep)
+        );
+        progressBar.classList.toggle("hide", currentStep === 0);
     }
 
-    // --------------------------------------------
-    // Smooth Step Scrolling
-    // --------------------------------------------
-    function scrollToStep(index) {
-        if (index < 0 || index >= steps.length) return;
-
-        steps[index].scrollIntoView({ behavior: "smooth" });
-
-        setTimeout(() => {
-            currentStep = index;
-            updateProgressBar();
-
-            const id = steps[currentStep].id;
-            if (id) history.pushState(null, null, `#${id}`);
-        }, 300);
+    // -----------------------------
+    // Scroll + Key Navigation
+    // -----------------------------
+    function throttleScroll() {
+        isScrolling = true;
+        setTimeout(() => (isScrolling = false), SCROLL_DELAY);
     }
 
-    // --------------------------------------------
-    // MAIN WHEEL HANDLER
-    // --------------------------------------------
-    window.addEventListener("wheel", (event) => {
+    window.addEventListener("wheel", (e) => {
         if (isScrolling) return;
-        isScrolling = true;
-
-        const delta = event.deltaY;
-
-        // ---------------------------
-        // SPECIAL LOGIC FOR GATE B
-        // ---------------------------
-        if (steps[currentStep].id === "gateB") {
-            handleGateBScroll(delta);
-            resetScrollDelay();
-            return;
-        }
-
-        // Normal stepping for all other gates
-        if (delta > 20) scrollToStep(currentStep + 1);
-        else if (delta < -20) scrollToStep(currentStep - 1);
-
-        resetScrollDelay();
-    }, { passive: true });
-
-    // --------------------------------------------
-    // KEYBOARD HANDLER (Up/Down/Page/Space)
-    // --------------------------------------------
-    window.addEventListener("keydown", (event) => {
-        if (isScrolling) return;
-        isScrolling = true;
-
-        let delta = 0;
-
-        if (["ArrowDown", "PageDown", " "].includes(event.key)) {
-            event.preventDefault();
-            delta = 100;
-        } else if (["ArrowUp", "PageUp"].includes(event.key)) {
-            event.preventDefault();
-            delta = -100;
-        }
-
-        if (steps[currentStep].id === "gateB") {
-            handleGateBScroll(delta);
-            resetScrollDelay();
-            return;
-        }
-
-        if (delta > 0) scrollToStep(currentStep + 1);
-        else if (delta < 0) scrollToStep(currentStep - 1);
-
-        resetScrollDelay();
+        throttleScroll();
+        e.deltaY > 0 ? next() : prev();
     });
 
-    function resetScrollDelay() {
-        setTimeout(() => isScrolling = false, SCROLL_DELAY);
+    window.addEventListener("keydown", (e) => {
+        if (isScrolling) return;
+
+        if (["ArrowDown", "PageDown", " "].includes(e.key)) {
+            e.preventDefault();
+            throttleScroll();
+            next();
+        }
+
+        if (["ArrowUp", "PageUp"].includes(e.key)) {
+            e.preventDefault();
+            throttleScroll();
+            prev();
+        }
+    });
+
+    // -----------------------------
+    // NEXT / PREV LOGIC
+    // -----------------------------
+    function next() {
+        const id = steps[currentStep].id;
+
+        if (id === "gateB") return nextGateB();
+        if (id === "gateC") return nextGateC();
+        if (id === "gateD") return nextGateD();
+        if (id === "gateE") return nextGateE();
+
+
+        jumpToStep(currentStep + 1);
     }
 
-    // ============================================
-    //  🚀 SCROLLY ENGINE FOR GATE B
-    // ============================================
-    function handleGateBScroll(delta) {
-        const rect = gateB.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
+    function prev() {
+        const id = steps[currentStep].id;
 
-        const scrolled = viewportHeight - rect.top;  // total amount user scrolled into gateB
-        const progress = scrolled / gateB.offsetHeight; // % of the 200vh section
+        if (id === "gateB") return prevGateB();
+        if (id === "gateC") return prevGateC();
+        if (id === "gateD") return prevGateD();
+        if (id === "gateE") return prevGateE();
 
-        // Debug if needed:
-        // console.log("Gate B progress:", progress);
 
-        // -----------------------------
-        // 50% → ZOOM INTO DECEMBER
-        // -----------------------------
-        if (progress > 0.50 && !gateBZoomTriggered) {
-            gateBZoomTriggered = true;
+        jumpToStep(currentStep - 1);
+    }
+
+    // -----------------------------
+    // GATE B ENGINE
+    // -----------------------------
+    function nextGateB() {
+        if (gateBState === 1) {
+            gateBState = 2;
             if (typeof zoomToDecember === "function") zoomToDecember();
-        }
-
-        // -----------------------------
-        // Back above 50% → RESET ZOOM
-        // -----------------------------
-        if (progress < 0.50 && gateBZoomTriggered) {
-            gateBZoomTriggered = false;
-            if (typeof resetZoom === "function") resetZoom();
-        }
-
-        // -----------------------------
-        // 80% → AUTO ADVANCE TO GATE C
-        // -----------------------------
-        if (progress > 0.80 && !gateBAutoAdvance) {
-            gateBAutoAdvance = true;
-            scrollToStep(currentStep + 1);  // move to gateC
             return;
         }
-
-        // If user scrolls back up above 70%, allow moving again
-        if (progress < 0.70) {
-            gateBAutoAdvance = false;
+        if (gateBState === 2) {
+            gateBState = 3;
+            jumpToStep(currentStep + 1);
+            return;
         }
     }
 
-    // --------------------------------------------
-    // Handle initial URL hash
-    // --------------------------------------------
+    function prevGateB() {
+        if (gateBState === 2) {
+            gateBState = 1;
+            if (typeof resetZoom === "function") resetZoom();
+            return;
+        }
+        if (gateBState === 1) {
+            jumpToStep(currentStep - 1);
+            return;
+        }
+    }
+
+    // -----------------------------
+    // GATE C ENGINE
+    // -----------------------------
+    function nextGateC() {
+        if (gateCState === 1) {
+            gateCState = 2;
+            showWinterAnnotation();
+            return;
+        }
+        if (gateCState === 2) {
+            gateCState = 3;
+            showSummerAnnotation();
+            return;
+        }
+        if (gateCState === 3) {
+            gateCState = 4;
+            jumpToStep(currentStep + 1);
+            return;
+        }
+    }
+
+    function prevGateC() {
+        if (gateCState === 3) {
+            gateCState = 2;
+            showWinterAnnotation();
+            return;
+        }
+        if (gateCState === 2) {
+            gateCState = 1;
+            clearMonthAnnotations();
+            return;
+        }
+        if (gateCState === 1) {
+            jumpToStep(currentStep - 1);
+            return;
+        }
+    }
+
+    // -----------------------------
+    // GATE D ENGINE (2-step narrative)
+    // -----------------------------
+    function nextGateD() {
+        if (gateDState === 0) {
+            gateDState = 1;
+            showGateDStep(1);  // highlight Week 3
+            return;
+        }
+        if (gateDState === 1) {
+            gateDState = 2;
+            showGateDStep(2); // remove highlight + new annotation
+            return;
+        }
+        if (gateDState === 2) {
+            jumpToStep(currentStep + 1);
+            return;
+        }
+    }
+
+    function prevGateD() {
+        if (gateDState === 2) {
+            gateDState = 1;
+            showGateDStep(1);
+            return;
+        }
+        if (gateDState === 1) {
+            gateDState = 0;
+            showGateDStep(0); // clear annotations + highlight
+            return;
+        }
+        if (gateDState === 0) {
+            jumpToStep(currentStep - 1);
+            return;
+        }
+    }
+
+    // -----------------------------
+    // GATE E ENGINE 
+    // -----------------------------
+    function nextGateE() {
+        if (gateEState < 4) {
+            gateEState++;
+            window.showGateEStep(gateEState);
+            return;
+        }
+        // step 4 already shown, go to next gate
+        jumpToStep(currentStep + 1);
+    }
+
+    function prevGateE() {
+        if (gateEState > 0) {
+            gateEState--;
+            window.showGateEStep(gateEState);
+            return;
+        }
+        jumpToStep(currentStep - 1);
+    }
+
+
+    // -----------------------------
+    // Jump to Step
+    // -----------------------------
+    function jumpToStep(index) {
+        if (index < 0 || index >= steps.length) return;
+        currentStep = index;
+
+        const step = steps[currentStep];
+        step.scrollIntoView({ behavior: "smooth" });
+
+        updateProgressBar();
+
+        const id = step.id;
+
+        // Reset gate states properly on entry:
+
+        if (id === "gateB") {
+            gateBState = 1;
+            resetZoom && resetZoom();
+        }
+
+        if (id === "gateC") {
+            gateCState = 1;
+            clearMonthAnnotations && clearMonthAnnotations();
+        }
+
+        if (id === "gateD") {
+            gateDState = 0;
+            showGateDStep(0); // base state
+        }
+
+        if (id === "gateE") {
+            gateEState = 0;
+            window.showGateEStep(0);
+        }
+
+
+        if (id) history.pushState(null, null, `#${id}`);
+    }
+
+    // -----------------------------
+    // Load URL Hash Deep-Link
+    // -----------------------------
     const initialHash = window.location.hash.slice(1);
     if (initialHash) {
-        const idx = Array.from(steps).findIndex(step => step.id === initialHash);
+        const idx = [...steps].findIndex(s => s.id === initialHash);
         if (idx !== -1) {
             currentStep = idx;
-            steps[currentStep].scrollIntoView({ behavior: "auto" });
+            steps[idx].scrollIntoView({ behavior: "auto" });
             updateProgressBar();
         }
     }

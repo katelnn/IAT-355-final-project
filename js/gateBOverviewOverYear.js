@@ -73,7 +73,7 @@ async function initDailyBarChart() {
   setupScales();
   drawAxes();
   drawLegend();
-  drawBars(mergedData);
+  drawBarsAnimated(mergedData);
   initBrush();
 }
 
@@ -152,29 +152,110 @@ function drawAxes() {
 // =============================================
 // DRAW BARS
 // =============================================
-function drawBars(data) {
+function drawBarsAnimated(data) {
   const groups = svg.selectAll(".day-group")
-    .data(data, d => d.label)
-    .join(
-      enter => enter.append("g")
-        .attr("class", "day-group")
-        .attr("transform", d => `translate(${x0(d.label)},0)`),
-      update => update
-        .attr("transform", d => `translate(${x0(d.label)},0)`),
-      exit => exit.remove()
-    );
+    .data(data, d => d.label);
+
+  // EXIT — fade out & slide away
+  groups.exit()
+    .transition()
+    .duration(300)
+    .style("opacity", 0)
+    .attr("transform", d => `translate(${x0(d.label)}, 20)`)
+    .remove();
+
+  // ENTER
+  const groupsEnter = groups.enter()
+    .append("g")
+    .attr("class", "day-group")
+    .attr("transform", d => `translate(${x0(d.label)},10)`)
+    .style("opacity", 0);
+
+  groupsEnter.raise();
+
+
+  groupsEnter.transition()
+    .duration(500)
+    .style("opacity", 1)
+    .attr("transform", d => `translate(${x0(d.label)},0)`);
+
+  // MERGE
+  const groupsMerged = groupsEnter.merge(groups);
 
   const types = ["lowest", "highest"];
 
-  groups.selectAll("rect")
-    .data(d => types.map(t => ({ label: d.label, type: t, value: d[t] })))
-    .join("rect")
+  const bars = groupsMerged.selectAll("rect")
+    .data(d => types.map(t => ({ label: d.label, type: t, value: d[t] })));
+
+  // ENTER RECTANGLES
+  bars.enter()
+    .append("rect")
+    .attr("x", d => x1(d.type))
+    .attr("y", height)
+    .attr("width", x1.bandwidth())
+    .attr("height", 0)
+    .attr("fill", d => d.type === "lowest" ? "#0ea5e9" : "#f97316")
+    // ✅ EVENTS MUST BE HERE — BEFORE TRANSITION
+    .on("mouseover", (event, d) => showBarTooltip(event, d))
+    .on("mouseout", hideBarTooltip)
+    // NOW transition begins
+    .transition()
+    .duration(500)
+    .ease(d3.easeCubicOut)
+    .attr("y", d => y(d.value))
+    .attr("height", d => height - y(d.value));
+
+  bars
+    .on("mouseover", (event, d) => showBarTooltip(event, d))
+    .on("mouseout", hideBarTooltip)
+    .transition()
+    .duration(500)
+    .ease(d3.easeCubicOut)
     .attr("x", d => x1(d.type))
     .attr("y", d => y(d.value))
-    .attr("width", x1.bandwidth())
-    .attr("height", d => height - y(d.value))
-    .attr("fill", d => d.type === "lowest" ? "#0ea5e9" : "#f97316");
+    .attr("height", d => height - y(d.value));
+
+
+  // UPDATE RECTANGLES
+  bars.transition()
+    .duration(500)
+    .ease(d3.easeCubicOut)
+    .attr("x", d => x1(d.type))
+    .attr("y", d => y(d.value))
+    .attr("height", d => height - y(d.value));
+
+  // EXIT RECTANGLES
+  bars.exit()
+    .transition()
+    .duration(300)
+    .style("opacity", 0)
+    .attr("y", height)
+    .attr("height", 0)
+    .remove();
 }
+
+function showBarTooltip(event, d) {
+  d3.select("body")
+    .append("div")
+    .attr("id", "bar-tooltip")
+    .style("position", "absolute")
+    .style("left", event.pageX + 10 + "px")
+    .style("top", event.pageY - 30 + "px")
+    .style("padding", "6px 10px")
+    .style("background", "rgba(0,0,0,0.7)")
+    .style("color", "white")
+    .style("border-radius", "4px")
+    .style("font-size", "13px")
+    .html(`
+      <strong>${d.label}</strong><br>
+      ${d.type === "lowest" ? "Lowest Price" : "Highest Price"}: $${d.value}
+    `);
+}
+
+function hideBarTooltip() {
+  d3.select("#bar-tooltip").remove();
+}
+
 
 // =============================================
 // CUSTOM BRUSH WITH PLANES
@@ -229,7 +310,8 @@ function brushed(event) {
 
   const filtered = mergedData.filter(d => d.date >= start && d.date <= end);
 
-  drawBars(filtered);
+  drawBarsAnimated(filtered);
+
 }
 
 // =============================================

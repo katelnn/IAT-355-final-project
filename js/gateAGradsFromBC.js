@@ -395,14 +395,25 @@ async function initCanadaMap() {
         },
         point: {
           events: {
-            // Replaced mouseOver with click handler (Task 3)
             click: function () {
-              // Ensure only one point is selected at a time
+
+              // Remove old annotations
+              d3.select("#bc-share-chart").selectAll(".bc-annotation-scroll").remove();
+              d3.select("#bc-share-chart").selectAll(".bc-annotation-details").remove();
+
+              // Select this province on map
               this.series.points.forEach(p => p.select(false, true));
               this.select(true, true);
 
               const csvName = this.csvName;
+
+              // Update the line chart
               updateBCShareChart(csvName);
+
+              // 🔥 If user selected BC manually → show BC annotation again
+              if (csvName === "British Columbia, origin" && typeof triggerBCHighlight === "function") {
+                triggerBCHighlight();
+              }
             }
           }
         },

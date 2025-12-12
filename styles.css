@@ -67,10 +67,6 @@ body {
 #context,
 #toc-board,
 #gateA,
-#gateB,
-#gateC,
-#gateD,
-#gateE,
 #gateF {
   height: 100vh;
   display: flex;
@@ -79,16 +75,57 @@ body {
 /* Make Gate B a tall scroll section for the scrolly story */
 #gateB {
   height: 200vh;
-  /* two screens tall */
   position: relative;
 }
 
+
 /* Keep the inner content fixed while gateB scrolls behind it */
-#gateB .context-inner {
+#gateB .context-inner,
+#gateB .context-marker {
   position: sticky;
   top: 80px;
-  /* adjust to taste so it clears header/title */
 }
+
+#gateC,
+#gateD {
+  height: 300vh;
+  position: relative;
+}
+
+#gateC .context-inner,
+#gateC .context-marker {
+  position: sticky;
+  top: 80px;
+}
+
+#gateD .context-inner,
+#gateD .context-marker {
+  position: sticky;
+  top: 80px;
+}
+
+#gateD #gateD-annotation {
+  z-index: 999999;
+  /* bring in front of sticky container */
+}
+
+#gateE {
+  height:500vh;
+}
+
+#gateE .context-inner,
+#gateE .context-marker {
+  position: sticky;
+  top: 80px;
+}
+
+#gateE .context-heatmap{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+
 
 
 /* Progress Bar Styling */
@@ -166,7 +203,7 @@ body {
 .context-inner {
   max-width: 1500px;
   margin: 0 auto;
-  padding: 0 1vw;
+  padding: 0 0.7vw;
 }
 
 .context-title {
@@ -207,6 +244,11 @@ body {
   max-width: 1200px;
   margin: auto;
   position: relative;
+}
+
+#bar-tooltip {
+  pointer-events: none;
+  z-index: 9999;
 }
 
 /* Slider track inside SVG */
@@ -353,12 +395,25 @@ body {
 }
 
 #weekly-price-chart {
-  margin-top: 8px;
+  position: relative;
 }
+
+
 
 #daily-heatmap-chart {
   margin-top: 8px;
+  position: relative;
+  overflow: visible;
+  /* <- prevents clipping */
+  z-index: 9999;
 }
+
+.bc-tooltip {
+  position: absolute;
+  z-index: 999999 !important;
+  pointer-events: none;
+}
+
 
 #tod-scatter-chart {
   margin-top: 8px;
@@ -867,7 +922,11 @@ section.context-row#gateA {
   align-items: center;
 }
 
-section.context-row#gateB {
+section.context-row#gateB,
+section.context-row#gateC,
+section.context-row#gateD,
+section.context-row#gateE,
+section.context-row#gateF {
   align-items: flex-start;
 }
 
@@ -875,9 +934,6 @@ section.context-row#gateB {
 /* 左のカラム（ラベル部分） */
 .context-marker {
   width: 140px;
-  /* 左の幅 */
-  display: flex;
-  justify-content: flex-end;
 }
 
 /* 右側メインコンテンツ */
