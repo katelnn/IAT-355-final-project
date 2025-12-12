@@ -129,7 +129,7 @@ window.showGateEStep = function(step) {
     if (step === 4) {
         clearGateEHighlights();
         setGateEDescription(`
-            Despite some seasonal tendencies, as we compared rows and columns of the heatmaps,
+            Despite some seasonal tendencies, as we compared <strong>columns</strong> of the heatmaps,
             we found <strong>no clear correlation</strong> between the <strong>day of the month</strong>
             and <strong>ticket prices</strong>.
         `);
