@@ -127,7 +127,10 @@ window.showGateFStep = function(step) {
     // Step 0 — reset
     if (step === 0) {
         clearGateFHighlights();
-        setGateFDescription("");
+        setGateFDescription(`
+            We were surprised to find that even highest priced flights were operated at similar
+            timeframes as the lowest fare flights.
+        `);
         return;
     }
 
@@ -135,8 +138,8 @@ window.showGateFStep = function(step) {
     if (step === 1) {
         highlightHourRange(22, 24);
         setGateFDescription(`
-            We were surprised to find that even highest priced flights were operated at similar
-            timeframes as the lowest fare flights.
+            For example, both the cheapest and the most expensive flights flew in the midnight,
+            arriving the next day.
         `);
         return;
     }
@@ -145,8 +148,8 @@ window.showGateFStep = function(step) {
     if (step === 2) {
         highlightHourRange(7, 11);
         setGateFDescription(`
-            For example, both the cheapest and the most expensive flights flew in the midnight,
-            arriving the next day.
+            However, the main difference between the cheapest and the most expensive flights was 
+            that the expensive flights had more variety in their operating times. For example, large number of those flights flew during various morning times.
         `);
         return;
     }
