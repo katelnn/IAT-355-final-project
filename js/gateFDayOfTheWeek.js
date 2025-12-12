@@ -7,7 +7,7 @@
   let svg, g, xScale, yScale;
   let innerWidth, innerHeight;
 
-  // 🔥 Exposed for gateFDesc.js
+  //  Exposed for gateFDesc.js
   window.tod_xScale = null;
   window.tod_overlay = null;
 
@@ -109,7 +109,7 @@
       .nice()
       .range([innerHeight, 0]);
 
-    // 🔥 Expose for gateFDesc.js
+    // Expose for gateFDesc.js
     window.tod_xScale = xScale;
 
     // ------------------
@@ -132,7 +132,7 @@
       .call(d3.axisLeft(yScale).ticks(6).tickFormat(d => `$${Math.round(d)}`));
 
     // ------------------
-    // 🔥 Overlay layer (for Gate F highlights)
+    // Overlay layer (for Gate F highlights)
     // ------------------
     window.tod_overlay = g.append("g")
       .attr("class", "gateF-overlay")
