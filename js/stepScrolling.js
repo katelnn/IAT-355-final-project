@@ -1,168 +1,313 @@
+// ============================================
+// stepScrolling.js — Clean STEP ENGINE (Gates A–F)
+// ============================================
+
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Select all the scroll-snap sections
     const steps = document.querySelectorAll("[data-step]");
-    
-    // 2. Select the progress bar container
-    const progressBar = document.createElement('div');
+    const progressBar = document.createElement("div");
     progressBar.id = "progress-bar";
-    // For styling purposes, let's assume you'll add the progress bar container somewhere prominent,
-    // like right inside the <body> or <main>. We'll append it to the body for now.
     document.body.appendChild(progressBar);
 
     let currentStep = 0;
-    let isScrolling = false; // Flag to control scroll delay
-    const SCROLL_DELAY = 600; // Delay in ms to prevent rapid scrolling
-    let changeVis = true; // Flag to potentially control visualization triggers
+    let isScrolling = false;
+    const SCROLL_DELAY = 450;
 
-    // --- Progress Bar Setup ---
+    // -----------------------------
+    // INTERNAL STATE FOR EACH GATE
+    // -----------------------------
+    let gateBState = 1;   // 1 = full year, 2 = zoom, 3 = exit
+    let gateCState = 1;   // 1 = clear, 2 = winter, 3 = summer, 4 = exit
+    let gateDState = 0;   // 0 = base, 1 = highlight, 2 = post-highlight
+    let gateEState = 0;
+    let gateFState = 0;
 
-    // Create progress bar items and set focus/click listeners
+
+    // -----------------------------
+    // Progress Bar Setup
+    // -----------------------------
     steps.forEach((step, index) => {
-        // Add tabindex for keyboard focus navigation
-        step.setAttribute("tabindex", "0"); 
-        
-        // This makes sure focusing on a section scrolls to it (for keyboard users)
-        step.addEventListener("focus", () => {
-            scrollToStep(index);
-        });
-        
-        // Create the individual progress bar item
-        const progressItem = document.createElement("button");
-        progressItem.classList.add("progress-item");
-        if (index === 0) progressItem.classList.add("active");
-        progressItem.dataset.step = index;
+        const item = document.createElement("button");
+        item.classList.add("progress-item");
+        if (index === 0) item.classList.add("active");
 
-        // Add a tooltip showing the step name (using the section ID)
         const tooltip = document.createElement("span");
-        tooltip.textContent = step.id || `Step ${index + 1}`;
-        progressItem.appendChild(tooltip);
+        tooltip.textContent = step.id;
+        item.appendChild(tooltip);
 
-        // Click event to navigate to step
-        progressItem.addEventListener("click", () => {
-            scrollToStep(index);
-        });
-
-        progressBar.appendChild(progressItem);
+        item.addEventListener("click", () => jumpToStep(index));
+        progressBar.appendChild(item);
     });
 
-    /**
-     * Updates the progress bar visual state.
-     */
-    const updateProgressBar = () => {
-        const progressItems = document.querySelectorAll(".progress-item");
-        progressItems.forEach((item, index) => {
-            item.classList.toggle("active", index === currentStep);
-        });
+    function updateProgressBar() {
+        document.querySelectorAll(".progress-item").forEach((el, i) =>
+            el.classList.toggle("active", i === currentStep)
+        );
+        progressBar.classList.toggle("hide", currentStep === 0);
+    }
 
-        // Hide/Show the progress bar logic from your original code
-        if (currentStep === 0) {
-            progressBar.classList.add("hide");
-        } else {
-            progressBar.classList.remove("hide");
-        }
-    };
-
-    // --- Core Scrolling Function ---
-
-    /**
-     * Scrolls to a specific step index.
-     * @param {number} index - The target step index.
-     */
-    const scrollToStep = (index) => {
-        if (index >= 0 && index < steps.length) {
-            // Scroll the target section into view
-            steps[index].scrollIntoView({ behavior: "smooth" });
-
-            // Wait for the scroll animation to finish before updating state
-            setTimeout(() => {
-                currentStep = index;
-                updateProgressBar();
-                
-                // Update the URL hash
-                const stepId = steps[currentStep].id;
-                if (stepId) {
-                    history.pushState(null, null, `#${stepId}`);
-                }
-                
-                // --- Visualization Triggers (Customizable) ---
-                // You can add logic here to run your D3/Highcharts code
-                // based on which section (gate) is visible.
-                
-                // Example: if (stepId === 'gateA') { gradsFromBCToON(); }
-                // This replaces the complex tuitionVis/salaryVis calls from your original script.
-                
-                // --- End Visualization Triggers ---
-
-            }, 300); // Shorter timeout for updating state after scroll starts
-        }
-    };
-
-    // --- Scroll & Keyboard Handlers ---
-
-    // Handle mouse wheel/trackpad scroll
-    window.addEventListener(
-        "wheel",
-        (event) => {
-            if (isScrolling) return;
-            isScrolling = true;
-
-            // Determine scroll direction
-            const delta = event.deltaY;
-
-            if (delta > 20) {
-                // Scroll down
-                scrollToStep(currentStep + 1);
-            } else if (delta < -20) {
-                // Scroll up
-                scrollToStep(currentStep - 1);
-            }
-
-            // Reset scrolling flag after a delay
-            setTimeout(() => {
-                isScrolling = false;
-            }, SCROLL_DELAY);
-        },
-        { passive: true }
-    );
-
-    // Handle keyboard arrow navigation
-    window.addEventListener("keydown", (event) => {
-        if (isScrolling) return;
+    // -----------------------------
+    // Scroll + Key Navigation
+    // -----------------------------
+    function throttleScroll() {
         isScrolling = true;
-        
-        let newStep = currentStep;
+        setTimeout(() => (isScrolling = false), SCROLL_DELAY);
+    }
 
-        if (event.key === "ArrowDown" || event.key === "PageDown" || event.key === " ") {
-            event.preventDefault();
-            newStep = currentStep + 1;
-        } else if (event.key === "ArrowUp" || event.key === "PageUp") {
-            event.preventDefault();
-            newStep = currentStep - 1;
-        }
-
-        if (newStep !== currentStep) {
-             scrollToStep(newStep);
-        }
-
-        setTimeout(() => {
-            isScrolling = false;
-        }, SCROLL_DELAY);
+    window.addEventListener("wheel", (e) => {
+        if (isScrolling) return;
+        throttleScroll();
+        e.deltaY > 0 ? next() : prev();
     });
 
-    // --- Initialization ---
+    window.addEventListener("keydown", (e) => {
+        if (isScrolling) return;
 
-    // Handle initial URL hash to set the starting step
-    const handleInitialHash = () => {
-        const hash = window.location.hash.slice(1);
-        if (hash) {
-            const stepIndex = Array.from(steps).findIndex((step) => step.id === hash);
-            if (stepIndex !== -1) {
-                currentStep = stepIndex;
-                steps[currentStep].scrollIntoView({ behavior: 'auto' }); // Snap immediately on load
-                updateProgressBar();
-            }
+        if (["ArrowDown", "PageDown", " "].includes(e.key)) {
+            e.preventDefault();
+            throttleScroll();
+            next();
         }
-    };
 
-    handleInitialHash();
+        if (["ArrowUp", "PageUp"].includes(e.key)) {
+            e.preventDefault();
+            throttleScroll();
+            prev();
+        }
+    });
+
+    // -----------------------------
+    // NEXT / PREV LOGIC
+    // -----------------------------
+    function next() {
+        const id = steps[currentStep].id;
+
+        if (id === "gateB") return nextGateB();
+        if (id === "gateC") return nextGateC();
+        if (id === "gateD") return nextGateD();
+        if (id === "gateE") return nextGateE();
+        if (id === "gateF") return nextGateF();
+
+
+        jumpToStep(currentStep + 1);
+    }
+
+    function prev() {
+        const id = steps[currentStep].id;
+
+        if (id === "gateB") return prevGateB();
+        if (id === "gateC") return prevGateC();
+        if (id === "gateD") return prevGateD();
+        if (id === "gateE") return prevGateE();
+        if (id === "gateF") return prevGateF();
+
+
+        jumpToStep(currentStep - 1);
+    }
+
+    // -----------------------------
+    // GATE B ENGINE
+    // -----------------------------
+    function nextGateB() {
+        if (gateBState === 1) {
+            gateBState = 2;
+            if (typeof zoomToDecember === "function") zoomToDecember();
+            return;
+        }
+        if (gateBState === 2) {
+            gateBState = 3;
+            jumpToStep(currentStep + 1);
+            return;
+        }
+    }
+
+    function prevGateB() {
+        if (gateBState === 2) {
+            gateBState = 1;
+            if (typeof resetZoom === "function") resetZoom();
+            return;
+        }
+        if (gateBState === 1) {
+            jumpToStep(currentStep - 1);
+            return;
+        }
+    }
+
+    // -----------------------------
+    // GATE C ENGINE
+    // -----------------------------
+    function nextGateC() {
+        if (gateCState === 1) {
+            gateCState = 2;
+            showWinterAnnotation();
+            return;
+        }
+        if (gateCState === 2) {
+            gateCState = 3;
+            showSummerAnnotation();
+            return;
+        }
+        if (gateCState === 3) {
+            gateCState = 4;
+            jumpToStep(currentStep + 1);
+            return;
+        }
+    }
+
+    function prevGateC() {
+        if (gateCState === 3) {
+            gateCState = 2;
+            showWinterAnnotation();
+            return;
+        }
+        if (gateCState === 2) {
+            gateCState = 1;
+            clearMonthAnnotations();
+            return;
+        }
+        if (gateCState === 1) {
+            jumpToStep(currentStep - 1);
+            return;
+        }
+    }
+
+    // -----------------------------
+    // GATE D ENGINE (2-step narrative)
+    // -----------------------------
+    function nextGateD() {
+        if (gateDState === 0) {
+            gateDState = 1;
+            showGateDStep(1);  // highlight Week 3
+            return;
+        }
+        if (gateDState === 1) {
+            gateDState = 2;
+            showGateDStep(2); // remove highlight + new annotation
+            return;
+        }
+        if (gateDState === 2) {
+            jumpToStep(currentStep + 1);
+            return;
+        }
+    }
+
+    function prevGateD() {
+        if (gateDState === 2) {
+            gateDState = 1;
+            showGateDStep(1);
+            return;
+        }
+        if (gateDState === 1) {
+            gateDState = 0;
+            showGateDStep(0); // clear annotations + highlight
+            return;
+        }
+        if (gateDState === 0) {
+            jumpToStep(currentStep - 1);
+            return;
+        }
+    }
+
+    // -----------------------------
+    // GATE E ENGINE 
+    // -----------------------------
+    function nextGateE() {
+        if (gateEState < 4) {
+            gateEState++;
+            window.showGateEStep(gateEState);
+            return;
+        }
+        // step 4 already shown, go to next gate
+        jumpToStep(currentStep + 1);
+    }
+
+    function prevGateE() {
+        if (gateEState > 0) {
+            gateEState--;
+            window.showGateEStep(gateEState);
+            return;
+        }
+        jumpToStep(currentStep - 1);
+    }
+
+    // -----------------------------
+    // GATE F ENGINE
+    // -----------------------------
+    function nextGateF() {
+        if (gateFState < 3) {
+            gateFState++;
+            window.showGateFStep(gateFState);
+            return;
+        }
+        jumpToStep(currentStep + 1);
+    }
+
+    function prevGateF() {
+        if (gateFState > 0) {
+            gateFState--;
+            window.showGateFStep(gateFState);
+            return;
+        }
+        jumpToStep(currentStep - 1);
+    }
+
+
+
+    // -----------------------------
+    // Jump to Step
+    // -----------------------------
+    function jumpToStep(index) {
+        if (index < 0 || index >= steps.length) return;
+        currentStep = index;
+
+        const step = steps[currentStep];
+        step.scrollIntoView({ behavior: "smooth" });
+
+        updateProgressBar();
+
+        const id = step.id;
+
+        // Reset gate states properly on entry:
+
+        if (id === "gateB") {
+            gateBState = 1;
+            resetZoom && resetZoom();
+        }
+
+        if (id === "gateC") {
+            gateCState = 1;
+            clearMonthAnnotations && clearMonthAnnotations();
+        }
+
+        if (id === "gateD") {
+            gateDState = 0;
+            showGateDStep(0); // base state
+        }
+
+        if (id === "gateE") {
+            gateEState = 0;
+            window.showGateEStep(0);
+        }
+
+        if (id === "gateF") {
+            gateFState = 0;
+            window.showGateFStep(0);
+        }
+
+
+
+        if (id) history.pushState(null, null, `#${id}`);
+    }
+
+    // -----------------------------
+    // Load URL Hash Deep-Link
+    // -----------------------------
+    const initialHash = window.location.hash.slice(1);
+    if (initialHash) {
+        const idx = [...steps].findIndex(s => s.id === initialHash);
+        if (idx !== -1) {
+            currentStep = idx;
+            steps[idx].scrollIntoView({ behavior: "auto" });
+            updateProgressBar();
+        }
+    }
 });

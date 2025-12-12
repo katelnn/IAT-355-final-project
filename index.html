@@ -169,8 +169,8 @@
 
 
     <!-- line graph thru out the year start. overviewOVerYear.js -->
-    <section class="context" id="gateB" data-step="4">
-      <!-- left gateA budge-->
+    <section class="context-row" id="gateB" data-step="4">
+      <!-- left cute airplane sign-->
       <div class="context-marker">
         <div class="marker-card">
           <div class="marker-top">
@@ -195,7 +195,7 @@
 
           <div class="daily-chart-layout">
 
-            <div class="price-plane-slider-vertical">
+            <!-- <div class="price-plane-slider-vertical">
               <span class="plane-label plane-label-top">Highest</span>
 
               <div class="slider-track-wrapper">
@@ -204,10 +204,20 @@
               </div>
 
               <span class="plane-label plane-label-bottom">Cheapest</span>
-            </div>
+            </div> -->
 
 
             <div id="daily-bar-chart"></div>
+            <div id="bar-tooltip"></div>
+
+            <!-- <div id="time-filter-controls">
+              <div class="slider-track-wrapper-horizontal">
+                <img src="assets/airplane.png" alt="start plane" id="start-plane-handle"
+                  class="plane-handle-horizontal plane-handle-start" />
+                <img src="assets/airplane.png" alt="end plane" id="end-plane-handle"
+                  class="plane-handle-horizontal plane-handle-end" />
+              </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -217,7 +227,19 @@
     </section>
     <!-- line graph thru out the year end-->
 
-    <section class="context" id="gateC" data-step="5">
+    <section class="context-row" id="gateC" data-step="5">
+      <!-- left cute airplane sign-->
+      <div class="context-marker">
+        <div class="marker-card">
+          <div class="marker-top">
+            <span class="marker-arrow">↑</span>
+            <div class="marker-circle">✈︎</div>
+            <span class="marker-number">2</span>
+          </div>
+          <div class="marker-label">year</div>
+        </div>
+      </div>
+
       <div class="context-inner">
         <h2 class="context-title">When Are Flights Cheapest or Most Expensive?</h2>
 
@@ -236,7 +258,19 @@
       </div>
     </section>
 
-    <section class="context" id="gateD" data-step="6">
+    <section class="context-row" id="gateD" data-step="6">
+      <!-- left cute airplane sign-->
+      <div class="context-marker">
+        <div class="marker-card">
+          <div class="marker-top">
+            <span class="marker-arrow">↑</span>
+            <div class="marker-circle">✈︎</div>
+            <span class="marker-number">2</span>
+          </div>
+          <div class="marker-label">year</div>
+        </div>
+      </div>
+
       <div class="context-inner">
         <h2 class="context-title">Now let’s see the data in weeks.</h2>
 
@@ -254,7 +288,20 @@
       </div>
     </section>
 
-    <section class="context" id="gateE" data-step="7">
+    <section class="context-row" id="gateE" data-step="7">
+
+      <!-- left cute airplane sign-->
+      <div class="context-marker">
+        <div class="marker-card">
+          <div class="marker-top">
+            <span class="marker-arrow">↑</span>
+            <div class="marker-circle">✈︎</div>
+            <span class="marker-number">2</span>
+          </div>
+          <div class="marker-label">year</div>
+        </div>
+      </div>
+
       <div class="context-inner">
         <h2 class="context-title">Now let’s see the data in days of the week.</h2>
 
@@ -264,15 +311,39 @@
           ticket price is higher, while lighter cells indicate cheaper days to fly.
         </p>
 
-        <h3 class="context-subtitle">
-          Calendar Heatmap of Average Lowest Ticket Prices by Month and Day of Week
-        </h3>
+        <div class="context-heatmap">
+          <div class="heatmap-lowest">
+            <h3 class="context-subtitle">
+              Calendar Heatmap of Average Lowest Ticket Prices by Month and Day of Week
+            </h3>
+            <div id="daily-heatmap-chart-lowest"></div>
+          </div>
 
-        <div id="daily-heatmap-chart"></div>
+          <div class="heatmap-highest">
+            <h3 class="context-subtitle">
+              Calendar Heatmap of Average Highest Ticket Prices by Month and Day of Week
+            </h3>
+            <div id="daily-heatmap-chart-highest"></div>
+          </div>
+
+        </div>
+        <div id="heatmap-description"></div>
       </div>
     </section>
 
-    <section class="context" id="gateF" data-step="8">
+    <section class="context-row" id="gateF" data-step="8">
+
+      <!-- left cute airplane sign-->
+      <div class="context-marker">
+        <div class="marker-card">
+          <div class="marker-top">
+            <span class="marker-arrow">↑</span>
+            <div class="marker-circle">✈︎</div>
+            <span class="marker-number">2</span>
+          </div>
+          <div class="marker-label">year</div>
+        </div>
+      </div>
       <div class="context-inner">
         <h2 class="context-title">Now let’s see the data in time of the day.</h2>
 
@@ -287,6 +358,8 @@
         </h3>
 
         <div id="tod-scatter-chart"></div>
+        <div id="tod-tooltip" class="bc-tooltip"></div>
+        <div id="tod-scatter-chart-desc"></div>
       </div>
     </section>
 
@@ -297,12 +370,15 @@
 
   <!-- Visualization code -->
   <script src="js\skyHeroImage.js"></script>
-  <script src="js\gradsFromBCToON.js"></script>
-  <script src="js\overviewOverYear.js"></script>
-  <script src="js\monthOfTheYear.js"></script>
-  <script src="js\weekOfTheMonth.js"></script>
-  <script src="js\calendarHeatmap.js"></script>
-  <script src="js\DayOfTheWeek.js"></script>
+  <script src="js\gateAGradsFromBC.js"></script>
+  <script src="js\gateBOverviewOverYear.js"></script>
+  <script src="js\gateCMonthOfTheYear.js"></script>
+  <script src="js\gateDWeekOfTheMonth.js"></script>
+  <script src="js\gateECalendarHeatmapLowest.js"></script>
+  <script src="js\gateECalendarHeatmapHighest.js"></script>
+  <script src="js\gateEHeatmapDesc.js"></script>
+  <script src="js\gateFDayOfTheWeek.js"></script>
+  <script src="js\gateFDesc"></script>
 
   <!-- page interactivity (your smooth scroll etc.) -->
   <script src="js\main.js"></script>

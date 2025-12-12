@@ -8,10 +8,12 @@
 body {
   margin: 0;
   padding: 0;
-  background: #f9fafb; /* light grey */
+  background: #f9fafb;
+  /* light grey */
   font-family: "Bricolage Grotesque", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
-  color: #0f172a; /* dark navy text */
+  color: #0f172a;
+  /* dark navy text */
 }
 
 /* Layout is a vertical stack */
@@ -25,6 +27,7 @@ body {
   max-width: 960px;
   margin: 0 auto;
   padding: 80px 7vw 56px;
+  flex-direction: column;
 }
 
 .hero-title {
@@ -36,7 +39,8 @@ body {
 
 /* Highlighted words in hero */
 .highlight {
-  background-color: #dbeafe; /* soft blue highlight */
+  background-color: #dbeafe;
+  /* soft blue highlight */
   padding: 0 0.2em;
   border-radius: 4px;
   box-decoration-break: clone;
@@ -51,85 +55,152 @@ body {
 }
 
 /* ---------- EACH FRAME (gateA, gateB, gateC...) ---------- */
-#toc-board, #gateB, #gateD, #gateF{
+#toc-board,
+#gateB,
+#gateD,
+#gateF {
   background-color: #f9fafb;
 
 }
 
-#hero-main, #context, #toc-board, #gateA, #gateB, #gateC, #gateD, #gateE, #gateF{
-  height:100vh;
+#hero-main,
+#context,
+#toc-board,
+#gateA,
+#gateF {
+  height: 100vh;
+  display: flex;
 }
 
-/* -------------- progress bar ----------------- */
-
-/* General scroll snap behavior */
-/* Important: This often interferes with smooth scroll scripts, but is worth trying if the JS is buggy */
-/*
-body {
-    scroll-snap-type: y mandatory;
-    overflow-y: scroll;
+/* Make Gate B a tall scroll section for the scrolly story */
+#gateB {
+  height: 200vh;
+  position: relative;
 }
-[data-step] {
-    scroll-snap-align: start;
-    min-height: 100vh; /* Ensure each section takes up the full viewport height */
+
+
+/* Keep the inner content fixed while gateB scrolls behind it */
+#gateB .context-inner,
+#gateB .context-marker {
+  position: sticky;
+  top: 80px;
+}
+
+#gateC,
+#gateD {
+  height: 300vh;
+  position: relative;
+}
+
+#gateC .context-inner,
+#gateC .context-marker {
+  position: sticky;
+  top: 80px;
+}
+
+#gateD .context-inner,
+#gateD .context-marker {
+  position: sticky;
+  top: 80px;
+}
+
+#gateD #gateD-annotation {
+  z-index: 999999;
+  /* bring in front of sticky container */
+}
+
+#gateE {
+  height:500vh;
+}
+
+#gateE .context-inner,
+#gateE .context-marker {
+  position: sticky;
+  top: 80px;
+}
+
+#gateE .context-heatmap{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#gateF {
+  height:400vh;
+}
+
+#gateF .context-inner,
+#gateF .context-marker {
+  position: sticky;
+  top: 80px;
+}
+
+
 
 
 /* Progress Bar Styling */
 #progress-bar {
-    position: fixed;
-    top: 50%; /* Center vertically */
-    right: 20px;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 1000;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
-    transition: opacity 0.3s;
+  position: fixed;
+  top: 50%;
+  /* Center vertically */
+  right: 20px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  transition: opacity 0.3s;
 }
 
 #progress-bar.hide {
-    opacity: 0; /* Hide on the first step */
-    pointer-events: none; /* Make sure it doesn't block clicks */
+  opacity: 0;
+  /* Hide on the first step */
+  pointer-events: none;
+  /* Make sure it doesn't block clicks */
 }
 
 .progress-item {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #ccc;
-    border: 2px solid #aaa;
-    cursor: pointer;
-    position: relative;
-    transition: background-color 0.3s, border-color 0.3s;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  border: 2px solid #aaa;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .progress-item.active {
-    background-color: #007bff; /* Bright blue for active step */
-    border-color: #0056b3;
-    transform: scale(1.2); /* Highlight active dot */
+  background-color: #007bff;
+  /* Bright blue for active step */
+  border-color: #0056b3;
+  transform: scale(1.2);
+  /* Highlight active dot */
 }
 
 /* Tooltip (Step Name/ID) */
 .progress-item span {
-    position: absolute;
-    right: 20px; /* Position to the left of the dot */
-    top: 50%;
-    transform: translateY(-50%);
-    background: #333;
-    color: white;
-    padding: 3px 8px;
-    border-radius: 3px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
+  position: absolute;
+  right: 20px;
+  /* Position to the left of the dot */
+  top: 50%;
+  transform: translateY(-50%);
+  background: #333;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
 }
 
 .progress-item:hover span {
-    opacity: 1; /* Show tooltip on hover */
+  opacity: 1;
+  /* Show tooltip on hover */
 }
 
 /* ---------- CONTEXT + CHART SECTION ---------- */
@@ -142,7 +213,7 @@ body {
 .context-inner {
   max-width: 1500px;
   margin: 0 auto;
-  padding: 0 1vw;
+  padding: 0 0.7vw;
 }
 
 .context-title {
@@ -172,8 +243,107 @@ body {
 
 /* Tooltip from vis.js */
 .bc-tooltip {
-  z-index: 20;
+  z-index: 999999 !important;
 }
+
+/* plane sliders */
+
+/* Optional: make sure container doesn't overflow */
+#daily-bar-chart {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  position: relative;
+}
+
+#bar-tooltip {
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Slider track inside SVG */
+.slider-track {
+  fill: #ddd;
+  opacity: 0.8;
+}
+
+/* Bar styling is handled in JS via .bar-lowest and .bar-highest */
+.bar-lowest {
+  fill: #0ea5e9;
+}
+
+.bar-highest {
+  fill: #f97316;
+}
+
+/* Optional: cursor for plane handles (inside SVG) */
+.plane-plane-start,
+.plane-plane-end {
+  cursor: ew-resize;
+}
+
+/* Legend text */
+#daily-bar-chart text {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+#bar-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 99999;
+}
+
+
+
+
+/* #time-filter-controls {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 0;
+  z-index: 5;
+}
+
+.slider-track-wrapper-horizontal {
+  position: absolute;
+
+  left: 70px;
+  right: 30px;
+  top: 15px;
+  transform: translateY(-50%);
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 4px;
+
+}
+
+.plane-handle-horizontal {
+  position: absolute;
+  width: 40px;
+  height: auto;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor:grab;
+  pointer-events:auto;
+  z-index: 6;
+}
+
+.plane-handle-start {
+  transform: translate(-50%, -50%) rotate(0.25turn);
+}
+
+.plane-handle-end {
+  transform: translate(-50%, -50%) rotate(0.75turn);
+} */
 
 /* ----- CHART + CONTROL LAYOUT ----- */
 
@@ -200,7 +370,7 @@ body {
   display: inline-block;
   padding: 4px 10px;
   margin-bottom: 8px;
-  background: #dbeafe;         
+  background: #dbeafe;
   border-radius: 4px;
   font-weight: 600;
   font-size: 0.9rem;
@@ -235,12 +405,25 @@ body {
 }
 
 #weekly-price-chart {
-  margin-top: 8px;
+  position: relative;
 }
+
+
 
 #daily-heatmap-chart {
   margin-top: 8px;
+  position: relative;
+  overflow: visible;
+  /* <- prevents clipping */
+  z-index: 9999;
 }
+
+.bc-tooltip {
+  position: absolute;
+  z-index: 999999 !important;
+  pointer-events: none;
+}
+
 
 #tod-scatter-chart {
   margin-top: 8px;
@@ -280,18 +463,21 @@ body {
   position: relative;
   margin-top: 16px;
   border-radius: 16px;
-  overflow: hidden;      /* 雲がはみ出さないように */
+  overflow: hidden;
+  /* 雲がはみ出さないように */
 }
 
 
 /* 既に使っているやつだけど、ここで一行追加 */
 .daily-chart-layout {
   position: relative;
-  z-index: 1;           /* 雲より前に出す */
+  z-index: 1;
+  /* 雲より前に出す */
   display: flex;
   gap: 16px;
   align-items: flex-start;
-  padding: 16px 20px;   /* 雲の上に少し余白 */
+  padding: 16px 20px;
+  /* 雲の上に少し余白 */
 }
 
 /* 縦スライダー系は前と同じでOK（参考用） */
@@ -320,13 +506,11 @@ body {
   bottom: 4px;
   transform: translateX(-50%);
   width: 4px;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    #ffffff 0px,
-    #ffffff 8px,
-    transparent 8px,
-    transparent 14px
-  );
+  background-image: repeating-linear-gradient(to bottom,
+      #ffffff 0px,
+      #ffffff 8px,
+      transparent 8px,
+      transparent 14px);
   opacity: 0.9;
 }
 
@@ -357,12 +541,14 @@ body {
 /* 👇 ここが "runway" になる部分 */
 .slider-track-wrapper {
   position: relative;
-  width: 32px;     /* 細めの縦長滑走路 */
+  width: 32px;
+  /* 細めの縦長滑走路 */
   /* height は JS からグラフの高さに合わせて上書きされる */
   margin: 4px 0;
 
   /* 滑走路本体 */
-  background-color: #111827;   /* 濃いグレー */
+  background-color: #111827;
+  /* 濃いグレー */
   /*border-radius: 999px;         丸いエッジ */
   overflow: hidden;
 }
@@ -376,13 +562,11 @@ body {
   bottom: 4px;
   transform: translateX(-50%);
   width: 4px;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    #ffffff 0px,
-    #ffffff 8px,
-    transparent 8px,
-    transparent 14px
-  );
+  background-image: repeating-linear-gradient(to bottom,
+      #ffffff 0px,
+      #ffffff 8px,
+      transparent 8px,
+      transparent 14px);
   opacity: 0.9;
 }
 
@@ -419,11 +603,14 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 50px;          /* 画像の表示サイズ（お好みで） */
+  width: 50px;
+  /* 画像の表示サイズ（お好みで） */
   height: auto;
-  pointer-events: none; /* ドラッグはトラック側で取るからそのままでOK */
+  pointer-events: none;
+  /* ドラッグはトラック側で取るからそのままでOK */
   transition: top 0.2s ease;
 }
+
 body {
   font-family: "Inter", sans-serif;
   background: #e9f3ff;
@@ -579,9 +766,11 @@ html {
   0% {
     transform: rotateX(0deg);
   }
+
   50% {
     transform: rotateX(90deg);
   }
+
   100% {
     transform: rotateX(0deg);
   }
@@ -596,7 +785,8 @@ body {
 
 /* セクション全体 */
 .hero {
-  padding: 80px 80px 40px;   /* 上に余白を増やす → 飛行機が来るスペース */
+  padding: 80px 80px 40px;
+  /* 上に余白を増やす → 飛行機が来るスペース */
 }
 
 /* タイトルブロック（固定であまり動かない） */
@@ -626,19 +816,23 @@ body {
 /* 雲＋飛行機エリア：タイトルの少し下に独立させる */
 .hero-sky {
   position: relative;
-  margin: 0 auto 0;   /* タイトルとの間にスペース */
+  margin: 0 auto 0;
+  /* タイトルとの間にスペース */
   width: 100%;
   max-width: 1100px;
-  height: 360px;         /*アニメーションが見える高さ*/
-  overflow: hidden;      /* 雲が外に出ないように */
+  height: 360px;
+  /*アニメーションが見える高さ*/
+  overflow: hidden;
+  /* 雲が外に出ないように */
   border-radius: 24px;
 }
 
 /* 雲 */
 .cloud {
   position: absolute;
-  bottom: -70px;         /* ちょっと下からモクモク出る感じ */
-  
+  bottom: -70px;
+  /* ちょっと下からモクモク出る感じ */
+
   max-width: none;
   pointer-events: none;
 }
@@ -646,14 +840,18 @@ body {
 .cloud-left {
   left: -18%;
   z-index: 3;
-  width: 95%;     /* ← cloud.png を 80% のサイズに */
-  left: -10%;     /* 小さくすると位置も調整したほうが自然 */
+  width: 95%;
+  /* ← cloud.png を 80% のサイズに */
+  left: -10%;
+  /* 小さくすると位置も調整したほうが自然 */
 }
 
 .cloud-right {
   right: -18%;
-  width: 90%;     /* ← cloud1/cloud2 を 40% に */
-  right: -5%;     /* 小さくなったぶん中央に寄せる */
+  width: 90%;
+  /* ← cloud1/cloud2 を 40% に */
+  right: -5%;
+  /* 小さくなったぶん中央に寄せる */
   transform: scaleX(-1);
   z-index: 1;
 }
@@ -674,11 +872,20 @@ body {
 .departure-section {
   margin-top: 40px;
 }
+
 .vis-row {
   display: flex;
   gap: 24px;
   align-items: flex-start;
   margin-top: 1.5rem;
+}
+
+.vis-panel {
+  height: 100%;
+}
+
+#bc-share-chart {
+  flex-grow: 1;
 }
 
 #canada-map {
@@ -709,20 +916,34 @@ body {
 .bc-point:hover {
   cursor: pointer;
 }
+
 /* 全体レイアウト：左ラベル + 右コンテンツ */
 .context-row {
   display: flex;
+  flex-direction: row;
   gap: 16px;
-  align-items: flex-start;
   max-width: 1200px;
-  margin: 80px auto;   /* セクション間の余白 */
+  margin: 0 auto;
+  /* セクション間の余白 */
+  justify-content: flex-start;
 }
+
+section.context-row#gateA {
+  align-items: center;
+}
+
+section.context-row#gateB,
+section.context-row#gateC,
+section.context-row#gateD,
+section.context-row#gateE,
+section.context-row#gateF {
+  align-items: flex-start;
+}
+
 
 /* 左のカラム（ラベル部分） */
 .context-marker {
-  width: 140px;        /* 左の幅 */
-  display: flex;
-  justify-content: flex-end;
+  width: 140px;
 }
 
 /* 右側メインコンテンツ */
@@ -732,7 +953,8 @@ body {
 
 /* バッジ本体 */
 .marker-card {
-  background: #305e5e;           /* 緑がかった背景 */
+  background: #305e5e;
+  /* 緑がかった背景 */
   border-radius: 6px;
   padding: 10px 16px;
   display: inline-flex;
@@ -765,7 +987,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;       /* ✈︎ の大きさ */
+  font-size: 28px;
+  /* ✈︎ の大きさ */
   color: #000000;
 }
 
