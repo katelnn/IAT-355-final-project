@@ -125,6 +125,16 @@ body {
   gap: 10px;
 }
 
+#gateF {
+  height:400vh;
+}
+
+#gateF .context-inner,
+#gateF .context-marker {
+  position: sticky;
+  top: 80px;
+}
+
 
 
 
@@ -233,7 +243,7 @@ body {
 
 /* Tooltip from vis.js */
 .bc-tooltip {
-  z-index: 20;
+  z-index: 999999 !important;
 }
 
 /* plane sliders */

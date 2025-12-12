@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let gateCState = 1;   // 1 = clear, 2 = winter, 3 = summer, 4 = exit
     let gateDState = 0;   // 0 = base, 1 = highlight, 2 = post-highlight
     let gateEState = 0;
+    let gateFState = 0;
 
 
     // -----------------------------
@@ -84,6 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (id === "gateC") return nextGateC();
         if (id === "gateD") return nextGateD();
         if (id === "gateE") return nextGateE();
+        if (id === "gateF") return nextGateF();
 
 
         jumpToStep(currentStep + 1);
@@ -96,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (id === "gateC") return prevGateC();
         if (id === "gateD") return prevGateD();
         if (id === "gateE") return prevGateE();
+        if (id === "gateF") return prevGateF();
 
 
         jumpToStep(currentStep - 1);
@@ -226,6 +229,28 @@ document.addEventListener("DOMContentLoaded", () => {
         jumpToStep(currentStep - 1);
     }
 
+    // -----------------------------
+    // GATE F ENGINE
+    // -----------------------------
+    function nextGateF() {
+        if (gateFState < 3) {
+            gateFState++;
+            window.showGateFStep(gateFState);
+            return;
+        }
+        jumpToStep(currentStep + 1);
+    }
+
+    function prevGateF() {
+        if (gateFState > 0) {
+            gateFState--;
+            window.showGateFStep(gateFState);
+            return;
+        }
+        jumpToStep(currentStep - 1);
+    }
+
+
 
     // -----------------------------
     // Jump to Step
@@ -262,6 +287,12 @@ document.addEventListener("DOMContentLoaded", () => {
             gateEState = 0;
             window.showGateEStep(0);
         }
+
+        if (id === "gateF") {
+            gateFState = 0;
+            window.showGateFStep(0);
+        }
+
 
 
         if (id) history.pushState(null, null, `#${id}`);
