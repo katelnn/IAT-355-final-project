@@ -27,8 +27,10 @@
           <span class="highlight">Toronto</span>
         </h1>
         <p class="hero-subtitle">What’s the Pattern in These Flights?</p>
-        <p class="context-text">Add more context here... what dataset are we using? What's the purpose? Then add
-          conclusion. </p>
+        <p class="context-text">Are you a post-secondary student, with home in Vancouver, but school in Toronto? Have
+          you ever wondered how the prices fluctuate over the year? We have done the research for you, for the
+          <strong>year of 2026!</strong>
+        </p>
       </div>
 
 
@@ -37,29 +39,54 @@
         <img src="assets/cloud.png" alt="cloud right" class="cloud cloud-right" />
         <img src="assets/airline2.png" alt="airplane" class="plane" />
       </div>
+
+      <div class="hero-scroll-hint" id="hero-scroll-hint">
+        <div class="scroll-text">Use Arrow Key or Scroll Down!</div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+        </svg>
+      </div>
+
     </section>
 
-    <section id="context" data-step="1">
-      <div class="hero-text">
-        <h1 class="hero-title">
-          Where are we pulling the data from?
-        </h1>
-        <p class="hero-subtitle">What’s the Pattern in These Flights?</p>
-        <p class="context-text">Add more context here... what dataset are we using? What's the purpose? Then add
-          conclusion. </p>
-      </div>
-      <div class="hero-text">
-        <h1 class="hero-title">
-          Why does it matter?
-        </h1>
-        <p class="hero-subtitle">What’s the Pattern in These Flights?</p>
-        <p class="context-text">Add more context here... what dataset are we using? What's the purpose? Then add
-          conclusion. </p>
+    <section class="context-row" id="context" data-step="1">
+      <div class="context-container">
+
+        <div class="hero-text">
+          <h1 class="hero-title">
+            Why does it matter?
+          </h1>
+          <p class="hero-subtitle">Domestic flights have stayed unaffordable even after COVID-19.</p>
+          <p class="context-text">According to a <a
+              href="https://www.cbc.ca/news/canada/affordable-vacation-canada-1.7588565">CBC
+              article</a> published in July 2025, air travel industry in Canada is
+            still recovering from financial losses during COVID-19 pandemic. When
+            faced with growing demand despite inflation and increased costs of
+            operations, the flights have become increasingly expensive in 2025. We
+            imagined that this would pose stress on students who have to regularly
+            take domestic flights.
+
+          <p class="hero-subtitle">These visualizations would encourage informed choices.</p>
+          <p class="context-text">The goal of this visualization is to help
+            frequent travellers to Toronto make <strong>more strategic choices</strong> when
+            planning their trips.</p>
+        </div>
+        <div class="hero-text">
+          <h1 class="hero-title">
+            Where are we pulling the data from?
+          </h1>
+          <p class="hero-subtitle">We have built the dataset by ourselves!</p>
+          <p class="context-text">We did not have a dataset sourced online as we
+          were not able to find any dataset that lists daily flight prices.The
+          data have been manually collected from Google Flights and SkyScanner search platforms.</p>
+        </div>
       </div>
     </section>
 
 
-    <section class="context" id="toc-board" data-step="2">
+    <section class="context-row" id="toc-board" data-step="2">
       <div class="board-shell">
 
         <!-- Top blue bar -->
@@ -360,6 +387,28 @@
         <div id="tod-scatter-chart"></div>
         <div id="tod-tooltip" class="bc-tooltip"></div>
         <div id="tod-scatter-chart-desc"></div>
+      </div>
+    </section>
+
+    <section class="context-row" id="conclusion" data-step="1">
+      <div class="context-container">
+
+        <div class="hero-text">
+          <h1 class="hero-title">
+            Where are we pulling the data from?
+          </h1>
+          <p class="hero-subtitle">What’s the Pattern in These Flights?</p>
+          <p class="context-text">Add more context here... what dataset are we using? What's the purpose? Then add
+            conclusion. </p>
+        </div>
+        <div class="hero-text">
+          <h1 class="hero-title">
+            Why does it matter?
+          </h1>
+          <p class="hero-subtitle">What’s the Pattern in These Flights?</p>
+          <p class="context-text">Add more context here... what dataset are we using? What's the purpose? Then add
+            conclusion. </p>
+        </div>
       </div>
     </section>
 

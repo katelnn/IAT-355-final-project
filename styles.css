@@ -54,6 +54,21 @@ body {
   color: #1e293b;
 }
 
+/* ---------------------- context, conclusion -------------------- */
+#context .context-container,
+#conclusion .context-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+#context .hero-text,
+#conclusion .hero-text {
+  flex: 1;
+}
+
 /* ---------- EACH FRAME (gateA, gateB, gateC...) ---------- */
 #toc-board,
 #gateB,
@@ -67,9 +82,60 @@ body {
 #context,
 #toc-board,
 #gateA,
-#gateF {
+#gateF,
+#conclusion {
   height: 100vh;
   display: flex;
+}
+
+#hero-main {
+  position: relative;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 20;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hero-scroll-hint svg {
+  width: 26px;
+  height: 26px;
+  color: #0f172a;
+  animation: chevron-bounce 1.8s infinite;
+  transition: transform 0.2s ease;
+}
+
+.hero-scroll-hint:hover {
+  transform: translateX(-50%) scale(1.1);
+}
+
+.hero-scroll-hint:hover svg {
+  transform: scale(1.1);
+}
+
+.scroll-text {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  letter-spacing: 0.02em;
+}
+
+@keyframes chevron-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
 }
 
 /* Make Gate B a tall scroll section for the scrolly story */
@@ -77,6 +143,7 @@ body {
   height: 200vh;
   position: relative;
 }
+
 
 
 /* Keep the inner content fixed while gateB scrolls behind it */
@@ -110,7 +177,7 @@ body {
 }
 
 #gateE {
-  height:500vh;
+  height: 500vh;
 }
 
 #gateE .context-inner,
@@ -119,14 +186,14 @@ body {
   top: 80px;
 }
 
-#gateE .context-heatmap{
+#gateE .context-heatmap {
   display: flex;
   flex-direction: row;
   gap: 10px;
 }
 
 #gateF {
-  height:400vh;
+  height: 400vh;
 }
 
 #gateF .context-inner,
