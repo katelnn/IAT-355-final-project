@@ -79,77 +79,80 @@
           </h1>
           <p class="hero-subtitle">We have built the dataset by ourselves!</p>
           <p class="context-text">We did not have a dataset sourced online as we
-          were not able to find any dataset that lists daily flight prices. The
-          data has been manually collected from Google Flights and SkyScanner search platforms.</p>
+            were not able to find any dataset that lists daily flight prices. The
+            data has been manually collected from Google Flights and SkyScanner search platforms.</p>
         </div>
       </div>
     </section>
 
 
     <section class="context-row" id="toc-board" data-step="2">
-      <div class="board-shell">
+      <div class="context-container">
 
-        <!-- Top blue bar -->
-        <div class="board-top">
-          <div class="board-brand">
-            <span class="brand-logo">✈︎</span>
-            <span class="brand-name">YVR → YYZ</span>
+        <div class="board-shell">
+
+          <!-- Top blue bar -->
+          <div class="board-top">
+            <div class="board-brand">
+              <span class="brand-logo">✈︎</span>
+              <span class="brand-name">YVR → YYZ</span>
+            </div>
+            <div class="board-title">DEPARTURES</div>
+            <div class="board-meta">Flight Price Views</div>
           </div>
-          <div class="board-title">DEPARTURES</div>
-          <div class="board-meta">Flight Price Views</div>
+
+          <!-- Header row -->
+          <div class="board-header-row">
+            <div class="col time">TIME</div>
+            <div class="col gate">GATE</div>
+            <div class="col dest">DESTINATION</div>
+            <div class="col info">DETAILS</div>
+          </div>
+
+          <!-- Rows (click to scroll) -->
+          <button class="board-row" data-target="gateA">
+            <div class="col time">08:00</div>
+            <div class="col gate">Gate A</div>
+            <div class="col dest">Home in vancouver→Study in Toronto</div>
+            <div class="col info">Line graph</div>
+          </button>
+
+          <button class="board-row" data-target="gateB">
+            <div class="col time">09:15</div>
+            <div class="col gate">Gate B</div>
+            <div class="col dest">Daily Highlight & Lowest Price</div>
+            <div class="col info">Bar graph in Nov 2025 to Oct 2026 comparisons</div>
+          </button>
+
+          <button class="board-row" data-target="gateC">
+            <div class="col time">10:30</div>
+            <div class="col gate">Gate C</div>
+            <div class="col dest">Data in weeks</div>
+            <div class="col info">Bar graph in Mon–Sun cheapest days</div>
+          </button>
+
+          <button class="board-row" data-target="gateD">
+            <div class="col time">11:45</div>
+            <div class="col gate">Gate D</div>
+            <div class="col dest">Days of the week</div>
+            <div class="col info">Calender heatmap of average lowest ticket price</div>
+          </button>
+
+          <button class="board-row" data-target="gateE">
+            <div class="col time">13:00</div>
+            <div class="col gate">Gate E</div>
+            <div class="col dest">time of the day</div>
+            <div class="col info">Ticket prices by time of day</div>
+          </button>
+
+          <button class="board-row" data-target="gateF">
+            <div class="col time">14:45</div>
+            <div class="col gate">Gate F</div>
+            <div class="col dest">Conclusion</div>
+            <div class="col info">When to buy a ticket</div>
+          </button>
+
         </div>
-
-        <!-- Header row -->
-        <div class="board-header-row">
-          <div class="col time">TIME</div>
-          <div class="col gate">GATE</div>
-          <div class="col dest">DESTINATION</div>
-          <div class="col info">DETAILS</div>
-        </div>
-
-        <!-- Rows (click to scroll) -->
-        <button class="board-row" data-target="gateA">
-          <div class="col time">08:00</div>
-          <div class="col gate">Gate A</div>
-          <div class="col dest">Home in vancouver→Study in Toronto</div>
-          <div class="col info">Line graph</div>
-        </button>
-
-        <button class="board-row" data-target="gateB">
-          <div class="col time">09:15</div>
-          <div class="col gate">Gate B</div>
-          <div class="col dest">Daily Highlight & Lowest Price</div>
-          <div class="col info">Bar graph in Nov 2025 to Oct 2026 comparisons</div>
-        </button>
-
-        <button class="board-row" data-target="gateC">
-          <div class="col time">10:30</div>
-          <div class="col gate">Gate C</div>
-          <div class="col dest">Data in weeks</div>
-          <div class="col info">Bar graph in Mon–Sun cheapest days</div>
-        </button>
-
-        <button class="board-row" data-target="gateD">
-          <div class="col time">11:45</div>
-          <div class="col gate">Gate D</div>
-          <div class="col dest">Days of the week</div>
-          <div class="col info">Calender heatmap of average lowest ticket price</div>
-        </button>
-
-        <button class="board-row" data-target="gateE">
-          <div class="col time">13:00</div>
-          <div class="col gate">Gate E</div>
-          <div class="col dest">time of the day</div>
-          <div class="col info">Ticket prices by time of day</div>
-        </button>
-
-        <button class="board-row" data-target="gateF">
-          <div class="col time">14:45</div>
-          <div class="col gate">Gate F</div>
-          <div class="col dest">Conclusion</div>
-          <div class="col info">When to buy a ticket</div>
-        </button>
-
       </div>
     </section>
 
@@ -197,56 +200,60 @@
 
     <!-- line graph thru out the year start. overviewOVerYear.js -->
     <section class="context-row" id="gateB" data-step="4">
-      <!-- left cute airplane sign-->
-      <div class="context-marker">
-        <div class="marker-card">
-          <div class="marker-top">
-            <span class="marker-arrow">↑</span>
-            <div class="marker-circle">✈︎</div>
-            <span class="marker-number">2</span>
+      <div class="context-container">
+
+        <!-- left cute airplane sign-->
+        <div class="context-marker">
+          <div class="marker-card">
+            <div class="marker-top">
+              <span class="marker-arrow">↑</span>
+              <div class="marker-circle">✈︎</div>
+              <span class="marker-number">2</span>
+            </div>
+            <div class="marker-label">Year</div>
           </div>
-          <div class="marker-label">Year</div>
         </div>
-      </div>
 
-      <div class="context-inner">
-        <h2 class="context-title">Overview of Price Fluctuations</h2>
-        <p class="context-text">
-          This line graph visualizes how the cheapest and most expensive ticket
-          prices changed each day from Nov 2025 to Oct 2026.
-        </p>
-
-
-        <div class="cloud-chart-wrapper">
+        <div class="context-inner">
+          <h2 class="context-title">Overview of Price Fluctuations</h2>
+          <p class="context-text">
+            This line graph visualizes how the cheapest and most expensive ticket
+            prices changed each day from Nov 2025 to Oct 2026.
+          </p>
 
 
-          <div class="daily-chart-layout">
+          <div class="cloud-chart-wrapper">
 
-            <!-- <div class="price-plane-slider-vertical">
-              <span class="plane-label plane-label-top">Highest</span>
 
-              <div class="slider-track-wrapper">
-                <img src="assets/airplane.png" alt="plane" id="plane-handle" class="plane-handle" />
+            <div class="daily-chart-layout">
+
+              <!-- <div class="price-plane-slider-vertical">
+                <span class="plane-label plane-label-top">Highest</span>
+                
+                <div class="slider-track-wrapper">
+                  <img src="assets/airplane.png" alt="plane" id="plane-handle" class="plane-handle" />
                 <input type="range" id="price-mode-slider" min="0" max="10" step="1" value="0" />
               </div>
-
+              
               <span class="plane-label plane-label-bottom">Cheapest</span>
             </div> -->
 
 
-            <div id="daily-bar-chart"></div>
-            <div id="bar-tooltip"></div>
+              <div id="daily-bar-chart"></div>
+              <div id="bar-tooltip"></div>
 
-            <!-- <div id="time-filter-controls">
+              <!-- <div id="time-filter-controls">
               <div class="slider-track-wrapper-horizontal">
                 <img src="assets/airplane.png" alt="start plane" id="start-plane-handle"
-                  class="plane-handle-horizontal plane-handle-start" />
+                class="plane-handle-horizontal plane-handle-start" />
                 <img src="assets/airplane.png" alt="end plane" id="end-plane-handle"
-                  class="plane-handle-horizontal plane-handle-end" />
+                class="plane-handle-horizontal plane-handle-end" />
               </div>
             </div> -->
+            </div>
           </div>
         </div>
+
       </div>
     </section>
 
@@ -286,35 +293,38 @@
     </section>
 
     <section class="context-row" id="gateD" data-step="6">
-      <!-- left cute airplane sign-->
-      <div class="context-marker">
-        <div class="marker-card">
-          <div class="marker-top">
-            <span class="marker-arrow">↑</span>
-            <div class="marker-circle">✈︎</div>
-            <span class="marker-number">4</span>
+      <div class="context-container">
+
+        <!-- left cute airplane sign-->
+        <div class="context-marker">
+          <div class="marker-card">
+            <div class="marker-top">
+              <span class="marker-arrow">↑</span>
+              <div class="marker-circle">✈︎</div>
+              <span class="marker-number">4</span>
+            </div>
+            <div class="marker-label">Week</div>
           </div>
-          <div class="marker-label">Week</div>
         </div>
-      </div>
 
-      <div class="context-inner">
-        <h2 class="context-title">Now let’s see the data in weeks.</h2>
+        <div class="context-inner">
+          <h2 class="context-title">Now let’s see the data in weeks.</h2>
 
-        <p class="context-text">
-          Here we group all flights by the week of the month they were searched.
-          This helps reveal whether tickets tend to be cheaper at the beginning or
-          end of each month.
-        </p>
+          <p class="context-text">
+            Here we group all flights by the week of the month they were searched.
+            This helps reveal whether tickets tend to be cheaper at the beginning or
+            end of each month.
+          </p>
 
-        <h3 class="context-subtitle">
-          Average Lowest and Highest Ticket Prices by Week of the Month
-        </h3>
+          <h3 class="context-subtitle">
+            Average Lowest and Highest Ticket Prices by Week of the Month
+          </h3>
 
-        <div id="weekly-price-chart"></div>
-      </div>
+          <div id="weekly-price-chart"></div>
+        </div>
     </section>
 
+    </div>
     <section class="context-row" id="gateE" data-step="7">
 
       <!-- left cute airplane sign-->
@@ -359,34 +369,36 @@
     </section>
 
     <section class="context-row" id="gateF" data-step="8">
+      <div class="context-container">
 
-      <!-- left cute airplane sign-->
-      <div class="context-marker">
-        <div class="marker-card">
-          <div class="marker-top">
-            <span class="marker-arrow">↑</span>
-            <div class="marker-circle">✈︎</div>
-            <span class="marker-number">6</span>
+        <!-- left cute airplane sign-->
+        <div class="context-marker">
+          <div class="marker-card">
+            <div class="marker-top">
+              <span class="marker-arrow">↑</span>
+              <div class="marker-circle">✈︎</div>
+              <span class="marker-number">6</span>
+            </div>
+            <div class="marker-label">Time</div>
           </div>
-          <div class="marker-label">Time</div>
         </div>
-      </div>
-      <div class="context-inner">
-        <h2 class="context-title">Now let’s see the data in time of the day.</h2>
+        <div class="context-inner">
+          <h2 class="context-title">Now let’s see the data in time of the day.</h2>
 
-        <p class="context-text">
-          Each point represents a flight we searched, plotted by its departure time
-          and ticket price. This lets us see whether certain times of day tend to
-          be cheaper or more expensive to fly from Vancouver to Toronto.
-        </p>
+          <p class="context-text">
+            Each point represents a flight we searched, plotted by its departure time
+            and ticket price. This lets us see whether certain times of day tend to
+            be cheaper or more expensive to fly from Vancouver to Toronto.
+          </p>
 
-        <h3 class="context-subtitle">
-          Ticket Prices by Time of Day
-        </h3>
+          <h3 class="context-subtitle">
+            Ticket Prices by Time of Day
+          </h3>
 
-        <div id="tod-scatter-chart"></div>
-        <div id="tod-tooltip" class="bc-tooltip"></div>
-        <div id="tod-scatter-chart-desc"></div>
+          <div id="tod-scatter-chart"></div>
+          <div id="tod-tooltip" class="bc-tooltip"></div>
+          <div id="tod-scatter-chart-desc"></div>
+        </div>
       </div>
     </section>
 
@@ -395,21 +407,25 @@
 
         <div class="hero-text">
           <h1 class="hero-title">
-            What is the Conclusion? 
+            What is the Conclusion?
           </h1>
           <p class="hero-subtitle">There is no universal booking trick.</p>
-          <p class="context-text">Flights from Vancouver to Toronto do not have one simple rule; ticket prices fluctuate, revealing that it is hard to have a single optimal strategy. </p>
+          <p class="context-text">Flights from Vancouver to Toronto do not have one simple rule; ticket prices
+            fluctuate, revealing that it is hard to have a single optimal strategy. </p>
         </div>
         <div class="hero-text">
           <h1 class="hero-title">
             Do our data matter after all?
           </h1>
           <p class="hero-subtitle">Yes, there are still patterns!</p>
-          <p class="context-text">Price patterns matter, depending on how you slice time of the data! The flights are cheaper during certain time periods, and students could target to travel at those times. However, day of the week and week of the month showed no strong correlation with the prices, so the students could disregard them and offload their stress!   </p>
+          <p class="context-text">Price patterns matter, depending on how you slice time of the data! The flights are
+            cheaper during certain time periods, and students could target to travel at those times. However, day of the
+            week and week of the month showed no strong correlation with the prices, so the students could disregard
+            them and offload their stress! </p>
         </div>
       </div>
     </section>
-        <section class="context-row" id="references" data-step="10">
+    <section class="context-row" id="references" data-step="10">
       <div class="context-container">
 
         <div class="hero-text">
@@ -417,9 +433,14 @@
             References
           </h1>
           <p class="hero-subtitle">Statistics Canada</p>
-          <p class="context-text">Government of Canada, Statistics Canada. (2025, June 17). Table 37-10-0289-01 Number of Canadian undergraduate degree graduates, by location of study, origin, and destination one year after graduation [Data table]. <a href=https://doi.org/10.25318/3710028901-eng target="_blank">https://doi.org/10.25318/3710028901-eng</a></p>
-                      <p class="hero-subtitle">Our own dataset, manually compiled from Google Flights & SkyScanner searches</p>
-          <p class="context-text"><a href=https://docs.google.com/spreadsheets/d/1k5I8TawR2dMTCZnXBWkVrDVX8f1-T7YhnMOwioVIb7s/edit?usp=sharing target="_blank">Access Google Sheets file here.</a></p>
+          <p class="context-text">Government of Canada, Statistics Canada. (2025, June 17). Table 37-10-0289-01 Number
+            of Canadian undergraduate degree graduates, by location of study, origin, and destination one year after
+            graduation [Data table]. <a href=https://doi.org/10.25318/3710028901-eng
+              target="_blank">https://doi.org/10.25318/3710028901-eng</a></p>
+          <p class="hero-subtitle">Our own dataset, manually compiled from Google Flights & SkyScanner searches</p>
+          <p class="context-text"><a
+              href=https://docs.google.com/spreadsheets/d/1k5I8TawR2dMTCZnXBWkVrDVX8f1-T7YhnMOwioVIb7s/edit?usp=sharing
+              target="_blank">Access Google Sheets file here.</a></p>
         </div>
 
       </div>

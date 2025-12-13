@@ -69,12 +69,44 @@ body {
   flex: 1;
 }
 
+/* ---------------------- board -------------------- */
+
+#toc-board, #gateB, #gateD, #gateF {
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background-color: #f9fafb;
+}
+
+#toc-board .context-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#toc-board .board-shell {
+  flex: 1;
+}
+
+/* gateB OverviewOverYear */
+#gateB .context-container, #gateD .context-container, #gateF .context-container{
+  flex: 1;
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
 /* ---------- EACH FRAME (gateA, gateB, gateC...) ---------- */
 #toc-board,
 #gateB,
 #gateD,
 #gateF {
   background-color: #f9fafb;
+  
 
 }
 
@@ -87,6 +119,7 @@ body {
   height: 100vh;
   display: flex;
 }
+
 
 #hero-main {
   position: relative;
@@ -130,9 +163,12 @@ body {
 }
 
 @keyframes chevron-bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(6px);
   }
@@ -147,8 +183,7 @@ body {
 
 
 /* Keep the inner content fixed while gateB scrolls behind it */
-#gateB .context-inner,
-#gateB .context-marker {
+#gateB .context-container, #gateD .context-container, #gateF .context-container{
   position: sticky;
   top: 80px;
 }
@@ -165,11 +200,6 @@ body {
   top: 80px;
 }
 
-#gateD .context-inner,
-#gateD .context-marker {
-  position: sticky;
-  top: 80px;
-}
 
 #gateD #gateD-annotation {
   z-index: 999999;
