@@ -71,7 +71,10 @@ body {
 
 /* ---------------------- board -------------------- */
 
-#toc-board, #gateB, #gateD, #gateF {
+#toc-board,
+#gateB,
+#gateD,
+#gateF {
   width: 100vw;
   max-width: none;
   margin-left: calc(50% - 50vw);
@@ -92,7 +95,9 @@ body {
 }
 
 /* gateB OverviewOverYear */
-#gateB .context-container, #gateD .context-container, #gateF .context-container{
+#gateB .context-container,
+#gateD .context-container,
+#gateF .context-container {
   flex: 1;
   display: flex;
   max-width: 1200px;
@@ -106,7 +111,7 @@ body {
 #gateD,
 #gateF {
   background-color: #f9fafb;
-  
+
 
 }
 
@@ -183,7 +188,9 @@ body {
 
 
 /* Keep the inner content fixed while gateB scrolls behind it */
-#gateB .context-container, #gateD .context-container, #gateF .context-container{
+#gateB .context-container,
+#gateD .context-container,
+#gateF .context-container {
   position: sticky;
   top: 80px;
 }
