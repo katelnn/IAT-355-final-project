@@ -1,1112 +1,567 @@
-/* Global page styles */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background: #f9fafb;
-  /* light grey */
-  font-family: "Bricolage Grotesque", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  color: #0f172a;
-  /* dark navy text */
-}
-
-/* Layout is a vertical stack */
-.page {
-  min-height: 100vh;
-}
-
-/* ---------- HERO SECTION ---------- */
-
-.hero {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 80px 7vw 56px;
-  flex-direction: column;
-}
-
-.hero-title {
-  margin: 0 0 16px;
-  font-weight: 700;
-  line-height: 1.05;
-  font-size: clamp(2.8rem, 5vw, 3.6rem);
-}
-
-/* Highlighted words in hero */
-.highlight {
-  background-color: #dbeafe;
-  /* soft blue highlight */
-  padding: 0 0.2em;
-  border-radius: 4px;
-  box-decoration-break: clone;
-}
-
-/* Subtitle */
-.hero-subtitle {
-  margin: 0;
-  font-weight: 500;
-  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
-  color: #1e293b;
-}
-
-/* ---------------------- context, conclusion -------------------- */
-#context .context-container,
-#conclusion .context-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-}
-
-#context .hero-text,
-#conclusion .hero-text {
-  flex: 1;
-}
-
-/* ---------------------- board -------------------- */
-
-#toc-board,
-#gateB,
-#gateD,
-#gateF {
-  width: 100vw;
-  max-width: none;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  background-color: #f9fafb;
-}
-
-#toc-board .context-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-#toc-board .board-shell {
-  flex: 1;
-}
-
-/* gateB OverviewOverYear */
-#gateB .context-container,
-#gateD .context-container,
-#gateF .context-container {
-  flex: 1;
-  display: flex;
-  max-width: 1200px;
-  margin: 0 auto;
-  gap: 1rem;
-}
-
-/* ---------- EACH FRAME (gateA, gateB, gateC...) ---------- */
-#toc-board,
-#gateB,
-#gateD,
-#gateF {
-  background-color: #f9fafb;
-
-
-}
-
-#hero-main,
-#context,
-#toc-board,
-#gateA,
-#gateF,
-#conclusion {
-  height: 100vh;
-  display: flex;
-}
-
-
-#hero-main {
-  position: relative;
-}
-
-.hero-scroll-hint {
-  position: absolute;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  user-select: none;
-  z-index: 20;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.hero-scroll-hint svg {
-  width: 26px;
-  height: 26px;
-  color: #0f172a;
-  animation: chevron-bounce 1.8s infinite;
-  transition: transform 0.2s ease;
-}
-
-.hero-scroll-hint:hover {
-  transform: translateX(-50%) scale(1.1);
-}
-
-.hero-scroll-hint:hover svg {
-  transform: scale(1.1);
-}
-
-.scroll-text {
-  font-size: 0.85rem;
-  opacity: 0.75;
-  letter-spacing: 0.02em;
-}
-
-@keyframes chevron-bounce {
-
-  0%,
-  100% {
-    transform: translateY(0);
+:root {
+    --bg: #eef2ff;
+    --text: #1d2b4d;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+  }
+  
+  /* GLOBAL */
+  body {
+    margin: 0;
+    background: var(--bg);
+    font-family: "Inter", sans-serif;
+    color: var(--text);
+  }
+  
+  h1, h2 {
+    margin: 0 0 12px 0;
+    font-weight: 700;
   }
 
-  50% {
-    transform: translateY(6px);
+  h1 {
+    font-size: 2.5rem;
   }
-}
 
-/* Make Gate B a tall scroll section for the scrolly story */
-#gateB {
-  height: 200vh;
-  position: relative;
-}
-
-
-
-/* Keep the inner content fixed while gateB scrolls behind it */
-#gateB .context-container,
-#gateD .context-container,
-#gateF .context-container {
-  position: sticky;
-  top: 80px;
-}
-
-#gateC,
-#gateD {
-  height: 300vh;
-  position: relative;
-}
-
-#gateC .context-inner,
-#gateC .context-marker {
-  position: sticky;
-  top: 80px;
-}
-
-
-#gateD #gateD-annotation {
-  z-index: 999999;
-  /* bring in front of sticky container */
-}
-
-#gateE {
-  height: 500vh;
-}
-
-#gateE .context-inner,
-#gateE .context-marker {
-  position: sticky;
-  top: 80px;
-}
-
-#gateE .context-heatmap {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-
-#gateF {
-  height: 400vh;
-}
-
-#gateF .context-inner,
-#gateF .context-marker {
-  position: sticky;
-  top: 80px;
-}
-
-
-
-
-/* Progress Bar Styling */
-#progress-bar {
-  position: fixed;
-  top: 50%;
-  /* Center vertically */
-  right: 20px;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 1000;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 5px;
-  transition: opacity 0.3s;
-}
-
-#progress-bar.hide {
-  opacity: 0;
-  /* Hide on the first step */
-  pointer-events: none;
-  /* Make sure it doesn't block clicks */
-}
-
-.progress-item {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #ccc;
-  border: 2px solid #aaa;
-  cursor: pointer;
-  position: relative;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-.progress-item.active {
-  background-color: #007bff;
-  /* Bright blue for active step */
-  border-color: #0056b3;
-  transform: scale(1.2);
-  /* Highlight active dot */
-}
-
-/* Tooltip (Step Name/ID) */
-.progress-item span {
-  position: absolute;
-  right: 20px;
-  /* Position to the left of the dot */
-  top: 50%;
-  transform: translateY(-50%);
-  background: #333;
-  color: white;
-  padding: 3px 8px;
-  border-radius: 3px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-}
-
-.progress-item:hover span {
-  opacity: 1;
-  /* Show tooltip on hover */
-}
-
-/* ---------- CONTEXT + CHART SECTION ---------- */
-
-.context {
-  width: 100%;
-  padding: 0 0 80px;
-}
-
-.context-inner {
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 0 0.7vw;
-}
-
-.context-title {
-  margin: 0 0 12px;
-  font-size: clamp(1.6rem, 2.4vw, 1.9rem);
-  font-weight: 700;
-}
-
-.context-text {
-  margin: 0 0 24px;
-  font-size: 0.98rem;
-  line-height: 1.5;
-  color: #334155;
-}
-
-.context-subtitle {
-  margin: 0 0 12px;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #111827;
-}
-
-/* Chart container */
-#bc-share-chart {
-  margin-top: 8px;
-}
-
-/* Tooltip from vis.js */
-.bc-tooltip {
-  z-index: 999999 !important;
-}
-
-/* plane sliders */
-
-/* Optional: make sure container doesn't overflow */
-#daily-bar-chart {
-  width: 100%;
-  max-width: 1200px;
-  margin: auto;
-  position: relative;
-}
-
-#bar-tooltip {
-  pointer-events: none;
-  z-index: 9999;
-}
-
-/* Slider track inside SVG */
-.slider-track {
-  fill: #ddd;
-  opacity: 0.8;
-}
-
-/* Bar styling is handled in JS via .bar-lowest and .bar-highest */
-.bar-lowest {
-  fill: #0ea5e9;
-}
-
-.bar-highest {
-  fill: #f97316;
-}
-
-/* Optional: cursor for plane handles (inside SVG) */
-.plane-plane-start,
-.plane-plane-end {
-  cursor: ew-resize;
-}
-
-/* Legend text */
-#daily-bar-chart text {
-  font-family: sans-serif;
-  font-size: 12px;
-}
-
-#bar-tooltip {
-  position: absolute;
-  pointer-events: none;
-  background: white;
-  border: 1px solid #ccc;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 12px;
-  opacity: 0;
-  transition: opacity 0.15s;
-  z-index: 99999;
-}
-
-
-
-
-/* #time-filter-controls {
-  width: 100%;
-  height: 60px;
-  margin-bottom: 10px;
-  position: absolute;
-  top: 0;
-  z-index: 5;
-}
-
-.slider-track-wrapper-horizontal {
-  position: absolute;
-
-  left: 70px;
-  right: 30px;
-  top: 15px;
-  transform: translateY(-50%);
-  height: 20px;
-  background-color: #ccc;
-  border-radius: 4px;
-
-}
-
-.plane-handle-horizontal {
-  position: absolute;
-  width: 40px;
-  height: auto;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  cursor:grab;
-  pointer-events:auto;
-  z-index: 6;
-}
-
-.plane-handle-start {
-  transform: translate(-50%, -50%) rotate(0.25turn);
-}
-
-.plane-handle-end {
-  transform: translate(-50%, -50%) rotate(0.75turn);
-} */
-
-/* ----- CHART + CONTROL LAYOUT ----- */
-
-.vis-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 32px;
-  margin-top: 8px;
-}
-
-/* Chart takes remaining width */
-#bc-share-chart {
-  flex: 1;
-}
-
-/* Controls block on the right */
-.controls {
-  min-width: 220px;
-  max-width: 260px;
-}
-
-/* "Select Regions" label */
-.control-label {
-  display: inline-block;
-  padding: 4px 10px;
-  margin-bottom: 8px;
-  background: #dbeafe;
-  border-radius: 4px;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-/* Dropdown */
-#region-select {
-  width: 100%;
-  max-height: 260px;
-  border: 2px solid #1f2937;
-  border-radius: 4px;
-  padding: 4px;
-  font-family: inherit;
-  font-size: 0.9rem;
-  color: #111827;
-}
-
-/* Hint text under dropdown */
-.control-hint {
-  margin-top: 8px;
-  font-size: 0.75rem;
-  line-height: 1.4;
-  color: #6b7280;
-}
-
-.bc-tooltip {
-  z-index: 20;
-}
-
-#monthly-price-chart {
-  margin-top: 8px;
-}
-
-#weekly-price-chart {
-  position: relative;
-}
-
-
-
-#daily-heatmap-chart {
-  margin-top: 8px;
-  position: relative;
-  overflow: visible;
-  /* <- prevents clipping */
-  z-index: 9999;
-}
-
-.bc-tooltip {
-  position: absolute;
-  z-index: 999999 !important;
-  pointer-events: none;
-}
-
-
-#tod-scatter-chart {
-  margin-top: 8px;
-}
-
-
-/* Stacks on small screens */
-@media (max-width: 768px) {
-  .vis-row {
+  h2 {
+    font-size: 2rem;
+  }
+  
+  .subtitle,
+  .desc {
+    font-size: 1.2rem;
+    color: #475569;
+    margin-bottom: 1rem;
+  }
+
+  /* ============================= */
+/* INTRO HERO SECTION WITH IMAGES */
+/* ============================= */
+
+.intro-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;             /* full hero */
+    padding-top: 40px;
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  /* IMAGE LAYER */
+  .hero-media {
+    position: absolute;
+    inset: 0;                  /* top:0, left:0, right:0, bottom:0 */
+    width: 100%;
+    height: 100%;
+    overflow: visible;   /* <-- prevents cutting */
+    pointer-events: none;
+    z-index: 0;
+
+    /* Fade left, right, and bottom edges only */
+  -webkit-mask-image: 
+  linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%),
+  linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+
+-webkit-mask-composite: intersect;
+mask-composite: intersect;
+    
+  }
+  
+  /* TEXT LAYER */
+  .intro-text {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+  }
+  
+  /* PLANE CENTERED */
+  .plane {
+    position: absolute;
+    width: 650px;
+    max-width: 80%;
+    left: 50%;
+    top: 45%;
+    transform: translateX(-50%);
+    z-index: 0 !important;
+  }
+  
+  /* CLOUD POSITIONS */
+  .cloud {
+    position: absolute;
+    opacity: 0.95;
+    z-index: 0 !important;
+  }
+  
+  .cloud-left {
+    left: -200px;
+    top: 25%;
+    width: 900px;
+  }
+  
+  /* Right cloud */
+  .cloud-right {
+    right: -200px;
+    top: 10%;
+    width: 900px;
+  }
+  
+  /* Bottom cloud centered */
+  .cloud-bottom {
+    bottom: -130px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1300px;
+  }
+  
+  /* ============ LAYOUT ============ */
+  
+  #page-layout {
+    display: grid;
+    grid-template-columns: 150px 1fr;  /* left nav | content */
+    width: 100%;
+    position: relative;
+    padding: 1rem;
+  }
+  
+  
+  /* ===== LEFT NAV COLUMN ===== */
+  
+  #progress-nav {
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+    /* z-index: 9999; */
+    height: fit-content;
+    gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 20px;
+  }
+  
+  
+  
+  #progress-nav ul {
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Nav items look like rounded pills, always visible */
+  #progress-nav li {
+    padding: 6px 10px;           /* smaller pill */
+    margin-bottom: 6px;          /* tighter spacing */
+    border-radius: 8px;          /* subtler rounding */
+    font-size: 13px;             /* slightly smaller text */
+  
+    background: #ffffffcc;       /* more transparent white */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05); 
+  }
+  
+  
+  #progress-nav li.active {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+  
+  
+  #progress-nav li.active {
+    background: var(--accent);
+    color: #ffffff;
   }
 
-  .controls {
+  #progress-nav li:not(.active) {
+    opacity: 0.8;
+  }
+  #progress-nav li:not(.active):hover {
+    opacity: 1;
+  }
+
+  #progress-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #progress-nav li {
+    display: grid;
+    grid-template-columns: 48px 1fr 48px;
+    align-items: center;
+  
+    height: 54px;
+    margin-bottom: 14px;
+    border-radius: 999px;
+  
+    background: #0b2a6f;
+    color: white;
+  
+    cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      background 0.25s ease;
+  }
+  
+  /* Left + Right icon zones */
+  #progress-nav .nav-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+  }
+  
+  /* Center label */
+  #progress-nav .nav-label {
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+/* ================================
+   FLIGHT-STYLE COLLAPSING SIDE NAV
+================================ */
+
+#progress-nav {
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;                 /* slightly tighter collapsed */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding-left: 14px;
+    z-index: 100;
+  }
+  
+  #progress-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* ================================
+     NAV PILL (DEFAULT COLLAPSED)
+  ================================ */
+  
+  #progress-nav li {
+    display: grid;
+    grid-template-columns: 52px 0 0;
+  
+    align-items: center;
+    height: 52px;
+    width: 52px;
+  
+    border-radius: 999px;       /* FORCE pill */
+    background: #7a87a6;
+    color: white;
+  
+    overflow: hidden;
+    cursor: pointer;
+  
+    transition:
+      width 0.3s ease,
+      grid-template-columns 0.3s ease,
+      background 0.25s ease,
+      box-shadow 0.25s ease,
+      transform 0.2s ease;
+  }
+  
+  /* Icon zones */
+  #progress-nav .nav-icon {
+    min-width: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+  }
+  
+  /* Label hidden */
+  #progress-nav .nav-label {
+    white-space: nowrap;
+    font-size: 15px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  
+  /* ================================
+     HOVER → EXPAND
+  ================================ */
+  
+  #progress-nav li:hover {
+    width: 120px; /* 👈 slightly smaller expanded width */
+    grid-template-columns: 50px 1fr 50px;
+  
+    background: #5f6f93;
+    transform: translateX(6px);
+    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.32);
+  
+    border-radius: 999px; /* reinforce pill */
+  }
+  
+  #progress-nav li:hover .nav-label {
+    opacity: 1;
+  }
+  
+  /* ================================
+     ACTIVE → LOCK OPEN (WHITE CAPSULE)
+  ================================ */
+  
+  #progress-nav li.active {
+    width: 120px;
+    grid-template-columns: 50px 1fr 50px;
+  
+    background: #ffffff;
+    color: #0b2a6f;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.35);
+  
+    border-radius: 999px; /* ✅ prevents square corners */
+  }
+  
+  #progress-nav li.active .nav-label {
+    opacity: 1;
+  }
+  
+  #progress-nav li.active .nav-icon {
+    color: #0b2a6f;
+  }
+  
+  /* Arrow motion */
+  #progress-nav li:hover .fa-arrow-right {
+    transform: translateX(4px);
+    transition: transform 0.2s ease;
+  }
+  
+  /* ================================
+     MOBILE FALLBACK
+  ================================ */
+  
+  @media (max-width: 900px) {
+    #progress-nav {
+      position: static;
+      transform: none;
+      flex-direction: row;
+      width: auto;
+    }
+  
+    #progress-nav li {
+      width: 132px;
+      grid-template-columns: 36px 1fr 36px;
+    }
+  
+    #progress-nav .nav-label {
+      opacity: 1;
+    }
+  }
+  
+  
+  
+  /* ===== CONTENT COLUMN ===== */
+  
+  #content-area {
+    padding: 0 70px 0 40px;
+  }
+  
+  section.step {
+    min-height: 100vh;
+    padding: 100px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .content {
     max-width: 100%;
   }
-}
+  
+  /* Chart block */
+  .chart-container {
+    width: 100%;
+    height: 420px;
+    /* background: #ffffff; */
+    /* border-radius: 16px; */
+    /* box-shadow: 0 6px 20px rgba(15, 23, 42, 0.12); */
+    margin-top: 20px;
+  }
+  
+  /* table of contents */
+  /* Centering container for TOC */
 
-/* ---------- RESPONSIVE MEDIA QUERIES ---------- */
-
-@media (max-width: 768px) {
-  .hero {
-    padding-top: 56px;
+  .toc-subtitle {
+    margin-top: 2rem;
   }
 
-  .hero-title {
-    font-size: clamp(2.3rem, 8vw, 3rem);
+  .toc-board {
+    width: 100%;
+    background: #0f172a; /* deep navy */
+    border-radius: 12px;
+    padding: 20px 0;
+    color: #e2e8f0;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    /* margin-top: 1rem; */
+  }
+  
+  .toc-row {
+    display: grid;
+    grid-template-columns: 110px 110px 1.6fr 1.4fr;
+    padding: 18px 24px;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  
+  .toc-row:last-child {
+    border-bottom: none;
+  }
+  
+  .toc-header {
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #94a3b8;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+  
+  .toc-row div {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  
+  .toc-row:nth-child(even) {
+    background: rgba(255,255,255,0.02);
+  }
+  
+  /* Gate bold */
+  .toc-row div:nth-child(2) {
+    font-weight: 700;
+    color: #f8fafc;
+  }
+  
+.toc-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+  }
+  
+  /* Limit max width so it's not overpowering */
+  .toc-board {
+    width: 100%;
+    max-width: 1100px;
+    background: #0f172a;
+    border-radius: 18px;
+    padding: 10px 0;
+    color: #e2e8f0;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    overflow: hidden;
+  }
+  
+  
+  /* Summary list */
+  .summary-points li {
+    margin: 8px 0;
   }
 
-  .context-inner {
-    padding-top: 16px;
+
+  /* Visualization 1 Styling */
+  /* CONTEXT SECTION */
+  #context-viz {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+    align-items: flex-start;
   }
-}
-
-/* ----------section2.1 prices thruout the year slide css ---------- */
-/* 雲＋グラフの親 */
-.cloud-chart-wrapper {
-  position: relative;
-  margin-top: 16px;
-  border-radius: 16px;
-  overflow: hidden;
-  /* 雲がはみ出さないように */
-}
-
-
-/* 既に使っているやつだけど、ここで一行追加 */
-.daily-chart-layout {
-  position: relative;
-  z-index: 1;
-  /* 雲より前に出す */
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  padding: 16px 20px;
-  /* 雲の上に少し余白 */
-}
-
-/* 縦スライダー系は前と同じでOK（参考用） */
-.price-plane-slider-vertical {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 12px;
-}
-
-.slider-track-wrapper {
-  position: relative;
-  width: 32px;
-  margin: 4px 0;
-  background-color: #111827;
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-/* 真ん中の滑走路ライン */
-.slider-track-wrapper::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 4px;
-  bottom: 4px;
-  transform: translateX(-50%);
-  width: 4px;
-  background-image: repeating-linear-gradient(to bottom,
-      #ffffff 0px,
-      #ffffff 8px,
-      transparent 8px,
-      transparent 14px);
-  opacity: 0.9;
-}
-
-/* 飛行機PNG */
-.plane-handle {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 28px;
-  height: auto;
-  pointer-events: none;
-  transition: top 0.2s ease;
-}
-
-
-/* 左の縦スライダー全体 */
-.price-plane-slider-vertical {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 12px;
-}
-
-.price-plane-slider-vertical .plane-label {
-  color: #0f172a;
-}
-
-/* 👇 ここが "runway" になる部分 */
-.slider-track-wrapper {
-  position: relative;
-  width: 32px;
-  /* 細めの縦長滑走路 */
-  /* height は JS からグラフの高さに合わせて上書きされる */
-  margin: 4px 0;
-
-  /* 滑走路本体 */
-  background-color: #111827;
-  /* 濃いグレー */
-  /*border-radius: 999px;         丸いエッジ */
-  overflow: hidden;
-}
-
-/* センターライン（破線） */
-.slider-track-wrapper::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 4px;
-  bottom: 4px;
-  transform: translateX(-50%);
-  width: 4px;
-  background-image: repeating-linear-gradient(to bottom,
-      #ffffff 0px,
-      #ffffff 8px,
-      transparent 8px,
-      transparent 14px);
-  opacity: 0.9;
-}
-
-/* ネイティブの range スライダーは透明にして裏でイベントだけ取る */
-#price-mode-slider {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-
-  writing-mode: bt-lr;
-  -webkit-appearance: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-#price-mode-slider::-webkit-slider-runnable-track {
-  -webkit-appearance: none;
-  background: transparent;
-}
-
-#price-mode-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 0;
-  height: 0;
-}
-
-/* 飛行機ハンドル ✈️ */
-#plane-handle {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  /* 画像の表示サイズ（お好みで） */
-  height: auto;
-  pointer-events: none;
-  /* ドラッグはトラック側で取るからそのままでOK */
-  transition: top 0.2s ease;
-}
-
-body {
-  font-family: "Inter", sans-serif;
-  background: #e9f3ff;
-  /* padding: 40px; */
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-/* ボード全体の枠 */
-.board-shell {
-  max-width: 1200px;
-  margin: 0 auto 3rem;
-  background: #050d18;
-  border-radius: 10px;
-  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-  border: 2px solid #1f2f40;
-  color: #f5f8ff;
-  font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont,
-    "Inter", sans-serif;
-}
-
-/* 上の青バー部分 */
-.board-top {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 16px;
-  padding: 14px 24px;
-  background: linear-gradient(90deg, #0076c9, #00a3d9);
-  color: white;
-  text-transform: uppercase;
-  font-size: 14px;
-  letter-spacing: 0.16em;
-}
-
-.board-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-}
-
-.brand-logo {
-  font-size: 20px;
-}
-
-.brand-name {
-  font-size: 13px;
-}
-
-.board-title {
-  text-align: center;
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.board-meta {
-  text-align: right;
-  font-size: 12px;
-  opacity: 0.9;
-}
-
-/* ヘッダ行（TIME / GATE / DEST…） */
-.board-header-row {
-  display: grid;
-  grid-template-columns: 110px 100px 1.6fr 1.3fr 150px;
-  padding: 10px 24px 8px;
-  border-bottom: 2px solid #1f2f40;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #9fb2c7;
-}
-
-/* 行本体 */
-.board-row {
-  display: grid;
-  grid-template-columns: 110px 100px 1.6fr 1.3fr 150px;
-  padding: 14px 24px;
-  border-bottom: 1px solid #1b2938;
-  align-items: center;
-  font-size: 15px;
-  background: #071322;
-  color: #e7f0ff;
-  text-align: left;
-  width: 100%;
-  border: none;
-  cursor: pointer;
-}
-
-.board-row:nth-child(odd + 1) {
-  background: #09172a;
-}
-
-.board-row:hover {
-  background: #122338;
-}
-
-.col.time {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 15px;
-}
-
-.col.gate {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 600;
-}
-
-.col.dest {
-  font-weight: 500;
-}
-
-.col.info {
-  font-size: 13px;
-  color: #a7bdd5;
-}
-
-
-.boarding {
-  background: #ffd54f;
-  color: #222;
-}
-
-.cheapest {
-  background: #81c784;
-  color: #072011;
-}
-
-.ontime {
-  background: #4fc3f7;
-  color: #022034;
-}
-
-.pricedrop {
-  background: #64b5f6;
-  color: #031425;
-}
-
-.gatechange {
-  background: #ef5350;
-  color: #fff4f4;
-}
-
-/* ひっくり返るアニメ */
-.flip {
-  animation: flipboard 0.6s ease;
-}
-
-@keyframes flipboard {
-  0% {
-    transform: rotateX(0deg);
+  
+  #map-container {
+    width: 420px;
+    height: 420px;
   }
-
-  50% {
-    transform: rotateX(90deg);
+  
+  #trend-container {
+    width: 480px;
+    height: 400px;
   }
-
-  100% {
-    transform: rotateX(0deg);
+  
+  /* vis 2 styling */
+  .chart-container {
+    margin-bottom: 7rem;
   }
-}
+  
+  /* vis 5 styling */
+  /* ================================
+   Heatmap Toggle Buttons (Vis 5)
+================================ */
 
-
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-  background: #e4f0ff;
-}
-
-/* セクション全体 */
-.hero {
-  padding: 80px 80px 40px;
-  /* 上に余白を増やす → 飛行機が来るスペース */
-}
-
-/* タイトルブロック（固定であまり動かない） */
-.hero-text {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.hero-title {
-  font-size: 52px;
-  line-height: 1.1;
-  margin: 0 0 12px;
-}
-
-.highlight {
-  background: #cfe3ff;
-  border-radius: 12px;
-  padding: 0 10px;
-}
-
-.hero-subtitle {
-  font-size: 18px;
-  margin: 0;
-  opacity: 0.8;
-}
-
-/* 雲＋飛行機エリア：タイトルの少し下に独立させる */
-.hero-sky {
-  position: relative;
-  margin: 0 auto 0;
-  /* タイトルとの間にスペース */
-  width: 100%;
-  max-width: 1100px;
-  height: 360px;
-  /*アニメーションが見える高さ*/
-  overflow: hidden;
-  /* 雲が外に出ないように */
-  border-radius: 24px;
-}
-
-/* 雲 */
-.cloud {
-  position: absolute;
-  bottom: -70px;
-  /* ちょっと下からモクモク出る感じ */
-
-  max-width: none;
-  pointer-events: none;
-}
-
-.cloud-left {
-  left: -18%;
-  z-index: 3;
-  width: 95%;
-  /* ← cloud.png を 80% のサイズに */
-  left: -10%;
-  /* 小さくすると位置も調整したほうが自然 */
-}
-
-.cloud-right {
-  right: -18%;
-  width: 90%;
-  /* ← cloud1/cloud2 を 40% に */
-  right: -5%;
-  /* 小さくなったぶん中央に寄せる */
-  transform: scaleX(-1);
-  z-index: 1;
-}
-
-/* 飛行機：雲の前・空の中央あたり */
-.plane {
-  position: absolute;
-  top: 58%;
-  left: 50%;
-  width: 80%;
-  transform: translate(-50%, -50%) scale(0.6);
-  opacity: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* board セクションとの間 */
-.departure-section {
-  margin-top: 40px;
-}
-
-.vis-row {
-  display: flex;
-  gap: 24px;
-  align-items: flex-start;
-  margin-top: 1.5rem;
-}
-
-.vis-panel {
-  height: 100%;
-}
-
-#bc-share-chart {
-  flex-grow: 1;
-}
-
-#canada-map {
-  flex: 1 1 50%;
-  min-width: 320px;
-  height: 420px;
-}
-
-.ontario-vis-right {
-  flex: 1 1 50%;
-  min-width: 320px;
-}
-
-#bc-share-chart svg {
-  width: 100%;
-  height: auto;
-}
-
-.controls {
-  margin-bottom: 12px;
-}
-
-#region-select {
-  width: 100%;
-  max-width: 260px;
-}
-
-.bc-point:hover {
-  cursor: pointer;
-}
-
-/* 全体レイアウト：左ラベル + 右コンテンツ */
-.context-row {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  max-width: 1200px;
-  margin: 0 auto;
-  /* セクション間の余白 */
-  justify-content: flex-start;
-}
-
-section.context-row#gateA {
-  align-items: center;
-}
-
-section.context-row#gateB,
-section.context-row#gateC,
-section.context-row#gateD,
-section.context-row#gateE,
-section.context-row#gateF {
-  align-items: flex-start;
-}
-
-
-/* 左のカラム（ラベル部分） */
-.context-marker {
-  width: 140px;
-}
-
-/* 右側メインコンテンツ */
-.context-main {
-  flex: 1;
-}
-
-/* バッジ本体 */
-.marker-card {
-  background: #305e5e;
-  /* 緑がかった背景 */
-  border-radius: 6px;
-  padding: 10px 16px;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  color: #ffffff;
-  font-family: "Inter", system-ui, sans-serif;
-}
-
-/* 上の「矢印 + 黄色丸 + 数字」横並び */
-.marker-top {
-  display: flex;
+/* Center the toggle on the page */
+.heatmap-toggle {
+  display: flex;                 /* was inline-flex */
+  justify-content: center;       /* center buttons */
   align-items: center;
   gap: 10px;
+  margin: 18px auto 16px auto;   /* center + spacing */
+  padding: 6px;
+  background: #c6d9f2;
+  border-radius: 999px;          /* pill container */
+  width: fit-content;            /* shrink to content */
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(15, 23, 42, 0.06);
 }
 
-/* ↑ 矢印 */
-.marker-arrow {
-  font-size: 28px;
-  line-height: 1;
-  color: #ffffff;
-}
-
-/* 黄色の丸＋飛行機 */
-.marker-circle {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: #ffd628;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  /* ✈︎ の大きさ */
-  color: #000000;
-}
-
-/* 数字（1,2,3...） */
-.marker-number {
-  font-size: 42px;
-  font-weight: 700;
-  color: #ffd628;
-}
-
-/* 下の小さなテキスト（year / month など） */
-.marker-label {
-  margin-top: 4px;
-  font-size: 16px;
+/* Buttons */
+.heatmap-toggle button {
+  appearance: none;
+  border: none;
+  background: transparent;
+  padding: 10px 18px;            /* a bit roomier */
+  font-size: 15px;               /* matches “UI pill” feel */
   font-weight: 600;
-  text-transform: lowercase;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #475569;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.15s ease;
 }
+
+.heatmap-toggle button:hover {
+  background: rgba(77, 104, 179, 0.06);
+}
+
+.heatmap-toggle button.active {
+  background: #0f172a;
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.22);
+}
+
+.heatmap-toggle button:active {
+  transform: scale(0.97);
+}
+
+  
+  /* Responsive tweak */
+  @media (max-width: 900px) {
+    #page-layout {
+      grid-template-columns: 1fr;
+    }
+  
+    #progress-nav {
+      position: static;
+      transform: none;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 16px 20px;
+    }
+  
+    #content-area {
+      padding: 0 20px 40px;
+    }
+  
+    section.step {
+      padding-top: 40px;
+    }
+  }
+  
