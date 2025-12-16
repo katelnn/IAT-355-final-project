@@ -22,7 +22,8 @@ body {
   /* overflow-x: hidden; */
 }
 
-html, body {
+html,
+body {
   max-width: 100%;
   /* overflow-x: hidden; */
 }
@@ -468,7 +469,7 @@ section.step {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.toc-row > div {
+.toc-row>div {
   min-width: 0;
   white-space: normal;
 }
@@ -660,7 +661,7 @@ section.step {
     /* prevents squishing */
   }
 
-  #progrss-nav .nav-icon{
+  #progrss-nav .nav-icon {
     min-width: 32px;
     font-size: 12px;
   }
@@ -789,6 +790,27 @@ section.step {
   }
 }
 
+/* --------- for toc board, extra media query  ---------- */
+@media (max-width: 600px) {
+  .toc-row {
+    grid-template-columns:
+      80px
+      /* Journey */
+      70px
+      /* Gate */
+      1fr
+      /* Destination */
+      1fr;
+    /* Details */
+
+    column-gap: 12px;
+  }
+
+  .toc-row div {
+    white-space: normal;
+  }
+}
+
 /* ---------- <= 490px (phones) ---------- */
 @media (max-width: 490px) {
 
@@ -857,39 +879,54 @@ section.step {
   }
 
   .toc-board {
-    min-width: 720px;
-    /* keeps your grid readable, user can scroll */
+    min-width: 100%;
   }
 
-  /* Heatmap toggle buttons tighten */
-  .heatmap-toggle {
-    gap: 8px;
-    padding: 5px;
+  .toc-container {
+    overflow-x: auto;
   }
 
-  .heatmap-toggle button {
-    padding: 8px 14px;
+  .toc-row {
+    grid-template-columns: 80px 70px 1fr;
+  }
+
+  .toc-row div:nth-child(4) {
+    grid-column: 3;
+    opacity: 0.85;
     font-size: 14px;
+    margin-top: 4px;
   }
 
-  section.step {
-    padding: 64px 0;
-    /* was 100px 0 */
-    min-height: 85vh;
-    /* was 100vh */
-  }
 
-  .chart-container {
-    margin-bottom: 3rem;
-    /* was 7rem */
-    height: 360px;
-    /* optional: slightly shorter */
-  }
+/* Heatmap toggle buttons tighten */
+.heatmap-toggle {
+  gap: 8px;
+  padding: 5px;
+}
 
-  .desc {
-    margin-bottom: 0.75rem;
-    /* was 1rem */
-  }
+.heatmap-toggle button {
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+section.step {
+  padding: 64px 0;
+  /* was 100px 0 */
+  min-height: 85vh;
+  /* was 100vh */
+}
+
+.chart-container {
+  margin-bottom: 3rem;
+  /* was 7rem */
+  height: 360px;
+  /* optional: slightly shorter */
+}
+
+.desc {
+  margin-bottom: 0.75rem;
+  /* was 1rem */
+}
 
 }
 
