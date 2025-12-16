@@ -781,7 +781,6 @@ section.step {
     width: 100%;
     max-width: 520px;
     /* keeps it from getting too huge */
-    height: 380px;
   }
 
   /* TOC rows get slightly tighter */
