@@ -98,13 +98,13 @@ function renderHeatmap(container, cells, label, title) {
   // Responsive width from container
   const containerWidth = container.node().getBoundingClientRect().width || 900;
 
-  // More breathing room for title + axis labels
-  const margin = { top: 70, right: 20, bottom: 70, left: 70 };
+  // More breathing room for title + axis labels + legend
+  const margin = { top: 200, right: 20, bottom: 70, left: 70 };
 
   const innerWidth = Math.max(300, containerWidth - margin.left - margin.right);
 
   // Keep cells reasonable so chart doesn't become insanely tall on wide screens
-  const cellSize = Math.min(40, Math.max(25, innerWidth / DAYS.length));
+  const cellSize = Math.min(30, Math.max(20, innerWidth / DAYS.length));
   const innerHeight = cellSize * MONTHS.length;
 
   const svg = container.append("svg")
@@ -114,7 +114,7 @@ function renderHeatmap(container, cells, label, title) {
   // Title (inside SVG)
   svg.append("text")
     .attr("x", margin.left + innerWidth / 2)
-    .attr("y", 28)
+    .attr("y", 30)
     .attr("text-anchor", "middle")
     .attr("font-size", 22)
     .attr("font-weight", 700)
@@ -167,6 +167,71 @@ function renderHeatmap(container, cells, label, title) {
     .attr("font-size", 14)
     .text("Month");
 
+// ------------------------------
+// COLOR LEGEND (below title)
+// ------------------------------
+const defs = svg.append("defs");
+const gradId = `heatmap-grad-${currentMode}`;
+
+const gradient = defs.append("linearGradient")
+  .attr("id", gradId)
+  .attr("x1", "0%").attr("y1", "0%")
+  .attr("x2", "100%").attr("y2", "0%");
+
+// Smooth gradient stops
+const stops = d3.range(0, 1.0001, 0.1);
+gradient.selectAll("stop")
+  .data(stops)
+  .enter()
+  .append("stop")
+  .attr("offset", d => `${d * 100}%`)
+  .attr("stop-color", d => color(minVal + d * (maxVal - minVal)));
+
+// Legend layout (CENTERED, under title)
+const legendW = Math.min(300, innerWidth * 0.45);
+const legendH = 12;
+
+// Title is at y=28, so place legend just below it
+const legendX = margin.left + (innerWidth - legendW) / 2;
+const legendY = 100;
+
+// (Optional) small label above the bar
+svg.append("text")
+  .attr("x", margin.left + innerWidth / 2)
+  .attr("y", legendY - 8)
+  .attr("text-anchor", "middle")
+  .attr("font-size", 12)
+  .attr("fill", "#475569")
+  .text("Average price");
+
+// Gradient bar
+svg.append("rect")
+  .attr("x", legendX)
+  .attr("y", legendY)
+  .attr("width", legendW)
+  .attr("height", legendH)
+  .attr("rx", 6)
+  .attr("fill", `url(#${gradId})`)
+  .attr("stroke", "rgba(15,23,42,0.12)");
+
+// Min / Max labels under the bar
+svg.append("text")
+  .attr("x", legendX)
+  .attr("y", legendY + legendH + 16)
+  .attr("text-anchor", "start")
+  .attr("font-size", 12)
+  .attr("fill", "#334155")
+  .text(`$${Math.round(minVal)}`);
+
+svg.append("text")
+  .attr("x", legendX + legendW)
+  .attr("y", legendY + legendH + 16)
+  .attr("text-anchor", "end")
+  .attr("font-size", 12)
+  .attr("fill", "#334155")
+  .text(`$${Math.round(maxVal)}`);
+
+
   // Tooltip (created per render; container is cleared each time)
   const tooltip = container.append("div")
     .style("position", "absolute")
@@ -204,3 +269,4 @@ function renderHeatmap(container, cells, label, title) {
     })
     .on("mouseleave", () => tooltip.style("opacity", 0));
 }
+
