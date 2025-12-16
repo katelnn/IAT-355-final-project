@@ -1,567 +1,891 @@
+/* ============================
+   THEME VARIABLES (site-wide)
+   Used by: body, nav active state, etc.
+============================ */
 :root {
-    --bg: #eef2ff;
-    --text: #1d2b4d;
-    --accent: #2563eb;
-    --accent-light: #dbeafe;
-  }
-  
-  /* GLOBAL */
-  body {
-    margin: 0;
-    background: var(--bg);
-    font-family: "Inter", sans-serif;
-    color: var(--text);
-  }
-  
-  h1, h2 {
-    margin: 0 0 12px 0;
-    font-weight: 700;
-  }
+  --bg: #eef2ff;
+  --text: #1d2b4d;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+}
 
-  h1 {
-    font-size: 2.5rem;
-  }
+/* ============================
+   GLOBAL BASE STYLES
+   Applies to: whole page typography + background
+============================ */
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+}
 
-  h2 {
-    font-size: 2rem;
-  }
-  
-  .subtitle,
-  .desc {
-    font-size: 1.2rem;
-    color: #475569;
-    margin-bottom: 1rem;
-  }
+/* Headings (h1 / h2) used across sections */
+h1, h2 {
+  margin: 0 0 12px 0;
+  font-weight: 700;
+}
 
-  /* ============================= */
-/* INTRO HERO SECTION WITH IMAGES */
-/* ============================= */
+/* Intro hero title */
+h1 {
+  font-size: 2.5rem;
+}
+
+/* Section headings (About, Context, Year, Month, etc.) */
+h2 {
+  font-size: 2rem;
+}
+
+/* Paragraph text used throughout (subtitle on hero + section descriptions) */
+.subtitle,
+.desc {
+  font-size: 1.2rem;
+  color: #475569;
+  margin-bottom: 1rem;
+}
+
+/* ================================
+   INTRO HERO (Section #intro)
+   Styles: .intro-hero, .hero-media, .plane, clouds, .intro-text
+================================ */
 
 .intro-hero {
-    position: relative;
-    width: 100%;
-    height: 100vh;             /* full hero */
-    padding-top: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-  }
-  
-  /* IMAGE LAYER */
-  .hero-media {
-    position: absolute;
-    inset: 0;                  /* top:0, left:0, right:0, bottom:0 */
-    width: 100%;
-    height: 100%;
-    overflow: visible;   /* <-- prevents cutting */
-    pointer-events: none;
-    z-index: 0;
+  position: relative;
+  width: 100%;
+  height: 100vh;             
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
 
-    /* Fade left, right, and bottom edges only */
-  -webkit-mask-image: 
-  linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%),
-  linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+/* Hero background media layer (clouds + plane). Mask fades edges. */
+.hero-media {
+  position: absolute;
+  inset: 0;                  
+  width: 100%;
+  height: 100%;
+  overflow: visible;   
+  pointer-events: none;
+  z-index: 0;
+
+  /* Fade left, right, and bottom edges only */
+-webkit-mask-image: 
+linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%),
+linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
 
 -webkit-mask-composite: intersect;
 mask-composite: intersect;
-    
+  
+}
+
+/* Hero text layer (title + subtitle) above images */
+.intro-text {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+
+/* Plane image in hero */
+.plane {
+  position: absolute;
+  width: 650px;
+  max-width: 80%;
+  left: 50%;
+  top: 45%;
+  transform: translateX(-50%);
+  z-index: 0 !important;
+}
+
+/* Shared cloud styling in hero */
+.cloud {
+  position: absolute;
+  opacity: 0.95;
+  z-index: 0 !important;
+}
+
+/* Left cloud (assets/cloud.png) */
+.cloud-left {
+  left: -200px;
+  top: 25%;
+  width: 900px;
+}
+
+/* Right cloud (assets/cloud2.png) */
+.cloud-right {
+  right: -200px;
+  top: 10%;
+  width: 900px;
+}
+
+/* Bottom cloud (assets/cloud3.png) */
+.cloud-bottom {
+  bottom: -130px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1300px;
+}
+
+/* ============================
+   PAGE LAYOUT WRAPPER
+   Applies to: #page-layout grid
+   Left = nav, Right = main content
+============================ */
+#page-layout {
+  display: grid;
+  grid-template-columns: 150px 1fr;  
+  width: 100%;
+  position: relative;
+  padding: 1rem;
+}
+
+
+/* ============================
+   LEFT NAV (Progress Nav)
+   Applies to: #progress-nav + its list items
+   NOTE: There are multiple nav style blocks below.
+   CSS later in the file will override earlier ones.
+============================ */
+
+/* --- Nav container (earlier version) --- */
+#progress-nav {
+  position: sticky;
+  top: 50%;
+  transform: translateY(-50%);
+  /* z-index: 9999; */
+  height: fit-content;
+  gap: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 20px;
+}
+
+
+/* --- Base UL reset for nav (earlier version) --- */
+#progress-nav ul {
+  padding: 0;
+  margin: 0;
+}
+
+/* --- Nav item pill styling (earlier version) --- */
+#progress-nav li {
+  padding: 6px 10px;           
+  margin-bottom: 6px;          
+  border-radius: 8px;          
+  font-size: 13px;             
+
+  background: #ffffffcc;       
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05); 
+}
+
+
+/* --- Active nav state (earlier version) --- */
+#progress-nav li.active {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+
+/* --- Active nav colors (earlier version) --- */
+#progress-nav li.active {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* --- Inactive opacity behavior (earlier version) --- */
+#progress-nav li:not(.active) {
+  opacity: 0.8;
+}
+#progress-nav li:not(.active):hover {
+  opacity: 1;
+}
+
+/* --- UL reset again (duplicate, earlier version) --- */
+#progress-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* --- Nav item layout with icons + label (middle version) --- */
+#progress-nav li {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  align-items: center;
+
+  height: 54px;
+  margin-bottom: 14px;
+  border-radius: 999px;
+
+  background: #0b2a6f;
+  color: white;
+
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.25s ease;
+}
+
+/* Left/Right icon areas in nav items */
+#progress-nav .nav-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+/* Center label text in nav items */
+#progress-nav .nav-label {
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ================================
+   FLIGHT-STYLE COLLAPSING SIDE NAV
+   (latest nav design – overrides earlier #progress-nav blocks)
+================================ */
+
+#progress-nav {
+  position: sticky;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;                 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding-left: 14px;
+  z-index: 100;
+}
+
+/* Nav UL reset (latest version) */
+#progress-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* NAV PILL (DEFAULT COLLAPSED)
+   Applies to: each nav item (li) */
+#progress-nav li {
+  display: grid;
+  grid-template-columns: 52px 0 0;
+
+  align-items: center;
+  height: 52px;
+  width: 52px;
+
+  border-radius: 999px;       
+  background: #7a87a6;
+  color: white;
+
+  overflow: hidden;
+  cursor: pointer;
+
+  transition:
+    width 0.3s ease,
+    grid-template-columns 0.3s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.2s ease;
+}
+
+/* Icon zone inside nav pill */
+#progress-nav .nav-icon {
+  min-width: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+}
+
+/* Label hidden by default (collapsed) */
+#progress-nav .nav-label {
+  white-space: nowrap;
+  font-size: 15px;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* HOVER → EXPAND
+   Applies to: nav item on hover (shows label) */
+#progress-nav li:hover {
+  width: 120px; /* 👈 slightly smaller expanded width */
+  grid-template-columns: 50px 1fr 50px;
+
+  background: #5f6f93;
+  transform: translateX(6px);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.32);
+
+  border-radius: 999px; /* reinforce pill */
+}
+
+/* Reveal label on hover */
+#progress-nav li:hover .nav-label {
+  opacity: 1;
+}
+
+/* ACTIVE → LOCK OPEN (WHITE CAPSULE)
+   Applies to: current section nav item */
+#progress-nav li.active {
+  width: 120px;
+  grid-template-columns: 50px 1fr 50px;
+
+  background: #ffffff;
+  color: #0b2a6f;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.35);
+
+  border-radius: 999px; 
+}
+
+/* Active state label visible */
+#progress-nav li.active .nav-label {
+  opacity: 1;
+}
+
+/* Active state icon color */
+#progress-nav li.active .nav-icon {
+  color: #0b2a6f;
+}
+
+/* Arrow motion (only affects .fa-arrow-right icons if present) */
+#progress-nav li:hover .fa-arrow-right {
+  transform: translateX(4px);
+  transition: transform 0.2s ease;
+}
+
+/* MOBILE FALLBACK
+   Applies to: <= 900px wide screens */
+@media (max-width: 900px) {
+  #progress-nav {
+    position: static;
+    transform: none;
+    flex-direction: row;
+    width: auto;
   }
-  
-  /* TEXT LAYER */
-  .intro-text {
-    position: relative;
-    z-index: 10;
-    text-align: center;
+
+  #progress-nav li {
+    width: 132px;
+    grid-template-columns: 36px 1fr 36px;
   }
-  
-  /* PLANE CENTERED */
-  .plane {
-    position: absolute;
-    width: 650px;
-    max-width: 80%;
-    left: 50%;
-    top: 45%;
-    transform: translateX(-50%);
-    z-index: 0 !important;
+
+  #progress-nav .nav-label {
+    opacity: 1;
   }
-  
-  /* CLOUD POSITIONS */
-  .cloud {
-    position: absolute;
-    opacity: 0.95;
-    z-index: 0 !important;
-  }
-  
-  .cloud-left {
-    left: -200px;
-    top: 25%;
-    width: 900px;
-  }
-  
-  /* Right cloud */
-  .cloud-right {
-    right: -200px;
-    top: 10%;
-    width: 900px;
-  }
-  
-  /* Bottom cloud centered */
-  .cloud-bottom {
-    bottom: -130px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1300px;
-  }
-  
-  /* ============ LAYOUT ============ */
-  
+}
+
+
+
+/* ============================
+   MAIN CONTENT COLUMN
+   Applies to: #content-area + each story section
+============================ */
+
+#content-area {
+  padding: 0 70px 0 40px;
+}
+
+/* Each scroll “step” section (Intro/About/Context/Viz sections) */
+section.step {
+  min-height: 100vh;
+  padding: 100px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.content {
+  max-width: 100%;
+}
+
+/* Chart wrapper blocks (used by multiple viz sections) */
+.chart-container {
+  width: 100%;
+  height: 420px;
+  /* background: #ffffff; */
+  /* border-radius: 16px; */
+  /* box-shadow: 0 6px 20px rgba(15, 23, 42, 0.12); */
+  margin-top: 20px;
+}
+
+/* ============================
+   TABLE OF CONTENTS STYLING (Section #toc)
+   Applies to: .toc-board, .toc-row, .toc-header, etc.
+============================ */
+
+.toc-subtitle {
+  margin-top: 2rem;
+}
+
+/* TOC board container (first definition) */
+.toc-board {
+  width: 100%;
+  background: #0f172a; /* deep navy */
+  border-radius: 12px;
+  padding: 20px 0;
+  color: #e2e8f0;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  /* margin-top: 1rem; */
+}
+
+/* TOC rows layout */
+.toc-row {
+  display: grid;
+  grid-template-columns: 110px 110px 1.6fr 1.4fr;
+  padding: 18px 24px;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.toc-row:last-child {
+  border-bottom: none;
+}
+
+/* TOC header row */
+.toc-header {
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+/* TOC cell text */
+.toc-row div {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* Alternate row shading */
+.toc-row:nth-child(even) {
+  background: rgba(255,255,255,0.02);
+}
+
+/* “Gate” column emphasized */
+.toc-row div:nth-child(2) {
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+/* Center the TOC board on the page */
+.toc-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+/* TOC board container (second definition – overrides the first .toc-board) */
+.toc-board {
+  width: 100%;
+  max-width: 1100px;
+  background: #0f172a;
+  border-radius: 18px;
+  padding: 10px 0;
+  color: #e2e8f0;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+
+/* Summary list items (if you use <ul class="summary-points">) */
+.summary-points li {
+  margin: 8px 0;
+}
+
+
+/* ============================
+   VIS 1 — CONTEXT SECTION
+   Applies to: #context-viz layout + map/trend containers
+============================ */
+#context-viz {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+  align-items: flex-start;
+}
+
+/* Highcharts/Map container size */
+#map-container {
+  width: 420px;
+  height: 420px;
+}
+
+/* Context trend chart container size */
+#trend-container {
+  width: 480px;
+  height: 400px;
+}
+
+.chart-container {
+  margin-bottom: 7rem;
+}
+
+/* ================================
+   VIS 5 — HEATMAP TOGGLE BUTTONS
+   Applies to: .heatmap-toggle and its <button>s
+================================ */
+
+.heatmap-toggle {
+display: flex;               
+justify-content: center;      
+align-items: center;
+gap: 10px;
+margin: 18px auto 16px auto;   
+padding: 6px;
+background: #c6d9f2;
+border-radius: 999px;          
+width: fit-content;            
+box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.heatmap-toggle button {
+appearance: none;
+border: none;
+background: transparent;
+padding: 10px 18px;            
+font-size: 15px;               
+font-weight: 600;
+border-radius: 999px;
+cursor: pointer;
+color: #475569;
+transition:
+  background 0.25s ease,
+  color 0.25s ease,
+  box-shadow 0.25s ease,
+  transform 0.15s ease;
+}
+
+.heatmap-toggle button:hover {
+background: rgba(77, 104, 179, 0.06);
+}
+
+.heatmap-toggle button.active {
+background: #0f172a;
+color: #ffffff;
+box-shadow: 0 10px 24px rgba(15, 23, 42, 0.22);
+}
+
+.heatmap-toggle button:active {
+transform: scale(0.97);
+}
+
+
+/* ============================
+   RESPONSIVE TWEAK (<= 900px)
+   Applies to: layout + nav + content padding on smaller screens
+============================ */
+@media (max-width: 900px) {
   #page-layout {
-    display: grid;
-    grid-template-columns: 150px 1fr;  /* left nav | content */
-    width: 100%;
-    position: relative;
-    padding: 1rem;
+    grid-template-columns: 1fr;
   }
-  
-  
-  /* ===== LEFT NAV COLUMN ===== */
-  
+
+  #progress-nav {
+    position: static;
+    transform: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 16px 20px;
+  }
+
+  #progress-nav {
+    position: sticky;
+    top: 0;
+    transform: none;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 10px 12px;
+    background: rgba(238, 242, 255, 0.9);
+    backdrop-filter: blur(8px);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    z-index: 999;
+  }
+
+  #progress-nav ul {
+    display: flex;
+    gap: 10px;
+  }
+
+  #progress-nav li {
+    flex: 0 0 auto; /* prevents squishing */
+  }
+
+  #content-area {
+    padding: 0 20px 40px;
+  }
+
+  section.step {
+    padding-top: 40px;
+  }
+}
+/* =========================================================
+   RESPONSIVE OVERRIDES (815px / 490px / 320px)
+   Goal: keep side nav, shrink it, and keep charts readable
+   Paste at the VERY END so it overrides earlier @media rules
+========================================================= */
+
+/* ---------- Fluid type + spacing (applies at all sizes) ---------- */
+h1 {
+  font-size: clamp(1.8rem, 3.8vw, 2.5rem);
+}
+h2 {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+.subtitle,
+.desc {
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  line-height: 1.55;
+}
+
+section.step {
+  padding: clamp(48px, 7vw, 100px) 0; /* reduces huge gaps on smaller screens */
+}
+
+#content-area {
+  padding-right: clamp(16px, 4vw, 70px);
+  padding-left: clamp(12px, 3vw, 40px);
+}
+
+/* Make wide SVG-based charts not break the layout */
+.chart-container,
+#monthly-boxplot,
+#day-month-heatmap,
+#chart-weekly,
+#chart-yearly,
+#chart-tod,
+#context-viz,
+.toc-container {
+  max-width: 100%;
+}
+
+/* If a chart is wider than the screen, allow sideways scroll (mobile-safe) */
+.chart-container,
+#monthly-boxplot,
+#day-month-heatmap,
+#chart-weekly,
+#chart-yearly,
+#chart-tod {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---------- <= 815px (small laptop / large tablet) ---------- */
+@media (max-width: 815px) {
+  /* Keep SIDE nav */
+  #page-layout {
+    grid-template-columns: 96px 1fr;
+  }
+
+  /* Shrink side nav */
   #progress-nav {
     position: sticky;
     top: 50%;
     transform: translateY(-50%);
-    /* z-index: 9999; */
-    height: fit-content;
-    gap: 6px;
-    display: flex;
-    flex-direction: column;
+    width: 40px;
+    padding-left: 8px;
     gap: 10px;
-    padding-left: 20px;
-  }
-  
-  
-  
-  #progress-nav ul {
-    padding: 0;
-    margin: 0;
-  }
-  
-  /* Nav items look like rounded pills, always visible */
-  #progress-nav li {
-    padding: 6px 10px;           /* smaller pill */
-    margin-bottom: 6px;          /* tighter spacing */
-    border-radius: 8px;          /* subtler rounding */
-    font-size: 13px;             /* slightly smaller text */
-  
-    background: #ffffffcc;       /* more transparent white */
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05); 
-  }
-  
-  
-  #progress-nav li.active {
-    padding: 6px 12px;
-    font-size: 14px;
-    border-radius: 10px;
-  }
-  
-  
-  #progress-nav li.active {
-    background: var(--accent);
-    color: #ffffff;
   }
 
-  #progress-nav li:not(.active) {
-    opacity: 0.8;
-  }
-  #progress-nav li:not(.active):hover {
-    opacity: 1;
+  #progress-nav li {
+    width: 40px;
+    height: 40px;
+    grid-template-columns: 40px 0 0;
   }
 
-  #progress-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  #progress-nav li {
-    display: grid;
-    grid-template-columns: 48px 1fr 48px;
-    align-items: center;
-  
-    height: 54px;
-    margin-bottom: 14px;
-    border-radius: 999px;
-  
-    background: #0b2a6f;
-    color: white;
-  
-    cursor: pointer;
-    transition:
-      transform 0.2s ease,
-      box-shadow 0.2s ease,
-      background 0.25s ease;
-  }
-  
-  /* Left + Right icon zones */
   #progress-nav .nav-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
+    min-width: 40px;
+    font-size: 13px;
   }
-  
-  /* Center label */
-  #progress-nav .nav-label {
-    text-align: center;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-  }
-/* ================================
-   FLIGHT-STYLE COLLAPSING SIDE NAV
-================================ */
 
-#progress-nav {
-    position: sticky;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 52px;                 /* slightly tighter collapsed */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-    padding-left: 14px;
-    z-index: 100;
-  }
-  
-  #progress-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  /* ================================
-     NAV PILL (DEFAULT COLLAPSED)
-  ================================ */
-  
-  #progress-nav li {
-    display: grid;
-    grid-template-columns: 52px 0 0;
-  
-    align-items: center;
-    height: 52px;
-    width: 52px;
-  
-    border-radius: 999px;       /* FORCE pill */
-    background: #7a87a6;
-    color: white;
-  
-    overflow: hidden;
-    cursor: pointer;
-  
-    transition:
-      width 0.3s ease,
-      grid-template-columns 0.3s ease,
-      background 0.25s ease,
-      box-shadow 0.25s ease,
-      transform 0.2s ease;
-  }
-  
-  /* Icon zones */
-  #progress-nav .nav-icon {
-    min-width: 52px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-  }
-  
-  /* Label hidden */
-  #progress-nav .nav-label {
-    white-space: nowrap;
-    font-size: 15px;
-    font-weight: 600;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-  
-  /* ================================
-     HOVER → EXPAND
-  ================================ */
-  
-  #progress-nav li:hover {
-    width: 120px; /* 👈 slightly smaller expanded width */
-    grid-template-columns: 50px 1fr 50px;
-  
-    background: #5f6f93;
-    transform: translateX(6px);
-    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.32);
-  
-    border-radius: 999px; /* reinforce pill */
-  }
-  
-  #progress-nav li:hover .nav-label {
-    opacity: 1;
-  }
-  
-  /* ================================
-     ACTIVE → LOCK OPEN (WHITE CAPSULE)
-  ================================ */
-  
+  /* Expand less so it doesn’t cover content */
+  #progress-nav li:hover,
   #progress-nav li.active {
-    width: 120px;
-    grid-template-columns: 50px 1fr 50px;
-  
-    background: #ffffff;
-    color: #0b2a6f;
-    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.35);
-  
-    border-radius: 999px; /* ✅ prevents square corners */
-  }
-  
-  #progress-nav li.active .nav-label {
-    opacity: 1;
-  }
-  
-  #progress-nav li.active .nav-icon {
-    color: #0b2a6f;
-  }
-  
-  /* Arrow motion */
-  #progress-nav li:hover .fa-arrow-right {
-    transform: translateX(4px);
-    transition: transform 0.2s ease;
-  }
-  
-  /* ================================
-     MOBILE FALLBACK
-  ================================ */
-  
-  @media (max-width: 900px) {
-    #progress-nav {
-      position: static;
-      transform: none;
-      flex-direction: row;
-      width: auto;
-    }
-  
-    #progress-nav li {
-      width: 132px;
-      grid-template-columns: 36px 1fr 36px;
-    }
-  
-    #progress-nav .nav-label {
-      opacity: 1;
-    }
-  }
-  
-  
-  
-  /* ===== CONTENT COLUMN ===== */
-  
-  #content-area {
-    padding: 0 70px 0 40px;
-  }
-  
-  section.step {
-    min-height: 100vh;
-    padding: 100px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-  
-  .content {
-    max-width: 100%;
-  }
-  
-  /* Chart block */
-  .chart-container {
-    width: 100%;
-    height: 420px;
-    /* background: #ffffff; */
-    /* border-radius: 16px; */
-    /* box-shadow: 0 6px 20px rgba(15, 23, 42, 0.12); */
-    margin-top: 20px;
-  }
-  
-  /* table of contents */
-  /* Centering container for TOC */
-
-  .toc-subtitle {
-    margin-top: 2rem;
+    width: 96px;
+    grid-template-columns: 38px 1fr 38px;
   }
 
-  .toc-board {
-    width: 100%;
-    background: #0f172a; /* deep navy */
-    border-radius: 12px;
-    padding: 20px 0;
-    color: #e2e8f0;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    /* margin-top: 1rem; */
-  }
-  
-  .toc-row {
-    display: grid;
-    grid-template-columns: 110px 110px 1.6fr 1.4fr;
-    padding: 18px 24px;
-    align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  
-  .toc-row:last-child {
-    border-bottom: none;
-  }
-  
-  .toc-header {
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: #94a3b8;
-    font-size: 14px;
-    text-transform: uppercase;
-  }
-  
-  .toc-row div {
-    font-size: 15px;
-    line-height: 1.4;
-  }
-  
-  .toc-row:nth-child(even) {
-    background: rgba(255,255,255,0.02);
-  }
-  
-  /* Gate bold */
-  .toc-row div:nth-child(2) {
-    font-weight: 700;
-    color: #f8fafc;
-  }
-  
-.toc-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 20px 0;
-  }
-  
-  /* Limit max width so it's not overpowering */
-  .toc-board {
-    width: 100%;
-    max-width: 1100px;
-    background: #0f172a;
-    border-radius: 18px;
-    padding: 10px 0;
-    color: #e2e8f0;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-    overflow: hidden;
-  }
-  
-  
-  /* Summary list */
-  .summary-points li {
-    margin: 8px 0;
+  #progress-nav .nav-label {
+    font-size: 13px;
   }
 
-
-  /* Visualization 1 Styling */
-  /* CONTEXT SECTION */
+  /* Context: stack if it gets cramped */
   #context-viz {
-    display: flex;
-    gap: 40px;
-    margin-top: 20px;
-    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
   }
-  
-  #map-container {
-    width: 420px;
-    height: 420px;
-  }
-  
+
+  #map-container,
   #trend-container {
-    width: 480px;
-    height: 400px;
+    width: 100%;
+    max-width: 520px; 
+    height: 380px;
   }
-  
-  /* vis 2 styling */
+
+  /* TOC rows get slightly tighter */
+  .toc-row {
+    padding: 14px 16px;
+  }
+}
+
+/* ---------- <= 490px (phones) ---------- */
+@media (max-width: 490px) {
+  /* Still keep SIDE nav, but narrower */
+  #page-layout {
+    grid-template-columns: 68px 1fr;
+    padding: 0.75rem;
+  }
+
+  #progress-nav {
+    width: 34px;
+    padding-left: 6px;
+    gap: 8px;
+  }
+
+  #progress-nav li {
+    width: 34px;
+    height: 34px;
+    grid-template-columns: 34px 0 0;
+  }
+
+  #progress-nav .nav-icon {
+    min-width: 34px;
+    font-size: 12px;
+  }
+
+  /* On touch devices hover doesn’t matter—keep it collapsed to avoid overlap */
+  #progress-nav li:hover,
+  #progress-nav li.active {
+    width: 34px;
+    grid-template-columns: 34px 0 0;
+  }
+
+  #progress-nav .nav-label {
+    opacity: 0 !important;
+  }
+
+  /* Hero adjustments */
+  .plane {
+    width: min(520px, 92vw);
+    top: 48%;
+  }
+
+  .cloud-left,
+  .cloud-right,
+  .cloud-bottom {
+    opacity: 0.85;
+  }
+
+  /* Context stacks cleanly */
+  #context-viz {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  #map-container,
+  #trend-container {
+    width: 100%;
+    height: 320px;
+  }
+
+  /* TOC: allow horizontal scroll instead of crushing columns */
+  .toc-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .toc-board {
+    min-width: 720px;
+  }
+
+  /* Heatmap toggle buttons tighten */
+  .heatmap-toggle {
+    gap: 8px;
+    padding: 5px;
+  }
+  .heatmap-toggle button {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  section.step {
+    padding: 64px 0;     /* was 100px 0 */
+    min-height: 85vh;    /* was 100vh */
+  }
+
   .chart-container {
-    margin-bottom: 7rem;
+    margin-bottom: 3rem; /* was 7rem */
+    height: 360px;       
+  }
+
+  .desc {
+    margin-bottom: 0.75rem; /* was 1rem */
   }
   
-  /* vis 5 styling */
-  /* ================================
-   Heatmap Toggle Buttons (Vis 5)
-================================ */
-
-/* Center the toggle on the page */
-.heatmap-toggle {
-  display: flex;                 /* was inline-flex */
-  justify-content: center;       /* center buttons */
-  align-items: center;
-  gap: 10px;
-  margin: 18px auto 16px auto;   /* center + spacing */
-  padding: 6px;
-  background: #c6d9f2;
-  border-radius: 999px;          /* pill container */
-  width: fit-content;            /* shrink to content */
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-  border: 1px solid rgba(15, 23, 42, 0.06);
 }
 
-/* Buttons */
-.heatmap-toggle button {
-  appearance: none;
-  border: none;
-  background: transparent;
-  padding: 10px 18px;            /* a bit roomier */
-  font-size: 15px;               /* matches “UI pill” feel */
-  font-weight: 600;
-  border-radius: 999px;
-  cursor: pointer;
-  color: #475569;
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    box-shadow 0.25s ease,
-    transform 0.15s ease;
-}
-
-.heatmap-toggle button:hover {
-  background: rgba(77, 104, 179, 0.06);
-}
-
-.heatmap-toggle button.active {
-  background: #0f172a;
-  color: #ffffff;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.22);
-}
-
-.heatmap-toggle button:active {
-  transform: scale(0.97);
-}
-
-  
-  /* Responsive tweak */
-  @media (max-width: 900px) {
-    #page-layout {
-      grid-template-columns: 1fr;
-    }
-  
-    #progress-nav {
-      position: static;
-      transform: none;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding: 16px 20px;
-    }
-  
-    #content-area {
-      padding: 0 20px 40px;
-    }
-  
-    section.step {
-      padding-top: 40px;
-    }
+/* ---------- <= 320px (very small phones) ---------- */
+@media (max-width: 320px) {
+  #page-layout {
+    grid-template-columns: 60px 1fr;
+    padding: 0.5rem;
   }
-  
+
+
+  #content-area {
+    padding-right: 10px;
+    padding-left: 8px;
+  }
+
+  #progress-nav {
+    width: 30px;
+    padding-left: 5px;
+  }
+
+  #progress-nav li {
+    width: 30px;
+    height: 30px;
+    grid-template-columns: 30px 0 0;
+  }
+
+  #progress-nav .nav-icon {
+    min-width: 30px;
+    font-size: 11px;
+  }
+
+  .heatmap-toggle button {
+    padding: 7px 12px;
+    font-size: 13px;
+  }
+
+  #map-container,
+  #trend-container {
+    height: 280px;
+  }
+
+  section.step {
+    padding: 48px 0;
+    min-height: 75vh;
+  }
+
+  .chart-container {
+    margin-bottom: 2rem;
+    height: 320px;
+  }
+
+  h2 {
+    margin-bottom: 8px;  
+  }
+
+}
