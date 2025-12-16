@@ -67,7 +67,7 @@
       // ---------------------------------------------------------
 // 2. Chart setup
 // ---------------------------------------------------------
-const margin = { top: 60, right: 220, bottom: 70, left: 80 };
+const margin = { top: 80, right: 220, bottom: 200, left: 80 };
 const outerWidth = 1020;
 const outerHeight = 520;
 
