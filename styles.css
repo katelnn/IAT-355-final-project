@@ -23,6 +23,7 @@ body {
 }
 
 html, body {
+  max-width: 100%;
   /* overflow-x: hidden; */
 }
 
@@ -653,8 +654,15 @@ section.step {
   }
 
   #progress-nav li {
+    height: 40px;
+    /* grid-template-columns: 32px 1fr 32px; */
     flex: 0 0 auto;
     /* prevents squishing */
+  }
+
+  #progrss-nav .nav-icon{
+    min-width: 32px;
+    font-size: 12px;
   }
 
   #content-area {
@@ -725,29 +733,29 @@ section.step {
 @media (max-width: 815px) {
 
   /* Keep SIDE nav (override any earlier rule that changed layout to 1 column) */
-  #page-layout {
+  /* #page-layout {
     grid-template-columns: 96px 1fr;
-  }
+  } */
 
   /* Shrink side nav */
-  #progress-nav {
+  /* #progress-nav {
     position: sticky;
     top: 50%;
     transform: translateY(-50%);
     width: 40px;
     padding-left: 8px;
     gap: 10px;
-  }
+  } */
 
   #progress-nav li {
-    width: 40px;
+    width: 20px;
     height: 40px;
     grid-template-columns: 40px 0 0;
   }
 
   #progress-nav .nav-icon {
     min-width: 40px;
-    font-size: 13px;
+    font-size: 11px;
   }
 
   /* Expand less so it doesn’t cover content */
@@ -785,16 +793,16 @@ section.step {
 @media (max-width: 490px) {
 
   /* Still keep SIDE nav, but narrower */
-  #page-layout {
+  /* #page-layout {
     grid-template-columns: 68px 1fr;
     padding: 0.75rem;
-  }
+  } */
 
-  #progress-nav {
+  /* #progress-nav {
     width: 34px;
     padding-left: 6px;
     gap: 8px;
-  }
+  } */
 
   #progress-nav li {
     width: 34px;
