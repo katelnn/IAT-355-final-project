@@ -1,5 +1,6 @@
 // ================================
 // vis3.js — Monthly Cheapest Flight Prices (Box Plot)
+// Box Plot Showing How Daily Lowest Flight Prices Vary by Month
 // Adds axis labels + callout annotations (cheapest vs most expensive month)
 // ================================
 
@@ -7,6 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const CSV_PATH =
     "data/Flights_From_Vancouver_to_Toronto_LowestPrice_clean.csv";
   const parseDate = d3.timeParse("%m/%d/%Y");
+
+  const CHART_TITLE = "Box Plot Showing How Daily Lowest Flight Prices Vary by Month";
 
   // Order to match your screenshot (Nov -> Oct)
   const MONTH_ORDER = [
@@ -26,8 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-  // Give a bit more room for labels + callouts
-  const margin = { top: 30, right: 40, bottom: 75, left: 80 };
+  // Give more room for the chart title + labels + callouts
+  const margin = { top: 70, right: 40, bottom: 75, left: 80 };
   const width = 900 - margin.left - margin.right;
   const height = 420 - margin.top - margin.bottom;
 
@@ -39,10 +42,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
   container.style("position", "relative");
 
-  const svg = container
+  const outerW = width + margin.left + margin.right;
+  const outerH = height + margin.top + margin.bottom;
+
+  // ✅ Responsive SVG (prevents awkward scrolling caused by fixed pixel width)
+  const svgRoot = container
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("viewBox", `0 0 ${outerW} ${outerH}`)
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .style("width", "100%")
+    .style("height", "auto")
+    .style("display", "block");
+
+  // Chart title
+  svgRoot.append("text")
+    .attr("x", outerW / 2)
+    .attr("y", 30)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 18)
+    .attr("font-weight", 700)
+    .text(CHART_TITLE);
+
+  const svg = svgRoot
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
