@@ -1,476 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <title>Flights From Vancouver to Toronto</title>
 
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&display=swap"
-    rel="stylesheet">
+  <!-- Typography -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  />
 
+  <!-- Page styles -->
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Icons (Font Awesome) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <!-- Visualization libraries -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://code.highcharts.com/maps/highmaps.js"></script>
-  <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/mapdata/countries/ca/ca-all.topo.js"></script>
 </head>
 
 <body>
-  <main class="page">
-    <section class="hero" id="hero-main" data-step="0">
+  <div id="page-layout">
 
-      <div class="hero-text">
-        <h1 class="hero-title">
-          Flights From
-          <span class="highlight">Vancouver</span>
-          to
-          <span class="highlight">Toronto</span>
-        </h1>
-        <p class="hero-subtitle">What’s the Pattern in These Flights?</p>
-        <p class="context-text">Are you a post-secondary student, with home in Vancouver, but school in Toronto? Have
-          you ever wondered how the prices fluctuate over the year? We have done the research for you, for the
-          <strong>year of 2026!</strong>
-        </p>
-      </div>
+    <!-- Sticky progress navigation (left column) -->
+    <nav id="progress-nav">
+      <ul>
+        <li data-target="intro" class="active">
+          <span class="nav-icon left"><i class="fa-solid fa-plane-departure"></i></span>
+          <span class="nav-label">Intro</span>
+        </li>
 
+        <li data-target="toc">
+          <span class="nav-icon left"><i class="fa-solid fa-plane-departure"></i></span>
+          <span class="nav-label">About</span>
+        </li>
 
-      <div class="hero-sky" id="hero">
-        <img src="assets/cloud.png" alt="cloud left" class="cloud cloud-left" />
-        <img src="assets/cloud.png" alt="cloud right" class="cloud cloud-right" />
-        <img src="assets/airline2.png" alt="airplane" class="plane" />
-      </div>
+        <li data-target="context">
+          <span class="nav-icon left"><i class="fa-solid fa-plane-departure"></i></span>
+          <span class="nav-label">Context</span>
+        </li>
 
-      <div class="hero-scroll-hint" id="hero-scroll-hint">
-        <div class="scroll-text">Use Arrow Key or Scroll Down!</div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down"
-          viewBox="0 0 16 16">
-          <path fill-rule="evenodd"
-            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
-        </svg>
-      </div>
+        <li data-target="viz2">
+          <span class="nav-icon left"><i class="fa-solid fa-plane-departure"></i></span>
+          <span class="nav-label">Year</span>
+        </li>
 
-    </section>
+        <li data-target="viz3">
+          <span class="nav-icon left"><i class="fa-solid fa-plane-departure"></i></span>
+          <span class="nav-label">Month</span>
+        </li>
 
-    <section class="context-row" id="context" data-step="1">
-      <div class="context-container">
+        <li data-target="viz4">
+          <span class="nav-icon left"><i class="fa-solid fa-plane-departure"></i></span>
+          <span class="nav-label">Week</span>
+        </li>
 
-        <div class="hero-text">
-          <h1 class="hero-title">
-            Why does it matter?
-          </h1>
-          <p class="hero-subtitle">Domestic flights have stayed unaffordable even after COVID-19.</p>
-          <p class="context-text">According to a <a
-              href="https://www.cbc.ca/news/canada/affordable-vacation-canada-1.7588565" target="_blank">CBC
-              article</a> published in July 2025, air travel industry in Canada is
-            still recovering from financial losses during COVID-19 pandemic. When
-            faced with growing demand despite inflation and increased costs of
-            operations, the flights have become increasingly expensive in 2025. We
-            imagined that this would pose stress on students who have to regularly
-            take domestic flights.
+        <li data-target="viz5">
+          <span class="nav-icon left"><i class="fa-solid fa-plane-departure"></i></span>
+          <span class="nav-label">Day</span>
+        </li>
 
-          <p class="hero-subtitle">These visualizations would encourage informed choices.</p>
-          <p class="context-text">The goal of this visualization is to help
-            frequent travellers to Toronto make <strong>more strategic choices</strong> when
-            planning their trips.</p>
+        <li data-target="viz6">
+          <span class="nav-icon left"><i class="fa-solid fa-plane-departure"></i></span>
+          <span class="nav-label">Time</span>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main storytelling content (right column) -->
+    <main id="content-area">
+
+      <!-- Intro hero -->
+      <section class="step" id="intro" data-step="0">
+        <div class="intro-hero">
+
+          <!-- Parallax visuals -->
+          <div class="hero-media">
+            <img src="assets/cloud.png" class="cloud cloud-left" data-speed="0.3" />
+            <img src="assets/cloud2.png" class="cloud cloud-right" data-speed="0.5" />
+            <img src="assets/cloud3.png" class="cloud cloud-bottom" data-speed="0.15" />
+            <img src="assets/airline2.png" class="plane" data-speed="0.8" />
+          </div>
+
+          <!-- Hero text -->
+          <div class="content intro-text">
+            <h1>Flights From Vancouver to Toronto</h1>
+            <p class="subtitle">What's the pattern?</p>
+          </div>
+
         </div>
-        <div class="hero-text">
-          <h1 class="hero-title">
-            Where are we pulling the data from?
-          </h1>
-          <p class="hero-subtitle">We have built the dataset by ourselves!</p>
-          <p class="context-text">We did not have a dataset sourced online as we
-            were not able to find any dataset that lists daily flight prices. Instead, the
-            data has been manually collected from Google Flights and SkyScanner search platforms. 
-            <a
-              href=https://docs.google.com/spreadsheets/d/1k5I8TawR2dMTCZnXBWkVrDVX8f1-T7YhnMOwioVIb7s/edit?usp=sharing
-              target="_blank">Access Google Sheets file here.</a>
+      </section>
+
+      <!-- About + Table of contents -->
+      <section class="step" id="toc" data-step="1">
+        <div class="content">
+          <h2>About This Journey</h2>
+          <p class="desc">
+            This project examines flight price patterns between Vancouver and Toronto through an interactive,
+            time-based narrative. By breaking prices down by year, month, week, day, and departure time,
+            the visualization helps uncover when flights are most affordable and how timing influences cost.
           </p>
-        </div>
-      </div>
-    </section>
 
+          <h3 class="toc-subtitle">Table of Contents</h3>
 
-    <section class="context-row" id="toc-board" data-step="2">
-      <div class="context-container">
+          <div class="toc-container">
+            <div class="toc-board">
 
-        <div class="board-shell">
+              <div class="toc-row toc-header">
+                <div>JOURNEY</div>
+                <div>GATE</div>
+                <div>DESTINATION</div>
+                <div>DETAILS</div>
+              </div>
 
-          <!-- Top blue bar -->
-          <div class="board-top">
-            <div class="board-brand">
-              <span class="brand-logo">✈︎</span>
-              <span class="brand-name">YVR → YYZ</span>
+              <div class="toc-row">
+                <div>Context</div>
+                <div>Gate A</div>
+                <div>Home in Vancouver → Study in Toronto</div>
+                <div>A simple line graph showing the overall price trend across the year.</div>
+              </div>
+
+              <div class="toc-row">
+                <div>Year</div>
+                <div>Gate B</div>
+                <div>Overview of Price Fluctuations</div>
+                <div>A chart comparing daily minimum & maximum ticket prices across the year.</div>
+              </div>
+
+              <div class="toc-row">
+                <div>Month</div>
+                <div>Gate C</div>
+                <div>Which Months Are Cheapest to Fly?</div>
+                <div>A boxplot showing the distribution of daily lowest prices by month.</div>
+              </div>
+
+              <div class="toc-row">
+                <div>Week</div>
+                <div>Gate D</div>
+                <div>Do Prices Change Within the Month?</div>
+                <div>A grouped bar chart comparing average cheapest vs most expensive prices by week-of-month.</div>
+              </div>
+
+              <div class="toc-row">
+                <div>Day</div>
+                <div>Gate E</div>
+                <div>Which Days Are Cheapest to Fly?</div>
+                <div>A day × month heatmap to spot cheaper weekdays and seasonal shifts.</div>
+              </div>
+
+              <div class="toc-row">
+                <div>Time</div>
+                <div>Gate F</div>
+                <div>When Is the Best Time of Day to Fly?</div>
+                <div>A scatterplot showing how prices vary across departure times.</div>
+              </div>
+
             </div>
-            <div class="board-title">DEPARTURES</div>
-            <div class="board-meta">Flight Price Views</div>
           </div>
-
-          <!-- Header row -->
-          <div class="board-header-row">
-            <div class="col time">TIME</div>
-            <div class="col gate">GATE</div>
-            <div class="col dest">DESTINATION</div>
-            <div class="col info">DETAILS</div>
-          </div>
-
-          <!-- Rows (click to scroll) -->
-          <button class="board-row" data-target="gateA">
-            <div class="col time">08:00</div>
-            <div class="col gate">Gate A</div>
-            <div class="col dest">Home in vancouver→Study in Toronto</div>
-            <div class="col info">Line graph</div>
-          </button>
-
-          <button class="board-row" data-target="gateB">
-            <div class="col time">09:15</div>
-            <div class="col gate">Gate B</div>
-            <div class="col dest">Daily Highlight & Lowest Price</div>
-            <div class="col info">Bar graph in Nov 2025 to Oct 2026 comparisons</div>
-          </button>
-
-          <button class="board-row" data-target="gateC">
-            <div class="col time">10:30</div>
-            <div class="col gate">Gate C</div>
-            <div class="col dest">Data in weeks</div>
-            <div class="col info">Bar graph in Mon–Sun cheapest days</div>
-          </button>
-
-          <button class="board-row" data-target="gateD">
-            <div class="col time">11:45</div>
-            <div class="col gate">Gate D</div>
-            <div class="col dest">Days of the week</div>
-            <div class="col info">Calender heatmap of average lowest ticket price</div>
-          </button>
-
-          <button class="board-row" data-target="gateE">
-            <div class="col time">13:00</div>
-            <div class="col gate">Gate E</div>
-            <div class="col dest">time of the day</div>
-            <div class="col info">Ticket prices by time of day</div>
-          </button>
-
-          <button class="board-row" data-target="gateF">
-            <div class="col time">14:45</div>
-            <div class="col gate">Gate F</div>
-            <div class="col dest">Conclusion</div>
-            <div class="col info">When to buy a ticket</div>
-          </button>
 
         </div>
-      </div>
-    </section>
+      </section>
 
-
-
-    <section class="context-row" id="gateA" data-step="3">
-      <!-- left gateA budge-->
-      <div class="context-marker">
-        <div class="marker-card">
-          <div class="marker-top">
-            <span class="marker-arrow">↑</span>
-            <div class="marker-circle">✈︎</div>
-            <span class="marker-number">1</span>
-          </div>
-          <div class="marker-label">Context</div>
-        </div>
-      </div>
-
-      <!-- right side -->
-      <div class="context-main">
-        <div class="context-inner">
-          <h2 class="context-title">Home in Vancouver → Study in Toronto</h2>
-          <p class="context-text">
-            According to <a href=https://doi.org/10.25318/3710028901-eng
-              target="_blank">Statistics Canada</a>, 1.3% to 1.93% of bachelor’s degree graduates of
+      <!-- Context: who this affects + supporting context viz -->
+      <section class="step" id="context" data-step="2">
+        <div class="content">
+          <h2>Home in Vancouver → Study in Toronto</h2>
+          <p class="desc">
+            According to Statistics Canada, 1.3% to 1.93% of bachelor’s degree graduates of
             post-secondary institutions in Ontario from 2012 to 2021 were from British Columbia.
             This group partially represents students whose home is in Vancouver but study in Toronto.
           </p>
 
-          <h3 class="context-subtitle">
-            Share of Ontario Undergraduates from British Columbia, 2012–2021
-          </h3>
-
-          <div class="vis-row">
-            <div id="canada-map"></div>
-
-            <div class="vis-panel">
-              <div id="bc-share-chart"></div>
-              <!-- <select id="region-select" size="8"></select> -->
-            </div>
+          <!-- Context visuals: map + trend -->
+          <div id="context-viz">
+            <div id="map-container"></div>
+            <div id="trend-container"></div>
           </div>
+
+          <p class="desc">
+            For these students, air travel often becomes a recurring part of their academic life.
+            Flights may be necessary to return home during academic breaks, holidays, family events,
+            or unexpected situations. Understanding how prices fluctuate across time can meaningfully
+            affect travel planning and budgeting.
+          </p>
         </div>
-      </div>
-    </section>
+      </section>
 
-
-    <!-- line graph thru out the year start. overviewOVerYear.js -->
-    <section class="context-row" id="gateB" data-step="4">
-      <div class="context-container">
-
-        <!-- left cute airplane sign-->
-        <div class="context-marker">
-          <div class="marker-card">
-            <div class="marker-top">
-              <span class="marker-arrow">↑</span>
-              <div class="marker-circle">✈︎</div>
-              <span class="marker-number">2</span>
-            </div>
-            <div class="marker-label">Year</div>
-          </div>
-        </div>
-
-        <div class="context-inner">
-          <h2 class="context-title">Overview of Price Fluctuations</h2>
-          <p class="context-text">
-            This line graph visualizes how the cheapest and most expensive ticket
-            prices changed each day from Nov 2025 to Oct 2026.
+      <!-- Year view -->
+      <section class="step" id="viz2" data-step="3">
+        <div class="content">
+          <h2>Overview of Price Fluctuations</h2>
+          <p class="desc">
+            Looking across an entire year of travel, flight prices rise and fall on a daily basis.
+            This visualization captures those shifts from November 2025 to October 2026, showing
+            the range between the cheapest and most expensive tickets students might encounter.
           </p>
 
+          <!-- vis2 renders here -->
+          <div class="chart-container" id="chart-yearly"></div>
 
-          <div class="cloud-chart-wrapper">
-
-
-            <div class="daily-chart-layout">
-
-              <!-- <div class="price-plane-slider-vertical">
-                <span class="plane-label plane-label-top">Highest</span>
-                
-                <div class="slider-track-wrapper">
-                  <img src="assets/airplane.png" alt="plane" id="plane-handle" class="plane-handle" />
-                <input type="range" id="price-mode-slider" min="0" max="10" step="1" value="0" />
-              </div>
-              
-              <span class="plane-label plane-label-bottom">Cheapest</span>
-            </div> -->
-
-
-              <div id="daily-bar-chart"></div>
-              <div id="bar-tooltip"></div>
-
-              <!-- <div id="time-filter-controls">
-              <div class="slider-track-wrapper-horizontal">
-                <img src="assets/airplane.png" alt="start plane" id="start-plane-handle"
-                class="plane-handle-horizontal plane-handle-start" />
-                <img src="assets/airplane.png" alt="end plane" id="end-plane-handle"
-                class="plane-handle-horizontal plane-handle-end" />
-              </div>
-            </div> -->
-            </div>
-          </div>
+          <p class="desc">
+            Looking across the year, prices are most unpredictable at the end of 2025, then become
+            much steadier throughout 2026. In December 2025, the highest-price line shoots up with
+            extreme spikes (including a peak around $2,586). In 2026, prices follow a more seasonal
+            pattern: summer sits higher, while fall (especially October) becomes cheaper again.
+          </p>
         </div>
+      </section>
 
-      </div>
-    </section>
-
-
-    </section>
-    <!-- line graph thru out the year end-->
-
-    <section class="context-row" id="gateC" data-step="5">
-      <!-- left cute airplane sign-->
-      <div class="context-marker">
-        <div class="marker-card">
-          <div class="marker-top">
-            <span class="marker-arrow">↑</span>
-            <div class="marker-circle">✈︎</div>
-            <span class="marker-number">3</span>
-          </div>
-          <div class="marker-label">Month</div>
-        </div>
-      </div>
-
-      <div class="context-inner">
-        <h2 class="context-title">When Are Flights Cheapest or Most Expensive?</h2>
-
-        <p class="context-text">
-          Using our manually collected dataset of flights from Vancouver to Toronto,
-          we averaged the lowest and highest ticket prices for each month. This
-          reveals which times of year tend to be the most affordable and which
-          months are more expensive to fly.
-        </p>
-
-        <h3 class="context-subtitle">
-          Average Lowest and Highest Ticket Prices by Month
-        </h3>
-
-        <div id="monthly-price-chart"></div>
-      </div>
-    </section>
-
-    <section class="context-row" id="gateD" data-step="6">
-      <div class="context-container">
-
-        <!-- left cute airplane sign-->
-        <div class="context-marker">
-          <div class="marker-card">
-            <div class="marker-top">
-              <span class="marker-arrow">↑</span>
-              <div class="marker-circle">✈︎</div>
-              <span class="marker-number">4</span>
-            </div>
-            <div class="marker-label">Week</div>
-          </div>
-        </div>
-
-        <div class="context-inner">
-          <h2 class="context-title">Now let’s see the data in weeks.</h2>
-
-          <p class="context-text">
-            Here we group all flights by the week of the month they were searched.
-            This helps reveal whether tickets tend to be cheaper at the beginning or
-            end of each month.
+      <!-- Month view -->
+      <section class="step" id="viz3" data-step="4">
+        <div class="content">
+          <h2>Which Months Are Cheapest to Fly?</h2>
+          <p class="desc">
+            This monthly boxplot summarizes the daily lowest ticket prices for Vancouver → Toronto by month.
+            Each box shows the typical price range (middle 50% of days), the black line marks the median,
+            and the whiskers show unusually cheap or expensive days—so you can compare both cost and volatility.
           </p>
 
-          <h3 class="context-subtitle">
-            Average Lowest and Highest Ticket Prices by Week of the Month
-          </h3>
+          <!-- vis3 renders here -->
+          <div id="monthly-boxplot"></div>
 
-          <div id="weekly-price-chart"></div>
+          <p class="desc">
+            The cheapest months to fly are January–April, while the most expensive (and least predictable)
+            are November–December. Summer trends higher overall, and October offers deals if you catch the low days.
+          </p>
         </div>
-    </section>
+      </section>
 
-    </div>
-    <section class="context-row" id="gateE" data-step="7">
-
-      <!-- left cute airplane sign-->
-      <div class="context-marker">
-        <div class="marker-card">
-          <div class="marker-top">
-            <span class="marker-arrow">↑</span>
-            <div class="marker-circle">✈︎</div>
-            <span class="marker-number">5</span>
-          </div>
-          <div class="marker-label">Week & Day</div>
-        </div>
-      </div>
-
-      <div class="context-inner">
-        <h2 class="context-title">Now let’s combine the data with days of the week.</h2>
-
-        <p class="context-text">
-          Here we arrange our flights like a calendar, with months as rows and days
-          of the week as columns. Darker cells show days when the average lowest
-          ticket price is higher, while lighter cells indicate cheaper days to fly.
-        </p>
-
-        <div class="context-heatmap">
-          <div class="heatmap-lowest">
-            <h3 class="context-subtitle">
-              Calendar Heatmap of Average Lowest Ticket Prices by Month and Day of Week
-            </h3>
-            <div id="daily-heatmap-chart-lowest"></div>
-          </div>
-
-          <div class="heatmap-highest">
-            <h3 class="context-subtitle">
-              Calendar Heatmap of Average Highest Ticket Prices by Month and Day of Week
-            </h3>
-            <div id="daily-heatmap-chart-highest"></div>
-          </div>
-
-        </div>
-        <div id="heatmap-description"></div>
-      </div>
-    </section>
-
-    <section class="context-row" id="gateF" data-step="8">
-      <div class="context-container">
-
-        <!-- left cute airplane sign-->
-        <div class="context-marker">
-          <div class="marker-card">
-            <div class="marker-top">
-              <span class="marker-arrow">↑</span>
-              <div class="marker-circle">✈︎</div>
-              <span class="marker-number">6</span>
-            </div>
-            <div class="marker-label">Time</div>
-          </div>
-        </div>
-        <div class="context-inner">
-          <h2 class="context-title">Now let’s see the data in time of the day.</h2>
-
-          <p class="context-text">
-            Each point represents a flight we searched, plotted by its departure time
-            and ticket price. This lets us see whether certain times of day tend to
-            be cheaper or more expensive to fly from Vancouver to Toronto.
+      <!-- Week view -->
+      <section class="step" id="viz4" data-step="5">
+        <div class="content">
+          <h2>Do Flight Prices Increase Toward the End of the Month?</h2>
+          <p class="desc">
+            This chart zooms in on a smaller question: does timing within a month matter?
+            We grouped flights into Week 1 to Week 5 and calculated the average cheapest price
+            and average most expensive price for each week.
           </p>
 
-          <h3 class="context-subtitle">
-            Ticket Prices by Time of Day
-          </h3>
+          <!-- vis4 renders here -->
+          <div class="chart-container" id="chart-weekly"></div>
 
-          <div id="tod-scatter-chart"></div>
-          <div id="tod-tooltip" class="bc-tooltip"></div>
-          <div id="tod-scatter-chart-desc"></div>
+          <p class="desc">
+            There isn’t a strong “end of month = always more expensive” pattern. Cheapest-price averages stay fairly
+            consistent across weeks, but the most-expensive prices spike in Week 3—suggesting mid-month is where the
+            risk of paying a premium is highest. Week 5 isn’t the most expensive, which challenges the assumption
+            that prices steadily rise toward month-end.
+          </p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="context-row" id="conclusion" data-step="9">
-      <div class="context-container">
+      <!-- Day view -->
+      <section class="step" id="viz5" data-step="6">
+        <div class="content">
+          <h2>Which Days Are Cheapest to Fly?</h2>
+          <p class="desc">
+            This heatmap breaks the year into a simple question: which day of the week tends to be cheaper to fly?
+            Each cell shows the average ticket price for a specific month + weekday combination. Lighter cells mean
+            cheaper fares, darker cells mean pricier ones—so you can quickly spot “good days” and seasonal shifts.
+          </p>
 
-        <div class="hero-text">
-          <h1 class="hero-title">
-            What is the Conclusion?
-          </h1>
-          <p class="hero-subtitle">There is no universal booking trick.</p>
-          <p class="context-text">Flights from Vancouver to Toronto do not have one simple rule; ticket prices
-            fluctuate, revealing that it is hard to have a single optimal strategy. </p>
+          <!-- vis5 renders here -->
+          <div id="day-month-heatmap"></div>
+
+           <!-- Toggle controls (switches between lowest vs highest heatmap) -->
+           <div class="heatmap-toggle">
+            <button class="active" data-mode="lowest">Cheapest</button>
+            <button data-mode="highest">Most Expensive</button>
+          </div>
+
+          <p class="desc">
+            Overall, mid-week is usually the best bet for cheaper flights. Tuesday is often the cheapest day (with Wednesday close),
+            while weekends tend to be riskier. When looking at the “most expensive” view, the spikes are more common on Mon/Sun,
+            so those are the days to be extra careful with if your schedule is flexible.
+          </p>
         </div>
-        <div class="hero-text">
-          <h1 class="hero-title">
-            Do our data matter after all?
-          </h1>
-          <p class="hero-subtitle">Yes, there are still patterns!</p>
-          <p class="context-text">Price patterns matter, depending on how you slice time of the data! The flights are
-            cheaper during certain time periods, and students could target to travel at those times. However, day of the
-            week and week of the month showed no strong correlation with the prices, so the students could disregard
-            them and offload their stress! </p>
+      </section>
+
+      <!-- Time of day view -->
+      <section class="step" id="viz6" data-step="7">
+        <div class="content">
+          <h2>When Is the Best Time of Day to Fly?</h2>
+
+          <p class="desc">
+            This scatterplot compares the <strong>cheapest</strong> and <strong>most expensive</strong> ticket prices
+            across different departure times. Each point represents a flight, showing how price risk shifts throughout the day.
+          </p>
+
+          <!-- vis6 renders here -->
+          <div class="chart-container" id="chart-tod"></div>
+
+          <p class="desc">
+            Early morning flights tend to cluster at higher prices, while later times can include more budget options—
+            but also bigger spikes depending on demand.
+          </p>
         </div>
-      </div>
-    </section>
-    <section class="context-row" id="references" data-step="10">
-      <div class="context-container">
+      </section>
 
-        <div class="hero-text">
-          <h1 class="hero-title">
-            References
-          </h1>
-          <p class="hero-subtitle">Statistics Canada</p>
-          <p class="context-text">Government of Canada, Statistics Canada. (2025, June 17). Table 37-10-0289-01 Number
-            of Canadian undergraduate degree graduates, by location of study, origin, and destination one year after
-            graduation [Data table]. <a href=https://doi.org/10.25318/3710028901-eng
-              target="_blank">https://doi.org/10.25318/3710028901-eng</a></p>
-          <p class="hero-subtitle">Our own dataset, manually compiled from Google Flights & SkyScanner searches</p>
-          <p class="context-text"><a
-              href=https://docs.google.com/spreadsheets/d/1k5I8TawR2dMTCZnXBWkVrDVX8f1-T7YhnMOwioVIb7s/edit?usp=sharing
-              target="_blank">Access Google Sheets file here.</a></p>
+      <!-- Conclusion -->
+      <section class="step" id="summary" data-step="8">
+        <div class="content">
+          <h2>Summary & Insights</h2>
+
+          <p class="desc">
+            Overall, our visualizations show that flight prices from Vancouver to Toronto don’t change smoothly
+            — they swing based on when you travel. For students, that matters because trips are usually tied to
+            fixed milestones (final exams, semester breaks, co-op start dates, family events), so the “wrong”
+            timing can quickly blow a budget.
+          </p>
+
+          <p class="desc">
+            Once the month is chosen, the smaller decisions become “risk management.” Week-by-week, the cheapest
+            averages don’t shift dramatically, but premium prices spike more in certain weeks. The day and time-of-day
+            views reinforce that idea: weekday patterns shift by season, and certain times cluster with pricier tickets.
+            For students, the practical takeaway is: lock in the right season first, then stay flexible on day/time
+            to avoid premium-price traps.
+          </p>
         </div>
+      </section>
 
-      </div>
-    </section>
+    </main>
+  </div>
 
-  </main>
+  <!-- Page behavior (scrolling + nav + parallax) -->
+  <script src="progress.js"></script>
+  <script src="scroll.js"></script>
+  <script src="parallax.js"></script>
 
-  <!-- D3 for visualization -->
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-
-  <!-- Visualization code -->
-  <script src="js\skyHeroImage.js"></script>
-  <script src="js\gateAGradsFromBC.js"></script>
-  <script src="js\gateBOverviewOverYear.js"></script>
-  <script src="js\gateCMonthOfTheYear.js"></script>
-  <script src="js\gateDWeekOfTheMonth.js"></script>
-  <script src="js\gateECalendarHeatmapLowest.js"></script>
-  <script src="js\gateECalendarHeatmapHighest.js"></script>
-  <script src="js\gateEHeatmapDesc.js"></script>
-  <script src="js\gateFDayOfTheWeek.js"></script>
-  <script src="js\gateFDesc"></script>
-
-  <!-- page interactivity (your smooth scroll etc.) -->
-  <script src="js\main.js"></script>
-  <script src="js\stepScrolling.js"></script>
+  <!-- Visualization modules (D3 / Highcharts) -->
+  <script src="visualizations/vis1.js"></script>
+  <script src="visualizations/vis2.js"></script>
+  <script src="visualizations/vis3.js"></script>
+  <script src="visualizations/vis4.js"></script>
+  <script src="visualizations/vis5.js"></script>
+  <script src="visualizations/vis6.js"></script>
 </body>
-
 </html>
