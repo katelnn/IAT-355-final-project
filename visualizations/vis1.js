@@ -1,6 +1,11 @@
 // =============================================================
-// CONFIG
+// vis1.js — Context View
+// Canada Map (Highcharts) + Responsive D3 Line Chart
 // =============================================================
+
+// -----------------------------
+// CONFIG
+// -----------------------------
 const CSV_PATH = "data/number_of_undergrads_graduates_in_ontario.csv";
 const YEARS = ["2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"];
 
@@ -20,37 +25,41 @@ const PROVINCE_KEY_MAP = {
 
 const BC_NAME = "British Columbia, origin";
 
-// State
+// -----------------------------
+// STATE
+// -----------------------------
 let regionSeries = [];
 let mapChart = null;
 let currentProvince = BC_NAME;
 
+// D3 globals
+let svg, g, xScale, yScale, lineGen, tooltipBox;
+
 // =============================================================
-// LOAD CSV
+// LOAD DATA
 // =============================================================
 document.addEventListener("DOMContentLoaded", async () => {
-
-  // Wait for DOM to fully exist
-  await new Promise(r => setTimeout(r, 50));
-
   const raw = await d3.csv(CSV_PATH, d3.autoType);
   const locationField = "Location of residence at the time of admission";
 
+  // Totals per year
   const totalsByYear = {};
   YEARS.forEach(y => {
     totalsByYear[y] = d3.sum(raw, r => (typeof r[y] === "number" ? r[y] : 0));
   });
 
+  // Normalize to shares
   regionSeries = raw.map(r => {
     const name = r[locationField];
-    const share = YEARS.map(y => ({
-      year: +y,
-      value: totalsByYear[y] ? (r[y] / totalsByYear[y]) : 0,
-      count: r[y] || 0,
-      total: totalsByYear[y],
-      name
-    }));
-    return { name, share };
+    return {
+      name,
+      share: YEARS.map(y => ({
+        year: +y,
+        value: totalsByYear[y] ? (r[y] / totalsByYear[y]) : 0,
+        count: r[y] || 0,
+        total: totalsByYear[y]
+      }))
+    };
   });
 
   initMap();
@@ -66,26 +75,33 @@ async function initMap() {
     "https://code.highcharts.com/mapdata/countries/ca/ca-all.topo.json"
   ).then(r => r.json());
 
-  const dataForMap = regionSeries.map(r => {
-    const key = PROVINCE_KEY_MAP[r.name];
-    if (!key) return null;
+  const dataForMap = regionSeries
+    .map(r => {
+      const key = PROVINCE_KEY_MAP[r.name];
+      if (!key) return null;
 
-    return {
-      "hc-key": key,
-      value: d3.mean(r.share, d => d.value),
-      name: r.name.replace(", origin", ""),
-      csvName: r.name,
-      isOntario: r.name === "Ontario, origin"
-    };
-  }).filter(Boolean);
+      return {
+        "hc-key": key,
+        value: d3.mean(r.share, d => d.value),
+        name: r.name.replace(", origin", ""),
+        csvName: r.name,
+        isOntario: r.name === "Ontario, origin"
+      };
+    })
+    .filter(Boolean);
 
   mapChart = Highcharts.mapChart("map-container", {
-    chart: { map: topology },
-    title: { text: "Share of Ontario Undergraduates by Province of Origin (2012–2021)" },
-    subtitle: { text: "Click a province to view its trend in the line chart." },
-
+    chart: {
+      map: topology,
+      height: "100%"
+    },
+    title: {
+      text: "Share of Ontario Undergraduates by Province of Origin (2012–2021)"
+    },
+    subtitle: {
+      text: "Click a province to view its trend over time."
+    },
     mapNavigation: { enabled: true },
-
     colorAxis: {
       min: 0,
       max: 0.02,
@@ -95,77 +111,61 @@ async function initMap() {
         [1, "#1e3a8a"]
       ]
     },
-
     series: [{
       data: dataForMap,
       joinBy: "hc-key",
-      borderColor: "#333",
+      borderColor: "#334155",
       borderWidth: 0.8,
       dataLabels: {
         enabled: true,
         format: "{point.name}",
         style: {
           fontSize: "11px",
-          fontWeight: "bold",
-          color: "black",
-          textOutline: "2px solid rgba(255,255,255,0.8)"
+          fontWeight: "600",
+          textOutline: "2px solid rgba(255,255,255,0.85)"
         }
       },
       point: {
         events: {
-          click: function () {
-            if (!this.options.isOntario) onProvinceClick(this.csvName);
+          click() {
+            if (!this.options.isOntario) {
+              updateLineChart(this.options.csvName);
+            }
           }
         }
       }
     }]
   });
 
-  // Disable Ontario
+  // Disable Ontario interactions
   mapChart.series[0].points.forEach(pt => {
     if (pt.options.isOntario) {
-      pt.update({ color: "#d1d5db", enableMouseTracking: false });
+      pt.update({
+        color: "#d1d5db",
+        enableMouseTracking: false
+      });
     }
   });
 }
 
 // =============================================================
-// PROVINCE -> LINE CHART
+// RESPONSIVE D3 LINE CHART
 // =============================================================
-function onProvinceClick(name) {
-  currentProvince = name;
-  updateLineChart(name);
-}
-
-// =============================================================
-// D3 LINE CHART + TOOLTIP
-// =============================================================
-let svg, g, xScale, yScale, lineGen, tooltipBox;
-
 function initLineChart() {
   const width = 520;
   const height = 420;
-  const margin = { top: 20, right: 40, bottom: 50, left: 70 };
+  const margin = { top: 24, right: 40, bottom: 56, left: 72 };
 
   const container = d3.select("#trend-container")
     .style("position", "relative");
 
+  // ---- Responsive SVG ----
   svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-  tooltipBox = container.append("div")
-    .attr("class", "trend-tooltip")
-    .style("position", "absolute")
-    .style("background", "white")
-    .style("border", "1px solid #ccc")
-    .style("padding", "16px 20px")
-    .style("border-radius", "6px")
-    .style("box-shadow", "0 6px 18px rgba(0,0,0,0.15)")
-    .style("font-family", "Inter")
-    .style("display", "none")
-    .style("z-index", 50)
-    .style("pointer-events", "none");
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .style("width", "100%")
+    .style("height", "auto")
+    .style("display", "block");
 
   g = svg.append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
@@ -181,6 +181,7 @@ function initLineChart() {
     .domain([0, 0.03])
     .range([innerH, 0]);
 
+  // Axes
   g.append("g")
     .attr("transform", `translate(0,${innerH})`)
     .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
@@ -188,28 +189,25 @@ function initLineChart() {
   g.append("g")
     .call(d3.axisLeft(yScale).tickFormat(d3.format(".1%")));
 
-    // X-axis label
+  // Axis labels
   svg.append("text")
     .attr("x", width / 2)
-    .attr("y", height - 8)
+    .attr("y", height - 10)
     .attr("text-anchor", "middle")
+    .attr("font-size", 14)
     .attr("fill", "#0f172a")
-    .attr("font-size", "14px")
-    .attr("font-weight", 500)
     .text("Graduation Year");
 
-  // Y-axis label
   svg.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -height / 2)
     .attr("y", 18)
     .attr("text-anchor", "middle")
+    .attr("font-size", 14)
     .attr("fill", "#0f172a")
-    .attr("font-size", "14px")
-    .attr("font-weight", 500)
     .text("Share of Ontario undergraduates");
 
-  
+  // Line generator
   lineGen = d3.line()
     .x(d => xScale(d.year))
     .y(d => yScale(d.value));
@@ -221,12 +219,26 @@ function initLineChart() {
     .attr("stroke-width", 3);
 
   g.append("g").attr("class", "trend-points");
+
+  // Tooltip
+  tooltipBox = container.append("div")
+    .style("position", "absolute")
+    .style("background", "#fff")
+    .style("border", "1px solid #cbd5e1")
+    .style("padding", "14px 18px")
+    .style("border-radius", "8px")
+    .style("box-shadow", "0 8px 24px rgba(15,23,42,0.18)")
+    .style("font-size", "14px")
+    .style("display", "none")
+    .style("pointer-events", "none");
 }
 
 // =============================================================
-// UPDATE LINE CHART + FIXED TOOLTIP + FIXED MERGE ORDER
+// UPDATE LINE CHART
 // =============================================================
 function updateLineChart(name) {
+  currentProvince = name;
+
   const series = regionSeries.find(r => r.name === name);
   if (!series) return;
 
@@ -236,65 +248,65 @@ function updateLineChart(name) {
   // Update line
   g.select(".trend-line")
     .datum(data)
-    .transition().duration(600)
+    .transition()
+    .duration(600)
     .attr("d", lineGen);
 
-  // ENTER  
-  const enter = pointsGroup.selectAll("circle")
-    .data(data, d => d.year)
-    .enter()
+  // JOIN
+  const circles = pointsGroup.selectAll("circle")
+    .data(data, d => d.year);
+
+  // EXIT
+  circles.exit().remove();
+
+  // ENTER
+  const enter = circles.enter()
     .append("circle")
+    .attr("r", 0)
     .attr("fill", "#2563eb")
     .attr("stroke", "white")
     .attr("stroke-width", 2)
-    .attr("r", 0);
-
-  // UPDATE + ENTER MERGED
-  const circles = enter.merge(pointsGroup.selectAll("circle"));
-
-  circles
-    .attr("cx", d => xScale(d.year))
-    .attr("cy", d => yScale(d.value))
     .on("mouseenter", showHoverCard)
     .on("mousemove", moveHoverCard)
-    .on("mouseleave", hideHoverCard)
-    .transition().duration(600)
+    .on("mouseleave", hideHoverCard);
+
+  // MERGE
+  enter.merge(circles)
+    .transition()
+    .duration(600)
+    .attr("cx", d => xScale(d.year))
+    .attr("cy", d => yScale(d.value))
     .attr("r", 6);
-
-  pointsGroup.selectAll("circle")
-    .data(data, d => d.year)
-    .exit()
-    .remove();
-
-  
 }
 
-
 // =============================================================
-// TOOLTIP (FIXED POSITIONING)
+// TOOLTIP HANDLERS
 // =============================================================
 function showHoverCard(event, d) {
   const pct = (d.value * 100).toFixed(2);
-  const regionPretty = d.name.replace(", origin", "");
+  const label = currentProvince.replace(", origin", "");
 
   tooltipBox
     .style("display", "block")
     .html(`
-      <div style="font-size:20px;font-weight:700;margin-bottom:10px">${regionPretty}</div>
+      <div style="font-size:18px;font-weight:700;margin-bottom:8px">${label}</div>
       <div><b>Year:</b> ${d.year}</div>
-      <div><b>Students from ${regionPretty} in Ontario:</b> ${d.count.toLocaleString()}</div>
-      <div><b>Total Students in Ontario:</b> ${d.total.toLocaleString()}</div>
-      <div><b>Percentage:</b> ${pct}%</div>
+      <div><b>Students:</b> ${d.count.toLocaleString()}</div>
+      <div><b>Total in Ontario:</b> ${d.total.toLocaleString()}</div>
+      <div><b>Share:</b> ${pct}%</div>
     `);
 
   moveHoverCard(event);
 }
 
 function moveHoverCard(event) {
-  const box = document.querySelector("#trend-container").getBoundingClientRect();
+  const box = document
+    .querySelector("#trend-container")
+    .getBoundingClientRect();
+
   tooltipBox
-    .style("left", `${event.clientX - box.left + 20}px`)
-    .style("top", `${event.clientY - box.top + 20}px`);
+    .style("left", `${event.clientX - box.left + 16}px`)
+    .style("top", `${event.clientY - box.top + 16}px`);
 }
 
 function hideHoverCard() {
