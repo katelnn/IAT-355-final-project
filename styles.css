@@ -668,6 +668,7 @@ section.step {
 #context-viz,
 .toc-container {
   max-width: 100%;
+  overflow: visible;
 }
 
 /* If a chart is wider than the screen, allow sideways scroll (mobile-safe) */
@@ -683,7 +684,7 @@ section.step {
 
 /* ---------- <= 815px (small laptop / large tablet) ---------- */
 @media (max-width: 815px) {
-  /* Keep SIDE nav */
+  /* Keep SIDE nav (override any earlier rule that changed layout to 1 column) */
   #page-layout {
     grid-template-columns: 96px 1fr;
   }
@@ -729,7 +730,7 @@ section.step {
   #map-container,
   #trend-container {
     width: 100%;
-    max-width: 520px; 
+    max-width: 520px; /* keeps it from getting too huge */
     height: 380px;
   }
 
@@ -806,7 +807,7 @@ section.step {
   }
 
   .toc-board {
-    min-width: 720px;
+    min-width: 720px; /* keeps your grid readable, user can scroll */
   }
 
   /* Heatmap toggle buttons tighten */
@@ -826,7 +827,7 @@ section.step {
 
   .chart-container {
     margin-bottom: 3rem; /* was 7rem */
-    height: 360px;       
+    height: 360px;       /* optional: slightly shorter */
   }
 
   .desc {
@@ -841,7 +842,6 @@ section.step {
     grid-template-columns: 60px 1fr;
     padding: 0.5rem;
   }
-
 
   #content-area {
     padding-right: 10px;
@@ -885,7 +885,7 @@ section.step {
   }
 
   h2 {
-    margin-bottom: 8px;  
+    margin-bottom: 8px;  /* keep headings tighter */
   }
 
 }
